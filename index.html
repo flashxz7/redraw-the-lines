@@ -33,6 +33,152 @@ body{font-family:var(--f);color:var(--slate-900);font-size:14px;line-height:1.5;
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--slate-200);border-radius:4px;}
 
+/* ─── SPLASH SCREEN ────────────────────────────────────────────────── */
+.splash{
+  position:fixed;inset:0;z-index:1000;
+  background:linear-gradient(145deg,#0F172A 0%,#1E3A5F 50%,#1D4ED8 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+.splash.out{opacity:0;visibility:hidden;pointer-events:none;}
+.splash-inner{text-align:center;max-width:580px;padding:0 32px;}
+.splash-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:100px;padding:6px 16px;margin-bottom:28px;
+  font-size:11px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.splash-badge-dot{width:6px;height:6px;border-radius:50%;background:#34D399;
+  box-shadow:0 0 8px #34D399;animation:dot-pulse 2s ease infinite;}
+@keyframes dot-pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.splash h1{
+  font-size:52px;font-weight:900;color:#fff;line-height:1.05;
+  letter-spacing:-2.5px;margin-bottom:16px;
+}
+.splash h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#60A5FA,#818CF8);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.splash-sub{font-size:17px;color:rgba(255,255,255,.5);font-weight:400;line-height:1.6;margin-bottom:40px;}
+.splash-sub b{color:rgba(255,255,255,.82);font-weight:600;}
+.splash-stats{display:flex;gap:36px;justify-content:center;margin-bottom:44px;}
+.splash-stat{text-align:center;}
+.splash-stat-n{display:block;font-size:36px;font-weight:800;color:#fff;
+  letter-spacing:-1.5px;line-height:1;}
+.splash-stat-n.blue{color:#60A5FA;}
+.splash-stat-n.red{color:#F87171;}
+.splash-stat-n.amber{color:#FBBF24;}
+.splash-stat-l{display:block;font-size:10px;font-weight:600;
+  color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.7px;margin-top:5px;}
+.splash-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#3B82F6,#2563EB);
+  border:none;color:#fff;font-family:var(--f);font-size:15px;font-weight:600;
+  padding:15px 34px;border-radius:100px;cursor:pointer;
+  box-shadow:0 4px 24px rgba(37,99,235,.55),0 0 0 1px rgba(255,255,255,.1);
+  transition:all .22s;
+}
+.splash-cta:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(37,99,235,.7);}
+.splash-cta:active{transform:scale(.97);}
+.splash-cta-arrow{transition:transform .2s;}
+.splash-cta:hover .splash-cta-arrow{transform:translateX(4px);}
+.splash-foot{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  font-size:10.5px;color:rgba(255,255,255,.2);letter-spacing:.3px;white-space:nowrap;
+}
+
+/* ─── TOUR PULSE RING ───────────────────────────────────────────────── */
+@keyframes pulse-ring{0%{stroke-opacity:.9;stroke-width:3;}100%{stroke-opacity:0;stroke-width:10;}}
+.tour-pulse{animation:pulse-ring 1.5s ease-out infinite;pointer-events:none;}
+
+/* ─── REPORT CARD ───────────────────────────────────────────────────── */
+.rc-modal{
+  background:#fff;border-radius:22px;padding:28px 30px;
+  width:520px;max-width:calc(100vw - 32px);
+  box-shadow:var(--shadow-lg);animation:pop-in .2s cubic-bezier(.34,1.56,.64,1);
+}
+.rc-modal h3{font-size:18px;font-weight:800;color:var(--slate-900);margin-bottom:3px;}
+.rc-sub-lbl{font-size:12px;color:var(--slate-400);margin-bottom:20px;}
+.rc-verdict{
+  font-size:13px;font-weight:700;padding:13px 16px;border-radius:var(--rx);
+  text-align:center;margin-bottom:18px;line-height:1.4;
+}
+.rc-verdict.good{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;}
+.rc-verdict.warn{background:#FFFBEB;color:#92400E;border:1px solid var(--amber-300);}
+.rc-verdict.bad{background:#FEF2F2;color:var(--red-700);border:1px solid var(--red-200);}
+.rc-grid{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;}
+.rc-row{
+  display:flex;align-items:flex-start;gap:13px;padding:12px 14px;
+  border-radius:var(--rx);border:1px solid var(--slate-200);background:var(--slate-50);
+}
+.rc-row.good{background:#F0FDF4;border-color:#BBF7D0;}
+.rc-row.warn{background:#FFFBEB;border-color:var(--amber-300);}
+.rc-row.bad{background:#FEF2F2;border-color:var(--red-200);}
+.rc-icon{font-size:18px;flex-shrink:0;line-height:1.3;}
+.rc-text{}
+.rc-label{font-size:12.5px;font-weight:700;margin-bottom:2px;}
+.rc-label.good{color:#166534;}
+.rc-label.warn{color:#92400E;}
+.rc-label.bad{color:var(--red-700);}
+.rc-detail{font-size:11.5px;color:var(--slate-500);line-height:1.5;}
+
+/* ─── PRESENTER MODE ────────────────────────────────────────────────── */
+body.presenter .toolbar{display:none;}
+body.presenter .sidebar{display:none;}
+body.presenter .map-hint{display:none;}
+body.presenter .paint-palette{display:none!important;}
+.presenter-hud{
+  position:fixed;top:20px;right:20px;z-index:400;
+  background:rgba(10,18,36,.88);backdrop-filter:blur(16px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.1);border-radius:20px;
+  padding:18px 22px;color:#fff;min-width:210px;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);display:none;
+}
+body.presenter .presenter-hud{display:block;}
+.hud-eyebrow{font-size:9.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.8px;color:rgba(255,255,255,.35);margin-bottom:10px;}
+.hud-eg-val{font-size:44px;font-weight:900;line-height:1;letter-spacing:-2px;
+  font-variant-numeric:tabular-nums;transition:color .4s;}
+.hud-eg-val.green{color:#34D399;}
+.hud-eg-val.amber{color:#FBBF24;}
+.hud-eg-val.red{color:#F87171;}
+.hud-eg-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:14px;
+  padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);}
+.hud-seats-row{display:flex;align-items:baseline;gap:8px;margin-bottom:4px;}
+.hud-d{font-size:26px;font-weight:800;color:#60A5FA;letter-spacing:-1px;}
+.hud-r{font-size:26px;font-weight:800;color:#F87171;letter-spacing:-1px;}
+.hud-vs{font-size:14px;color:rgba(255,255,255,.2);}
+.hud-seats-lbl{font-size:10px;color:rgba(255,255,255,.3);font-weight:500;margin-bottom:10px;}
+.hud-sbar{height:4px;border-radius:2px;overflow:hidden;display:flex;}
+.hud-sbar-d{background:#3B82F6;transition:width .6s ease;height:100%;}
+.hud-sbar-r{background:#EF4444;height:100%;flex:1;}
+.hud-chip{
+  margin-top:12px;padding:6px 10px;border-radius:8px;
+  font-size:11px;font-weight:700;text-align:center;
+}
+.hud-chip.green{background:rgba(52,211,153,.15);color:#34D399;}
+.hud-chip.amber{background:rgba(251,191,36,.15);color:#FBBF24;}
+.hud-chip.red{background:rgba(248,113,113,.15);color:#F87171;}
+.presenter-exit{
+  position:fixed;bottom:20px;right:20px;z-index:400;
+  background:rgba(15,23,42,.75);color:rgba(255,255,255,.55);
+  font-family:var(--f);font-size:11px;font-weight:600;
+  border:1px solid rgba(255,255,255,.1);border-radius:100px;
+  padding:7px 16px;cursor:pointer;display:none;backdrop-filter:blur(8px);transition:all .2s;
+}
+body.presenter .presenter-exit{display:block;}
+.presenter-exit:hover{background:rgba(15,23,42,.95);color:#fff;}
+.presenter-hint{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:rgba(15,23,42,.7);color:rgba(255,255,255,.5);
+  font-family:var(--f);font-size:11px;font-weight:500;
+  padding:7px 18px;border-radius:100px;display:none;
+  backdrop-filter:blur(8px);pointer-events:none;
+}
+body.presenter .presenter-hint{display:block;}
+
 /* ─── TOOLBAR ─────────────────────────────────────────────────────── */
 .toolbar{
   height:56px;background:#fff;border-bottom:1px solid var(--slate-200);
@@ -429,6 +575,42 @@ body{font-family:var(--f);color:var(--slate-900);font-size:14px;line-height:1.5;
 </head>
 <body>
 
+<!-- ─── SPLASH SCREEN ─────────────────────────────────────────────── -->
+<div class="splash" id="splash">
+  <div class="splash-inner">
+    <div class="splash-badge">
+      <span class="splash-badge-dot"></span>
+      Carnegie Young Leaders · 2026
+    </div>
+    <h1>Redraw<br><em>the Lines</em></h1>
+    <p class="splash-sub">
+      Texas has <b>38 congressional districts.</b><br>
+      Who drew them — and why does the shape of a line<br>decide who gets represented?
+    </p>
+    <div class="splash-stats">
+      <div class="splash-stat">
+        <span class="splash-stat-n blue">14</span>
+        <span class="splash-stat-l">Dem. seats</span>
+      </div>
+      <div class="splash-stat">
+        <span class="splash-stat-n red">24</span>
+        <span class="splash-stat-l">Rep. seats</span>
+      </div>
+      <div class="splash-stat">
+        <span class="splash-stat-n amber">11.3%</span>
+        <span class="splash-stat-l">Efficiency gap</span>
+      </div>
+    </div>
+    <button class="splash-cta" onclick="closeSplash()">
+      Start Exploring
+      <svg class="splash-cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </button>
+  </div>
+  <div class="splash-foot">© 2026 Carnegie Young Leaders Project</div>
+</div>
+
 <!-- ─── TOOLBAR ──────────────────────────────────────────────────────── -->
 <div class="toolbar">
   <div class="logo">
@@ -504,6 +686,20 @@ body{font-family:var(--f);color:var(--slate-900);font-size:14px;line-height:1.5;
     </button>
     <div class="tb-sep"></div>
     <button class="btn btn-tour" onclick="startTour()">✦ Take the Tour</button>
+    <button class="btn" onclick="openReportCard()" title="View your map's report card" style="margin-left:2px;">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="1" width="8" height="10" rx="1.5"/>
+        <path d="M4 4h4M4 6.5h4M4 9h2"/>
+      </svg>
+      Report Card
+    </button>
+    <button class="btn btn-ghost" onclick="togglePresenter()" title="Presenter mode (P)" id="btn-present">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="2" width="10" height="7" rx="1"/>
+        <path d="M4.5 9v1.5M7.5 9v1.5M3 10.5h6"/>
+      </svg>
+      Present
+    </button>
   </div>
 </div>
 
@@ -512,10 +708,7 @@ body{font-family:var(--f);color:var(--slate-900);font-size:14px;line-height:1.5;
 
   <!-- MAP AREA -->
   <div class="map-wrap" id="map-wrap">
-    <div class="map-hint" id="map-hint">
-      Official Texas congressional map (Plan C2193) ·
-      <b>Click or paint counties to redistrict — every number updates live.</b>
-    </div>
+
 
     <div class="map-loading" id="map-loading">
       <div class="loader"></div>
@@ -842,7 +1035,38 @@ body{font-family:var(--f);color:var(--slate-900);font-size:14px;line-height:1.5;
   </div>
 </div>
 
-<!-- ─── LIBRARIES ────────────────────────────────────────────────────── -->
+<!-- ─── PRESENTER HUD ─────────────────────────────────────────────── -->
+<div class="presenter-hud" id="presenter-hud">
+  <div class="hud-eyebrow">Redraw the Lines · Live Stats</div>
+  <div class="hud-eg-val red" id="hud-eg">—</div>
+  <div class="hud-eg-lbl">Efficiency Gap (7% = court threshold)</div>
+  <div class="hud-seats-row">
+    <span class="hud-d" id="hud-d">—</span>
+    <span class="hud-vs">·</span>
+    <span class="hud-r" id="hud-r">—</span>
+  </div>
+  <div class="hud-seats-lbl">Congressional seats (D · R)</div>
+  <div class="hud-sbar">
+    <div class="hud-sbar-d" id="hud-sbar-d" style="width:37%"></div>
+    <div class="hud-sbar-r"></div>
+  </div>
+  <div class="hud-chip red" id="hud-chip">▲ Above threshold</div>
+</div>
+<button class="presenter-exit" onclick="togglePresenter()">✕ Exit Presenter Mode</button>
+<div class="presenter-hint">Click or paint counties to redistrict</div>
+
+<!-- ─── REPORT CARD MODAL ─────────────────────────────────────────── -->
+<div class="modal-bg" id="rc-modal-bg" onclick="if(event.target===this)closeReportCard()">
+  <div class="rc-modal">
+    <h3>📋 Map Report Card</h3>
+    <p class="rc-sub-lbl">How does your map measure up against legal and constitutional standards?</p>
+    <div class="rc-verdict" id="rc-verdict">—</div>
+    <div class="rc-grid" id="rc-grid"></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeReportCard()">Close</button>
+    </div>
+  </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
@@ -1669,23 +1893,6 @@ function toggleCompare() {
   });
 }
 
-function resetMap() {
-  const batch = [];
-  EDITED.forEach(id => {
-    batch.push({ id, prev: current[id], next: official[id] });
-    current[id] = official[id];
-  });
-  if (batch.length) histPush(batch);
-  EDITED.clear();
-  selDist = null;
-  cPaths?.classed('sel', false).classed('edited', false);
-  computeAndUpdate();
-  updateEditBadge();
-  document.getElementById('dd-empty').style.display   = 'flex';
-  document.getElementById('dd-content').style.display = 'none';
-  switchTab('sum');
-}
-
 function openShare() {
   const n = EDITED.size;
   document.getElementById('share-n').textContent = n;
@@ -1772,27 +1979,9 @@ function tourStep(dir) {
   renderTour();
 }
 
-function endTour() {
-  document.getElementById('tour-ov').classList.remove('on');
-  cPaths?.classed('sel', false);
-}
+// (renderTour and endTour defined above with zoom/pulse functionality)
 
-// ═══════════════════════════════════════════════════════════════
-// KEYBOARD SHORTCUTS
-// ═══════════════════════════════════════════════════════════════
-document.addEventListener('keydown', e => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  const ctrl = e.ctrlKey || e.metaKey;
-  if (ctrl && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); return; }
-  if (ctrl && (e.key.toLowerCase() === 'y' || (e.shiftKey && e.key.toLowerCase() === 'z')))
-    { e.preventDefault(); redo(); return; }
-  switch (e.key) {
-    case ' ': e.preventDefault(); setMode(appMode === 'click' ? 'paint' : 'click'); break;
-    case 'r': case 'R': if (!ctrl) resetMap(); break;
-    case 't': case 'T': startTour(); break;
-    case 'Escape': closeModal(); endTour(); break;
-  }
-});
+// (keyboard shortcuts defined above with capture phase)
 
 // ═══════════════════════════════════════════════════════════════
 // RESIZE
@@ -1808,6 +1997,351 @@ window.addEventListener('resize', () => {
   renderMap();
   renderCurve(liveStats ? Object.values(liveStats.ds) : []);
 });
+
+// ═══════════════════════════════════════════════════════════════
+// SPLASH SCREEN
+// ═══════════════════════════════════════════════════════════════
+function closeSplash() {
+  const el = document.getElementById('splash');
+  el.classList.add('out');
+  setTimeout(() => el.remove(), 800);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ANIMATED RESET (override the existing resetMap)
+// ═══════════════════════════════════════════════════════════════
+function resetMap() {
+  const batch = [];
+  EDITED.forEach(id => {
+    batch.push({ id, prev: current[id], next: official[id] });
+  });
+  if (batch.length) histPush(batch);
+
+  // Stagger the color transitions so they ripple across the map
+  const ids = [...EDITED];
+  ids.forEach((id, i) => {
+    setTimeout(() => {
+      current[id] = official[id];
+      EDITED.delete(id);
+      if (cPaths) {
+        cPaths.filter(f => f.id === id)
+          .classed('resetting', true)
+          .attr('fill', distColor(official[id]))
+          .classed('edited', false);
+        setTimeout(() => {
+          if (cPaths) cPaths.filter(f => f.id === id).classed('resetting', false);
+        }, 900);
+      }
+    }, Math.random() * 320);
+  });
+
+  setTimeout(() => {
+    selDist = null;
+    cPaths?.classed('sel', false);
+    computeAndUpdate();
+    updateEditBadge();
+    document.getElementById('dd-empty').style.display   = 'flex';
+    document.getElementById('dd-content').style.display = 'none';
+    switchTab('sum');
+  }, 450);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TOUR WITH MAP PAN/ZOOM + PULSE RINGS
+// ═══════════════════════════════════════════════════════════════
+
+// Geographic centroids (approximate) for each tour district focus
+const TOUR_FOCUS = {
+  35: { lon: -97.95, lat: 29.5  },  // TX-35 Austin–San Antonio corridor
+  37: { lon: -97.70, lat: 30.28 },  // TX-37 Austin area
+};
+
+function zoomToDistrict(dId) {
+  if (!dId || !features.length || !proj) return;
+  const fs = features.filter(f => current[f.id] === dId);
+  if (!fs.length) return;
+
+  // Get bounding box of district
+  let x0=Infinity, y0=Infinity, x1=-Infinity, y1=-Infinity;
+  fs.forEach(f => {
+    try {
+      const [[fx0,fy0],[fx1,fy1]] = path.bounds(f);
+      x0=Math.min(x0,fx0); y0=Math.min(y0,fy0);
+      x1=Math.max(x1,fx1); y1=Math.max(y1,fy1);
+    } catch(_){}
+  });
+  if (!isFinite(x0)) return;
+
+  const wrap = document.getElementById('map-wrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const cx = (x0+x1)/2, cy = (y0+y1)/2;
+  const scale = Math.min(6, 0.7 / Math.max((x1-x0)/W, (y1-y0)/H));
+
+  svgEl.select('g')
+    .transition().duration(800).ease(d3.easeCubicInOut)
+    .attr('transform', `translate(${W/2 - scale*cx},${H/2 - scale*cy}) scale(${scale})`);
+
+  // Draw pulse rings around each county in the district
+  clearPulseRings();
+  fs.forEach(f => {
+    try {
+      const [px, py] = path.centroid(f);
+      const area = Math.abs(path.area(f));
+      const r = Math.sqrt(area / Math.PI) * 0.8;
+      if (!isFinite(px) || !isFinite(py) || r <= 0) return;
+      for (let i = 0; i < 3; i++) {
+        svgEl.select('g').append('circle')
+          .attr('class', 'tour-pulse')
+          .attr('cx', px).attr('cy', py).attr('r', r)
+          .attr('fill', 'none')
+          .attr('stroke', '#FBBF24')
+          .style('animation-delay', (i * 0.5) + 's');
+      }
+    } catch(_){}
+  });
+}
+
+function resetMapZoom() {
+  svgEl.select('g')
+    .transition().duration(700).ease(d3.easeCubicInOut)
+    .attr('transform', null);
+  clearPulseRings();
+}
+
+function clearPulseRings() {
+  svgEl.selectAll('.tour-pulse').remove();
+}
+
+// Override renderTour to add zoom
+function renderTour() {
+  const s = TOUR_STEPS[_tourIdx];
+  document.getElementById('t-lbl').textContent   = `Step ${_tourIdx+1} of ${TOUR_STEPS.length}`;
+  document.getElementById('t-title').textContent  = s.title;
+  document.getElementById('t-body').textContent   = s.body;
+  document.getElementById('t-dots').innerHTML     = TOUR_STEPS.map((_, i) => {
+    const cls = i < _tourIdx ? 'done' : i === _tourIdx ? 'cur' : 'fut';
+    return `<div class="t-dot ${cls}"></div>`;
+  }).join('');
+  const prev = document.getElementById('t-prev');
+  const next = document.getElementById('t-next');
+  prev.style.display = _tourIdx === 0 ? 'none' : 'flex';
+  if (s.last) {
+    next.textContent = 'Start Exploring →';
+    next.onclick = endTour;
+  } else {
+    next.textContent = 'Next →';
+    next.onclick = () => tourStep(1);
+  }
+  // Highlight + zoom
+  if (cPaths) cPaths.classed('sel', f => s.dist && current[f.id] === s.dist);
+  if (s.dist) {
+    zoomToDistrict(s.dist);
+  } else {
+    resetMapZoom();
+  }
+}
+
+function endTour() {
+  document.getElementById('tour-ov').classList.remove('on');
+  cPaths?.classed('sel', false);
+  resetMapZoom();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// REPORT CARD
+// ═══════════════════════════════════════════════════════════════
+function openReportCard() {
+  if (!liveStats) return;
+  const s = liveStats;
+  const egAbs = Math.abs(s.eg);
+
+  // Build rows
+  const rows = [];
+
+  // 1. Efficiency Gap
+  const egGood = egAbs < 4, egWarn = egAbs >= 4 && egAbs < 7, egBad = egAbs >= 7;
+  rows.push({
+    cls: egBad ? 'bad' : egWarn ? 'warn' : 'good',
+    icon: egBad ? '⚠️' : egWarn ? '🟡' : '✅',
+    label: `Efficiency Gap: ${egAbs.toFixed(1)}%`,
+    detail: egBad
+      ? `Above the 7% court-recognized threshold. Wisconsin's 2011 map (11.7%) was struck down at this range.`
+      : egWarn
+      ? `Approaching the 7% threshold. Maps above this level have faced legal challenges.`
+      : `Within the acceptable range. Courts have generally upheld maps below 4%.`,
+  });
+
+  // 2. Seat-vote gap
+  const svGood = s.gap < 2, svWarn = s.gap >= 2 && s.gap < 5, svBad = s.gap >= 5;
+  rows.push({
+    cls: svBad ? 'bad' : svWarn ? 'warn' : 'good',
+    icon: svBad ? '⚠️' : svWarn ? '🟡' : '✅',
+    label: `Seat–Vote Gap: ${s.gap.toFixed(1)} points`,
+    detail: svBad
+      ? `${s.gap.toFixed(1)}-point gap between vote share and seat share. Republicans hold ${s.rSeatPct.toFixed(0)}% of seats on ${s.rVotePct.toFixed(0)}% of votes.`
+      : svWarn
+      ? `A ${s.gap.toFixed(1)}-point seat-vote gap. Some proportionality imbalance present.`
+      : `Roughly proportional representation — seats closely match statewide vote share.`,
+  });
+
+  // 3. Population balance
+  const pops = Object.values(s.ds).filter(d => d.pop > 0).map(d => d.pop);
+  const maxDev = pops.length
+    ? Math.max(...pops.map(p => Math.abs(p - IDEAL_POP) / IDEAL_POP * 100))
+    : 0;
+  const popGood = maxDev < 0.5, popWarn = maxDev >= 0.5 && maxDev < 1, popBad = maxDev >= 1;
+  rows.push({
+    cls: popBad ? 'bad' : popWarn ? 'warn' : 'good',
+    icon: popBad ? '⚠️' : popWarn ? '🟡' : '✅',
+    label: `Population Balance: max ±${maxDev.toFixed(2)}%`,
+    detail: popBad
+      ? `One or more districts deviate more than 1% from the ideal population (761,169). Congressional districts must be nearly equal in population under Wesberry v. Sanders.`
+      : popWarn
+      ? `Close to the population equality standard. Aim for under 0.5% deviation for congressional districts.`
+      : `Excellent population equality. All districts are within ±0.5% of ideal.`,
+  });
+
+  // 4. Packed districts
+  const packBad = s.packed > 6, packWarn = s.packed >= 3;
+  rows.push({
+    cls: packBad ? 'bad' : packWarn ? 'warn' : 'good',
+    icon: packBad ? '⚠️' : packWarn ? '🟡' : '✅',
+    label: `Packed Districts: ${s.packed}`,
+    detail: s.packed > 6
+      ? `${s.packed} districts win by over 80% margins. These are packed districts where surplus votes are deliberately wasted.`
+      : s.packed >= 3
+      ? `${s.packed} districts with 80%+ margins. Some concentration of minority voters may be occurring.`
+      : `Low packing. Votes are reasonably distributed across competitive and safe districts.`,
+  });
+
+  // 5. Compactness — check for non-compact districts
+  const distArr = Object.entries(s.ds);
+  const nonCompact = distArr.filter(([dId]) => calcCompact(parseInt(dId)) < 0.15);
+  const compGood = nonCompact.length === 0, compWarn = nonCompact.length <= 3;
+  rows.push({
+    cls: nonCompact.length > 3 ? 'bad' : nonCompact.length > 0 ? 'warn' : 'good',
+    icon: nonCompact.length > 3 ? '⚠️' : nonCompact.length > 0 ? '🟡' : '✅',
+    label: `Compactness: ${nonCompact.length} district${nonCompact.length!==1?'s':''} below 0.15`,
+    detail: nonCompact.length > 0
+      ? `District${nonCompact.length>1?'s':''} ${nonCompact.map(([d])=>'TX-'+d).join(', ')} ${nonCompact.length>1?'have':'has'} poor compactness scores. Courts examine shape as evidence of gerrymandering.`
+      : `All districts have reasonable compactness scores. No obviously elongated or irregularly-shaped districts.`,
+  });
+
+  // Overall verdict
+  const badCount  = rows.filter(r => r.cls === 'bad').length;
+  const warnCount = rows.filter(r => r.cls === 'warn').length;
+  let verdict, vClass;
+  if (badCount === 0 && warnCount === 0) {
+    verdict = '🏆 Excellent map — meets all legal standards and fairness benchmarks';
+    vClass = 'good';
+  } else if (badCount === 0) {
+    verdict = '🟡 Good map with minor concerns — likely survives legal scrutiny';
+    vClass = 'warn';
+  } else if (badCount <= 2) {
+    verdict = '⚠️ Problematic map — would likely face legal challenge under current standards';
+    vClass = 'warn';
+  } else {
+    verdict = '❌ This map fails multiple fairness standards — similar to maps courts have struck down';
+    vClass = 'bad';
+  }
+
+  document.getElementById('rc-verdict').textContent = verdict;
+  document.getElementById('rc-verdict').className   = `rc-verdict ${vClass}`;
+  document.getElementById('rc-grid').innerHTML = rows.map(r => `
+    <div class="rc-row ${r.cls}">
+      <div class="rc-icon">${r.icon}</div>
+      <div class="rc-text">
+        <div class="rc-label ${r.cls}">${r.label}</div>
+        <div class="rc-detail">${r.detail}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('rc-modal-bg').classList.add('show');
+}
+
+function closeReportCard() {
+  document.getElementById('rc-modal-bg').classList.remove('show');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PRESENTER MODE
+// ═══════════════════════════════════════════════════════════════
+let presenterOn = false;
+
+function togglePresenter() {
+  presenterOn = !presenterOn;
+  document.body.classList.toggle('presenter', presenterOn);
+  // Resize SVG to fill new space
+  setTimeout(() => {
+    if (!features.length) return;
+    const wrap = document.getElementById('map-wrap');
+    const W = wrap.clientWidth, H = wrap.clientHeight;
+    svgEl.attr('width', W).attr('height', H);
+    const col = { type:'FeatureCollection', features };
+    proj.fitExtent([[36, 22], [W - 22, H - 26]], col);
+    path = d3.geoPath().projection(proj);
+    renderMap();
+    renderCurve(liveStats ? Object.values(liveStats.ds) : []);
+  }, 50);
+  updateHUD();
+}
+
+function updateHUD() {
+  if (!liveStats) return;
+  const s   = liveStats;
+  const egAbs = Math.abs(s.eg);
+  const egEl  = document.getElementById('hud-eg');
+  if (egEl) {
+    egEl.textContent = egAbs.toFixed(1) + '%';
+    egEl.className   = 'hud-eg-val ' + (egAbs<4?'green':egAbs<7?'amber':'red');
+  }
+  const dEl = document.getElementById('hud-d');
+  const rEl = document.getElementById('hud-r');
+  if (dEl) dEl.textContent = s.dSeats;
+  if (rEl) rEl.textContent = s.rSeats;
+  const sb = document.getElementById('hud-sbar-d');
+  if (sb) sb.style.width = s.dSeatPct.toFixed(1) + '%';
+  const chip = document.getElementById('hud-chip');
+  if (chip) {
+    chip.textContent = egAbs<4?'✓ Within threshold':egAbs<7?'⚠ Approaching limit':'▲ Above threshold';
+    chip.className   = 'hud-chip ' + (egAbs<4?'green':egAbs<7?'amber':'red');
+  }
+}
+
+// Patch computeAndUpdate to also update HUD
+const _origComputeAndUpdate = computeAndUpdate;
+function computeAndUpdate() {
+  liveStats = computeStats();
+  renderSummary(liveStats);
+  if (selDist !== null) renderDistrictDetail(selDist);
+  if (cPaths) cPaths.attr('fill', f => distColor(current[f.id]));
+  svgEl.select('g').selectAll('.dist-label').remove();
+  drawLabels(svgEl.select('g'));
+  if (presenterOn) updateHUD();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// KEYBOARD — add P for presenter
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const ctrl = e.ctrlKey || e.metaKey;
+  if (ctrl && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); return; }
+  if (ctrl && (e.key.toLowerCase() === 'y' || (e.shiftKey && e.key.toLowerCase() === 'z')))
+    { e.preventDefault(); redo(); return; }
+  switch (e.key) {
+    case ' ': e.preventDefault(); setMode(appMode === 'click' ? 'paint' : 'click'); break;
+    case 'r': case 'R': if (!ctrl) resetMap(); break;
+    case 't': case 'T': startTour(); break;
+    case 'p': case 'P': togglePresenter(); break;
+    case 'Escape':
+      closeModal();
+      closeReportCard();
+      endTour();
+      if (presenterOn) togglePresenter();
+      break;
+  }
+}, true); // capture phase so this fires before old listener
 
 // ═══════════════════════════════════════════════════════════════
 // BOOT
