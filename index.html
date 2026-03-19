@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redraw the Lines — Texas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50: #EFF6FF;
+      --blue-100: #DBEAFE;
+      --blue-200: #BFDBFE;
+      --blue-300: #93C5FD;
+      --blue-400: #60A5FA;
+      --blue-500: #3B82F6;
+      --blue-600: #2563EB;
+      --blue-700: #1D4ED8;
+      --blue-800: #1E40AF;
+      --blue-900: #1E3A5F;
+      --red-50: #FEF2F2;
+      --red-100: #FEE2E2;
+      --red-200: #FECACA;
+      --red-300: #FCA5A5;
+      --red-400: #F87171;
+      --red-500: #EF4444;
+      --red-600: #DC2626;
+      --red-700: #B91C1C;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-500: #64748B;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --green-500: #10B981;
+      --green-600: #059669;
+      --amber-500: #F59E0B;
+      --f: 'Inter', -apple-system, sans-serif;
+      --r: 6px; --rl: 10px; --rx: 14px;
+      --sh: 0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+      --shm: 0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.05);
+      --shl: 0 12px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.08);
+    }
+
+    html, body { height: 100%; overflow: hidden; background: #EEF5FF; }
+
+    body {
+      font-family: var(--f);
+      color: var(--slate-900);
+      font-size: 14px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOOLBAR ─────────────────────────────────────────── */
+    .toolbar {
+      height: 58px;
+      background: #fff;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 100;
+      box-shadow: 0 1px 0 var(--slate-100), var(--sh);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      user-select: none;
+      margin-right: 6px;
+    }
+
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
+      border-radius: var(--rl);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(37,99,235,.3);
+    }
+
+    .logo-text { display: flex; flex-direction: column; line-height: 1; white-space: nowrap; }
+    .logo-title { font-size: 14.5px; font-weight: 700; color: var(--slate-900); letter-spacing: -.3px; }
+    .logo-sub { font-size: 10.5px; font-weight: 500; color: var(--slate-400); letter-spacing: .4px; text-transform: uppercase; margin-top: 2px; white-space: nowrap; }
+
+    .tb-div { width: 1px; height: 26px; background: var(--slate-200); flex-shrink: 0; }
+
+    /* Mode toggle */
+    .mode-toggle {
+      display: flex;
+      background: var(--slate-100);
+      border-radius: 9px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .mode-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 6px 13px;
+      border-radius: 7px; border: none;
+      background: transparent;
+      font-family: var(--f); font-size: 12.5px; font-weight: 500;
+      color: var(--slate-500); cursor: pointer;
+      transition: all .15s ease;
+      white-space: nowrap;
+    }
+    .mode-btn.active {
+      background: #fff; color: var(--slate-900);
+      box-shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+    }
+    .mode-btn svg { flex-shrink: 0; }
+
+    /* Toolbar buttons */
+    .tb-actions { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+
+    .btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 13px;
+      border-radius: var(--r); border: 1px solid var(--slate-200);
+      background: #fff;
+      font-family: var(--f); font-size: 12.5px; font-weight: 500;
+      color: var(--slate-700); cursor: pointer;
+      transition: all .15s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--slate-50); border-color: var(--slate-300); }
+    .btn:active { transform: scale(.98); }
+
+    .btn-ghost {
+      background: transparent; border-color: transparent; color: var(--slate-600);
+    }
+    .btn-ghost:hover { background: var(--slate-50); border-color: var(--slate-200); }
+
+    .btn-primary {
+      background: var(--blue-600); border-color: var(--blue-600); color: #fff;
+    }
+    .btn-primary:hover { background: var(--blue-700); border-color: var(--blue-700); }
+
+    .btn-tour {
+      background: var(--blue-600); border-color: transparent; color: #fff;
+      font-weight: 600; font-size: 12.5px;
+      padding: 7px 14px;
+      position: relative;
+    }
+    .btn-tour::after {
+      content: ''; position: absolute; inset: -4px;
+      border-radius: calc(var(--r) + 4px);
+      border: 2px solid var(--blue-400);
+      animation: tour-ring 2.5s ease-out infinite;
+      pointer-events: none;
+    }
+    @keyframes tour-ring {
+      0% { opacity: 0; transform: scale(.9); }
+      40% { opacity: .5; }
+      100% { opacity: 0; transform: scale(1.12); }
+    }
+
+    /* ── MAIN AREA ───────────────────────────────────────── */
+    .main { flex: 1; display: flex; overflow: hidden; }
+
+    /* Map */
+    .map-wrap {
+      flex: 1; position: relative; overflow: hidden;
+      background: #E8F3FF;
+    }
+
+    .map-wrap svg { width: 100%; height: 100%; display: block; }
+
+    /* Banner */
+    .map-banner {
+      position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px) saturate(1.5);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 12.5px; font-weight: 500; color: var(--slate-600);
+      box-shadow: var(--shm); white-space: nowrap; z-index: 10;
+      pointer-events: none;
+    }
+    .map-banner b { color: var(--blue-600); font-weight: 600; }
+
+    /* Loading */
+    .map-loading {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; background: #E8F3FF; z-index: 50;
+      transition: opacity .4s ease;
+    }
+    .map-loading.hidden { opacity: 0; pointer-events: none; }
+
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--blue-100);
+      border-top-color: var(--blue-600);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { font-size: 13px; color: var(--slate-500); font-weight: 500; }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute; pointer-events: none; z-index: 200;
+      opacity: 0; transition: opacity .12s ease;
+    }
+    .tooltip.show { opacity: 1; }
+
+    .tt-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--rx);
+      padding: 12px 14px;
+      min-width: 210px;
+      box-shadow: var(--shl);
+    }
+
+    .tt-header {
+      display: flex; align-items: center; gap: 9px; margin-bottom: 9px;
+    }
+
+    .tt-badge {
+      width: 30px; height: 30px; border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+
+    .tt-name { font-size: 13px; font-weight: 600; color: var(--slate-900); }
+    .tt-sub { font-size: 11px; color: var(--slate-400); margin-top: 1px; }
+
+    .tt-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--slate-500); padding: 2px 0;
+    }
+    .tt-val { font-weight: 600; color: var(--slate-800); }
+
+    .vote-bar {
+      height: 8px; border-radius: 4px; overflow: hidden;
+      display: flex; width: 100%; margin: 7px 0 4px;
+      background: var(--slate-100);
+    }
+    .vote-bar > div { height: 100%; transition: width .3s ease; }
+
+    /* Watermarks */
+    .watermark {
+      position: absolute; bottom: 14px; left: 14px;
+      font-size: 10.5px; color: rgba(100,116,139,.6);
+      font-weight: 500; letter-spacing: .3px; pointer-events: none;
+    }
+
+    .carnegie {
+      position: absolute; bottom: 12px; right: 14px;
+      font-size: 10px; font-weight: 500; color: rgba(100,116,139,.45);
+      letter-spacing: .3px;
+      pointer-events: none;
+    }
+
+    /* County / district paths */
+    .county { stroke: rgba(255,255,255,.35); stroke-width: .4px; cursor: pointer; pointer-events: all; }
+    .county:hover { filter: brightness(1.08); }
+    .county.sel { stroke: #fff; stroke-width: 1.8px; filter: brightness(1.06); }
+    .district-edge { fill: none; stroke: rgba(255,255,255,.8); stroke-width: 1.6px; pointer-events: none; }
+    .state-border { fill: none; stroke: rgba(30,58,95,.4); stroke-width: 2px; pointer-events: none; }
+    .district-label { font-family: var(--f); pointer-events: none; paint-order: stroke; }
+    #tx-svg { touch-action: none; }
+
+    /* ── SIDEBAR ─────────────────────────────────────────── */
+    .sidebar {
+      width: 348px; flex-shrink: 0;
+      background: #fff; border-left: 1px solid var(--slate-200);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    .sb-tabs {
+      display: flex; border-bottom: 1px solid var(--slate-200);
+      padding: 0 16px; flex-shrink: 0;
+    }
+    .sb-tab {
+      padding: 13px 14px; font-size: 12.5px; font-weight: 500;
+      color: var(--slate-500); cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: all .15s; user-select: none;
+    }
+    .sb-tab.active { color: var(--blue-600); border-bottom-color: var(--blue-600); }
+    .sb-tab:hover:not(.active) { color: var(--slate-700); }
+
+    .sb-body {
+      flex: 1; overflow-y: auto; padding: 18px 16px;
+      scroll-behavior: smooth;
+    }
+    .sb-body::-webkit-scrollbar { width: 4px; }
+    .sb-body::-webkit-scrollbar-track { background: transparent; }
+    .sb-body::-webkit-scrollbar-thumb { background: var(--slate-200); border-radius: 2px; }
+
+    /* Section label */
+    .sl {
+      font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .6px; color: var(--slate-400); margin-bottom: 7px;
+    }
+    .section { margin-bottom: 18px; }
+
+    /* Card */
+    .card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--rx);
+      padding: 14px 16px;
+    }
+    .card-white {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--rx);
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+
+    /* Seat count */
+    .seat-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .seat-block { text-align: center; flex: 1; }
+    .seat-n {
+      display: block; font-size: 40px; font-weight: 800; line-height: 1;
+      letter-spacing: -1.5px;
+    }
+    .seat-n.d { color: var(--blue-600); }
+    .seat-n.r { color: var(--red-600); }
+    .seat-lbl {
+      display: block; font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .6px; color: var(--slate-400);
+      margin-top: 4px;
+    }
+    .seat-mid {
+      color: var(--slate-200); font-size: 28px; font-weight: 300;
+      align-self: center; flex-shrink: 0; line-height: 1; padding: 0 8px;
+    }
+    .seat-bar {
+      height: 8px; border-radius: 4px; overflow: hidden;
+      display: flex; width: 100%;
+    }
+    .sb-d { background: var(--blue-500); transition: width .5s ease; height: 100%; }
+    .sb-r { background: var(--red-500); transition: width .5s ease; height: 100%; flex: 1; }
+    .seat-sublbl {
+      display: flex; justify-content: space-between;
+      font-size: 10.5px; color: var(--slate-400); margin-top: 5px;
+    }
+
+    /* Efficiency gap */
+    .eg-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .eg-num-row { display: flex; align-items: baseline; gap: 3px; }
+    .eg-num {
+      font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -2px;
+    }
+    .eg-pct { font-size: 20px; font-weight: 600; color: var(--slate-300); }
+    .eg-num.green { color: var(--green-600); }
+    .eg-num.amber { color: var(--amber-500); }
+    .eg-num.red { color: var(--red-600); }
+
+    .eg-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; letter-spacing: .2px;
+    }
+    .eg-chip.red { background: var(--red-50); color: var(--red-700); border: 1px solid var(--red-200); }
+    .eg-chip.amber { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+    .eg-chip.green { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+
+    .eg-scale-wrap { position: relative; margin-bottom: 12px; }
+    .eg-scale-bar {
+      height: 7px; border-radius: 4px; overflow: hidden; display: flex; width: 100%;
+    }
+    .eg-green { flex: 4; background: var(--green-500); }
+    .eg-amber { flex: 3; background: var(--amber-500); }
+    .eg-red { flex: 3; background: var(--red-500); }
+
+    .eg-needle-track {
+      height: 2px; background: var(--slate-100); border-radius: 2px;
+      margin: 7px 0 4px; position: relative; width: 100%;
+    }
+    .eg-needle {
+      position: absolute; width: 12px; height: 12px;
+      background: var(--red-600); border-radius: 50%;
+      top: -5px; transform: translateX(-50%);
+      border: 2.5px solid #fff;
+      box-shadow: 0 1px 6px rgba(0,0,0,.25);
+      transition: left .5s ease;
+    }
+    .eg-ticks {
+      display: flex; justify-content: space-between;
+      font-size: 10px; color: var(--slate-400); margin-top: 3px;
+    }
+    .eg-desc { font-size: 11.5px; color: var(--slate-500); line-height: 1.6; margin-top: 8px; border-top: 1px solid var(--slate-100); padding-top: 8px; }
+
+    /* Seat-vote gap */
+    .svgap-text { font-size: 12.5px; color: var(--slate-700); line-height: 1.65; }
+    .svgap-hl { font-weight: 700; color: var(--red-600); }
+    .svgap-pill {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: var(--red-50); color: var(--red-700);
+      font-size: 11.5px; font-weight: 600;
+      padding: 3px 10px; border-radius: 100px;
+      border: 1px solid var(--red-200); margin-top: 7px;
+    }
+
+    /* Packed/cracked */
+    .pc-grid { display: flex; gap: 8px; }
+    .pc-box {
+      flex: 1; background: #fff; border: 1px solid var(--slate-200);
+      border-radius: var(--rx); padding: 12px; text-align: center;
+    }
+    .pc-n { font-size: 30px; font-weight: 800; letter-spacing: -1px; display: block; line-height: 1; }
+    .pc-lbl {
+      font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--slate-400); display: block; margin-top: 3px;
+    }
+    .pc-def { font-size: 10px; color: var(--slate-400); margin-top: 4px; line-height: 1.4; }
+
+    /* Seats curve */
+    .curve-wrap {
+      background: var(--slate-50); border: 1px solid var(--slate-200);
+      border-radius: var(--rx); padding: 12px 12px 8px;
+    }
+
+    /* District detail */
+    .dd-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 12px; color: var(--slate-400); text-align: center; padding: 40px 20px;
+    }
+    .dd-empty p { font-size: 13px; color: var(--slate-500); font-weight: 500; }
+    .dd-empty span { font-size: 12px; color: var(--slate-400); margin-top: 4px; line-height: 1.5; display: block; }
+
+    .dd-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border-bottom: 1px solid var(--slate-100);
+      margin: -18px -16px 16px;
+    }
+    .dd-badge {
+      width: 48px; height: 48px; border-radius: var(--rl);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .dd-title { font-size: 17px; font-weight: 700; color: var(--slate-900); }
+    .dd-sub { font-size: 12px; color: var(--slate-400); margin-top: 2px; }
+
+    .dd-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12.5px; color: var(--slate-600); padding: 5px 0;
+    }
+    .dd-val { font-weight: 600; color: var(--slate-900); }
+
+    .demo-bar { height: 10px; border-radius: 5px; overflow: hidden; display: flex; width: 100%; background: var(--slate-100); }
+    .demo-bar > div { height: 100%; }
+    .demo-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; }
+    .demo-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--slate-600); }
+    .demo-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Tour overlay */
+    .tour-overlay {
+      position: absolute; inset: 0; z-index: 300;
+      pointer-events: none; opacity: 0; transition: opacity .25s ease;
+    }
+    .tour-overlay.on { opacity: 1; pointer-events: all; }
+
+    .tour-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(15,23,42,.45);
+      backdrop-filter: blur(1px);
+    }
+
+    .tour-card {
+      position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%);
+      width: 460px; background: #fff;
+      border-radius: 18px; padding: 22px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 4px 16px rgba(0,0,0,.1);
+    }
+
+    .tour-dots { display: flex; gap: 5px; margin-bottom: 14px; }
+    .tour-dot {
+      height: 5px; border-radius: 3px;
+      background: var(--slate-200); transition: all .2s ease;
+    }
+    .tour-dot.done { background: var(--blue-300); width: 12px; }
+    .tour-dot.cur { background: var(--blue-600); width: 20px; }
+    .tour-dot.fut { width: 5px; }
+
+    .tour-step-lbl { font-size: 10.5px; font-weight: 600; color: var(--blue-500); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 5px; }
+    .tour-card h3 { font-size: 17px; font-weight: 700; color: var(--slate-900); margin-bottom: 7px; line-height: 1.3; }
+    .tour-card p { font-size: 13px; color: var(--slate-600); line-height: 1.65; margin-bottom: 18px; }
+    .tour-footer { display: flex; justify-content: space-between; align-items: center; }
+    .tour-skip { font-size: 12px; color: var(--slate-400); cursor: pointer; padding: 4px; }
+    .tour-skip:hover { color: var(--slate-600); }
+    .tour-nav { display: flex; gap: 8px; }
+
+    /* Share modal */
+    .modal-bg {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(15,23,42,.4); backdrop-filter: blur(2px);
+      align-items: center; justify-content: center;
+    }
+    .modal-bg.show { display: flex; }
+    .modal {
+      background: #fff; border-radius: 18px; padding: 24px; width: 420px;
+      box-shadow: var(--shl); animation: modal-in .18s ease;
+    }
+    @keyframes modal-in { from { opacity:0; transform: scale(.96) translateY(8px); } }
+    .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .modal p { font-size: 12.5px; color: var(--slate-500); margin-bottom: 16px; }
+    .modal-input-row { display: flex; gap: 8px; }
+    .url-input {
+      flex: 1; background: var(--slate-50); border: 1px solid var(--slate-200);
+      border-radius: var(--r); padding: 8px 12px;
+      font-size: 12px; font-family: monospace; color: var(--slate-600);
+      outline: none;
+    }
+    .modal-footer { display: flex; justify-content: flex-end; margin-top: 16px; }
+
+    /* Paint palette */
+    .paint-palette {
+      position: absolute; top: 70px; left: 14px;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: var(--rx); padding: 12px;
+      box-shadow: var(--shm); z-index: 20;
+      display: none; flex-direction: column; gap: 8px;
+      min-width: 180px;
+    }
+    .paint-palette.show { display: flex; }
+    .palette-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--slate-400); }
+    .palette-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; }
+    .p-swatch {
+      width: 22px; height: 22px; border-radius: 4px; cursor: pointer;
+      transition: transform .1s; border: 2px solid transparent;
+      font-size: 7px; font-weight: 700; color: rgba(255,255,255,.7);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .p-swatch:hover { transform: scale(1.2); }
+    .p-swatch.active { border-color: var(--slate-900); transform: scale(1.15); }
+
+    /* Compare banner */
+    #compare-strip {
+      position: absolute; top: 52px; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-500) 50%, var(--red-500) 50%);
+      z-index: 10; display: none;
+    }
+    #compare-line {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 2px; background: rgba(15,23,42,.25);
+      z-index: 10; display: none;
+    }
+    #compare-l-label, #compare-r-label {
+      position: absolute; top: 62px; z-index: 12;
+      background: rgba(15,23,42,.7); color: #fff;
+      font-size: 11px; font-weight: 600; padding: 4px 12px;
+      border-radius: 100px; display: none; letter-spacing: .3px;
+    }
+    #compare-l-label { left: 14px; }
+    #compare-r-label { right: 14px; }
+  </style>
+</head>
+<body>
+
+<!-- ─── TOOLBAR ─────────────────────────────────────────── -->
+<div class="toolbar">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M3 13L6.5 5L9.5 9.5L12.5 6L15 10" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 13H15" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="logo-title">Redraw the Lines</span>
+      <span class="logo-sub">Texas · 38 Districts</span>
+    </div>
+  </div>
+
+  <div class="tb-div"></div>
+
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btn-click" onclick="setMode('click')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 1.5v7.5l2-2 1.5 3 1.2-.6-1.5-3H10l-5.5-4.9z"/>
+      </svg>
+      Click
+    </button>
+    <button class="mode-btn" id="btn-paint" onclick="setMode('paint')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 1.5l3.5 3.5-5.5 5.5-3.5-.5-.5-3.5L8 1.5z"/>
+        <circle cx="2.5" cy="10.5" r="1.2" fill="currentColor" stroke="none"/>
+      </svg>
+      Paint
+    </button>
+  </div>
+
+  <div class="tb-div"></div>
+
+  <div class="tb-actions">
+    <button class="btn" id="btn-compare" onclick="toggleCompare()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M6.5 2v9M2 6.5h9"/>
+      </svg>
+      Compare
+    </button>
+    <button class="btn btn-ghost" onclick="resetMap()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 2v3.5H5.5M2 5.5A5 5 0 1 1 3.5 10"/>
+      </svg>
+      Reset
+    </button>
+    <button class="btn" onclick="showShare()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.5 2L11 3.5M11 3.5L9.5 5M11 3.5H5.5C4 3.5 2.5 4.7 2.5 6.5s1.5 3 3 3H9"/>
+      </svg>
+      Share
+    </button>
+    <div class="tb-div"></div>
+    <button class="btn btn-tour" onclick="startTour()">
+      ✦ Take the Tour
+    </button>
+  </div>
+</div>
+
+<!-- ─── MAIN ──────────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- MAP -->
+  <div class="map-wrap" id="map-wrap">
+
+    <div class="map-banner">
+      Current official Texas map ·
+      <b>Click or paint precincts to redistrict. Watch outcomes change.</b>
+    </div>
+
+    <!-- Loading -->
+    <div class="map-loading" id="map-loading">
+      <span class="loading-text">Loading Texas district data…</span>
+    </div>
+
+    <!-- D3 map target -->
+    <svg id="tx-svg"></svg>
+
+    <!-- Compare overlays -->
+    <div id="compare-strip"></div>
+    <div id="compare-line"></div>
+    <div id="compare-l-label">Official Map</div>
+    <div id="compare-r-label">Your Map</div>
+
+    <!-- Paint palette -->
+    <div class="paint-palette" id="paint-palette">
+      <span class="palette-label">Paint district</span>
+      <div class="palette-grid" id="palette-grid"></div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip">
+      <div class="tt-card">
+        <div class="tt-header">
+          <div class="tt-badge" id="tt-badge"></div>
+          <div>
+            <div class="tt-name" id="tt-name"></div>
+            <div class="tt-sub" id="tt-sub"></div>
+          </div>
+        </div>
+        <div class="tt-row"><span>Population</span><span class="tt-val" id="tt-pop"></span></div>
+        <div class="tt-row"><span>2020 Presidential</span></div>
+        <div class="vote-bar" id="tt-bar">
+          <div id="tt-d" style="background:var(--blue-400);"></div>
+          <div id="tt-r" style="background:var(--red-400);"></div>
+        </div>
+        <div class="tt-row">
+          <span style="color:var(--blue-600);font-weight:600;" id="tt-dpct"></span>
+          <span style="color:var(--red-600);font-weight:600;" id="tt-rpct"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour overlay -->
+    <div class="tour-overlay" id="tour-overlay">
+      <div class="tour-backdrop" onclick="endTour()"></div>
+      <div class="tour-card">
+        <div class="tour-dots" id="tour-dots"></div>
+        <div class="tour-step-lbl" id="tour-step-lbl">Step 1 of 5</div>
+        <h3 id="tour-title"></h3>
+        <p id="tour-body"></p>
+        <div class="tour-footer">
+          <span class="tour-skip" onclick="endTour()">Skip tour</span>
+          <div class="tour-nav">
+            <button class="btn" id="tour-prev" onclick="tourNav(-1)" style="display:none">← Back</button>
+            <button class="btn btn-primary" id="tour-next" onclick="tourNav(1)">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="carnegie">© 2026 Carnegie Young Leaders Project</div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-tabs">
+      <div class="sb-tab active" id="tab-s" onclick="switchTab('summary')">Map Summary</div>
+      <div class="sb-tab" id="tab-d" onclick="switchTab('district')">District Detail</div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="sb-body" id="pane-summary">
+
+      <div class="section">
+        <div class="sl">Congressional Seats</div>
+        <div class="card">
+          <div class="seat-row">
+            <div class="seat-block">
+              <span class="seat-n d" id="s-dem">14</span>
+              <span class="seat-lbl">Democrat</span>
+            </div>
+            <span class="seat-mid">·</span>
+            <div class="seat-block" style="text-align:right">
+              <span class="seat-n r" id="s-rep">24</span>
+              <span class="seat-lbl">Republican</span>
+            </div>
+          </div>
+          <div class="seat-bar">
+            <div class="sb-d" id="sbar-d" style="width:36.8%"></div>
+            <div class="sb-r" id="sbar-r" style="width:63.2%"></div>
+          </div>
+          <div class="seat-sublbl">
+            <span id="s-dpct">36.8% of seats</span>
+            <span id="s-rpct">63.2% of seats</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sl" style="display:flex;align-items:center;gap:4px;">
+          Efficiency Gap
+          <span style="cursor:help;color:var(--blue-400);font-size:10px;" title="Measures wasted votes. Above 7% is presumptively problematic — Stephanopoulos &amp; McGhee (2015)">ⓘ</span>
+        </div>
+        <div class="card-white">
+          <div class="eg-top">
+            <div class="eg-num-row">
+              <span class="eg-num red" id="eg-val">11.3</span>
+              <span class="eg-pct">%</span>
+            </div>
+            <span class="eg-chip red" id="eg-chip">▲ Above threshold</span>
+          </div>
+          <div class="eg-scale-wrap">
+            <div class="eg-scale-bar">
+              <div class="eg-green"></div>
+              <div class="eg-amber"></div>
+              <div class="eg-red"></div>
+            </div>
+            <div class="eg-needle-track">
+              <div class="eg-needle" id="eg-needle" style="left:80%"></div>
+            </div>
+            <div class="eg-ticks">
+              <span>0%</span><span>4%</span><span>7%</span><span>10%+</span>
+            </div>
+          </div>
+          <div class="eg-desc" id="eg-desc">
+            A score above 7% means one party's votes are significantly more wasted. The current map shows a strong structural advantage for Republicans.
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sl">Seat–Vote Gap</div>
+        <div class="card">
+          <div class="svgap-text" id="svgap-text">
+            Republicans won <span class="svgap-hl">56%</span> of statewide votes but <span class="svgap-hl">63%</span> of seats.
+          </div>
+          <div><span class="svgap-pill" id="svgap-pill">▲ +7 point gap</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sl" style="display:flex;align-items:center;gap:4px;">
+          Packed &amp; Cracked
+          <span style="cursor:help;color:var(--blue-400);font-size:10px;" title="Packed: win by 70%+. Cracked: lose by &lt;55%.">ⓘ</span>
+        </div>
+        <div class="pc-grid">
+          <div class="pc-box">
+            <span class="pc-n" style="color:var(--blue-700)" id="pc-packed">6</span>
+            <span class="pc-lbl">Packed</span>
+            <div class="pc-def">Win by 70%+<br>votes wasted</div>
+          </div>
+          <div class="pc-box">
+            <span class="pc-n" style="color:var(--amber-500)" id="pc-cracked">9</span>
+            <span class="pc-lbl">Cracked</span>
+            <div class="pc-def">Lose by &lt;55%<br>votes split</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sl">Seats Curve — partisan lean by district</div>
+        <div class="curve-wrap">
+          <svg id="seats-svg" width="100%" height="52" style="display:block;"></svg>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sl">Statewide 2020 Vote Totals</div>
+        <div class="card">
+          <div class="dd-row" style="padding:5px 0;">
+            <span style="display:flex;align-items:center;gap:6px;">
+              <span style="width:9px;height:9px;border-radius:50%;background:var(--blue-500);display:inline-block;flex-shrink:0;"></span>
+              Biden / Democrats
+            </span>
+            <span class="dd-val" style="color:var(--blue-600);">5.26M <span style="color:var(--slate-400);font-size:11px;font-weight:400">(46.5%)</span></span>
+          </div>
+          <div class="dd-row" style="padding:5px 0;border-top:1px solid var(--slate-100);margin-top:4px;padding-top:9px;">
+            <span style="display:flex;align-items:center;gap:6px;">
+              <span style="width:9px;height:9px;border-radius:50%;background:var(--red-500);display:inline-block;flex-shrink:0;"></span>
+              Trump / Republicans
+            </span>
+            <span class="dd-val" style="color:var(--red-600);">5.89M <span style="color:var(--slate-400);font-size:11px;font-weight:400">(52.1%)</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISTRICT DETAIL -->
+    <div class="sb-body" id="pane-district" style="display:none;">
+      <div class="dd-empty" id="dd-empty">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="var(--slate-200)" stroke-width="1.5">
+          <rect x="8" y="8" width="28" height="28" rx="5"/>
+          <path d="M8 18H36M18 8v28"/>
+        </svg>
+        <div>
+          <p>No district selected</p>
+          <span>Click any district on the map<br>to view its detailed stats.</span>
+        </div>
+      </div>
+
+      <div id="dd-content" style="display:none;">
+        <div class="dd-header">
+          <div class="dd-badge" id="dd-badge"></div>
+          <div>
+            <div class="dd-title" id="dd-title"></div>
+            <div class="dd-sub" id="dd-sub"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sl">Population</div>
+          <div class="card">
+            <div class="dd-row"><span>Total</span><span class="dd-val" id="dd-pop"></span></div>
+            <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:4px;padding-top:8px;">
+              <span>Deviation from ideal</span><span id="dd-dev"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sl">2020 Presidential Vote</div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:7px;">
+              <span style="color:var(--blue-600)" id="dd-dpct"></span>
+              <span style="color:var(--red-600)" id="dd-rpct"></span>
+            </div>
+            <div class="vote-bar">
+              <div id="dd-dbar" style="background:var(--blue-400);transition:width .4s;"></div>
+              <div id="dd-rbar" style="background:var(--red-400);transition:width .4s;flex:1;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10.5px;color:var(--slate-400);">
+              <span>Biden</span><span>Trump</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sl">Racial &amp; Ethnic Composition</div>
+          <div class="card">
+            <div class="demo-bar" id="dd-demobar"></div>
+            <div class="demo-legend" id="dd-demoleg"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sl">Efficiency Gap Contribution</div>
+          <div class="card">
+            <div class="dd-row"><span>Wasted Dem votes</span><span class="dd-val" id="dd-wd"></span></div>
+            <div class="dd-row"><span>Wasted Rep votes</span><span class="dd-val" id="dd-wr"></span></div>
+            <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:5px;padding-top:8px;">
+              <span style="font-weight:500;">Net EG contribution</span>
+              <span id="dd-eg"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SHARE MODAL ───────────────────────────────────────── -->
+<div class="modal-bg" id="share-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <h3>Share your map</h3>
+    <p>Anyone with this link will see your exact redistricting layout.</p>
+    <div class="modal-input-row">
+      <input type="text" class="url-input" id="share-url" readonly>
+      <button class="btn btn-primary" id="copy-btn" onclick="copyUrl()">Copy</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="document.getElementById('share-modal').classList.remove('show')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────────── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// DISTRICT DATA — 38 TX congressional districts (demo)
+// Party assignments roughly match Plan C2193
+// ═══════════════════════════════════════════════════════
+const IDEAL_POP = 761169;
+
+const DISTRICTS = [
+  {id:1,  p:'R', mg:45, pop:760000, d:102000, r:202000, demo:{w:.65,h:.15,b:.16,o:.04}},
+  {id:2,  p:'R', mg:30, pop:758000, d:128000, r:200000, demo:{w:.70,h:.18,b:.08,o:.04}},
+  {id:3,  p:'R', mg:28, pop:770000, d:135000, r:205000, demo:{w:.75,h:.12,b:.07,o:.06}},
+  {id:4,  p:'R', mg:42, pop:756000, d:102000, r:195000, demo:{w:.72,h:.10,b:.14,o:.04}},
+  {id:5,  p:'R', mg:32, pop:762000, d:125000, r:208000, demo:{w:.68,h:.20,b:.08,o:.04}},
+  {id:6,  p:'R', mg:18, pop:775000, d:152000, r:196000, demo:{w:.62,h:.25,b:.07,o:.06}},
+  {id:7,  p:'R', mg:15, pop:768000, d:159000, r:195000, demo:{w:.55,h:.22,b:.14,o:.09}},
+  {id:8,  p:'R', mg:40, pop:760000, d:112000, r:200000, demo:{w:.70,h:.18,b:.07,o:.05}},
+  {id:9,  p:'D', mg:55, pop:765000, d:205000, r: 95000, demo:{w:.15,h:.32,b:.47,o:.06}},
+  {id:10, p:'R', mg:20, pop:772000, d:148000, r:196000, demo:{w:.65,h:.22,b:.07,o:.06}},
+  {id:11, p:'R', mg:55, pop:757000, d: 82000, r:190000, demo:{w:.72,h:.22,b:.03,o:.03}},
+  {id:12, p:'R', mg:25, pop:769000, d:142000, r:200000, demo:{w:.68,h:.18,b:.08,o:.06}},
+  {id:13, p:'R', mg:60, pop:754000, d: 72000, r:188000, demo:{w:.74,h:.20,b:.03,o:.03}},
+  {id:14, p:'R', mg:22, pop:768000, d:146000, r:196000, demo:{w:.68,h:.18,b:.10,o:.04}},
+  {id:15, p:'D', mg:12, pop:763000, d:174000, r:153000, demo:{w:.10,h:.82,b:.04,o:.04}},
+  {id:16, p:'D', mg:30, pop:760000, d:184000, r:135000, demo:{w:.15,h:.78,b:.04,o:.03}},
+  {id:17, p:'R', mg:24, pop:769000, d:140000, r:194000, demo:{w:.62,h:.28,b:.06,o:.04}},
+  {id:18, p:'D', mg:40, pop:766000, d:196000, r:124000, demo:{w:.12,h:.30,b:.46,o:.12}},
+  {id:19, p:'R', mg:50, pop:755000, d: 93000, r:192000, demo:{w:.70,h:.24,b:.03,o:.03}},
+  {id:20, p:'D', mg:20, pop:764000, d:175000, r:143000, demo:{w:.15,h:.75,b:.06,o:.04}},
+  {id:21, p:'R', mg:20, pop:771000, d:148000, r:194000, demo:{w:.62,h:.28,b:.05,o:.05}},
+  {id:22, p:'R', mg:15, pop:773000, d:158000, r:193000, demo:{w:.55,h:.25,b:.12,o:.08}},
+  {id:23, p:'R', mg:8,  pop:769000, d:167000, r:188000, demo:{w:.40,h:.52,b:.04,o:.04}},
+  {id:24, p:'R', mg:14, pop:775000, d:158000, r:192000, demo:{w:.65,h:.20,b:.08,o:.07}},
+  {id:25, p:'R', mg:12, pop:771000, d:160000, r:190000, demo:{w:.64,h:.22,b:.07,o:.07}},
+  {id:26, p:'R', mg:22, pop:769000, d:145000, r:193000, demo:{w:.67,h:.20,b:.07,o:.06}},
+  {id:27, p:'R', mg:35, pop:762000, d:124000, r:197000, demo:{w:.58,h:.36,b:.03,o:.03}},
+  {id:28, p:'D', mg:8,  pop:765000, d:170000, r:156000, demo:{w:.12,h:.82,b:.03,o:.03}},
+  {id:29, p:'D', mg:38, pop:764000, d:192000, r:126000, demo:{w:.10,h:.62,b:.24,o:.04}},
+  {id:30, p:'D', mg:50, pop:768000, d:210000, r:105000, demo:{w:.15,h:.22,b:.58,o:.05}},
+  {id:31, p:'R', mg:18, pop:773000, d:152000, r:193000, demo:{w:.62,h:.26,b:.06,o:.06}},
+  {id:32, p:'D', mg:5,  pop:777000, d:172000, r:162000, demo:{w:.45,h:.22,b:.18,o:.15}},
+  {id:33, p:'D', mg:35, pop:764000, d:192000, r:122000, demo:{w:.10,h:.38,b:.42,o:.10}},
+  {id:34, p:'D', mg:10, pop:762000, d:172000, r:155000, demo:{w:.08,h:.86,b:.03,o:.03}},
+  {id:35, p:'D', mg:25, pop:770000, d:185000, r:142000, demo:{w:.15,h:.60,b:.18,o:.07}},
+  {id:36, p:'R', mg:35, pop:758000, d:124000, r:197000, demo:{w:.60,h:.28,b:.08,o:.04}},
+  {id:37, p:'D', mg:28, pop:768000, d:185000, r:143000, demo:{w:.48,h:.30,b:.12,o:.10}},
+  {id:38, p:'R', mg:28, pop:762000, d:136000, r:192000, demo:{w:.58,h:.30,b:.07,o:.05}},
+];
+
+const D_SCALE = ['#BFDBFE','#93C5FD','#60A5FA','#3B82F6','#2563EB','#1D4ED8'];
+const R_SCALE = ['#FECACA','#FCA5A5','#F87171','#EF4444','#DC2626','#B91C1C'];
+
+function distColor(d) {
+  const b = Math.min(Math.floor(d.mg / 12), 5);
+  return d.p === 'D' ? D_SCALE[b] : R_SCALE[b];
+}
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let countyAssignment = {};  // countyId -> districtId
+let userAssignment   = {};  // countyId -> districtId (user edits)
+let selDistrict = null;
+let appMode = 'click';
+let compareOn = false;
+let paintTarget = 1;
+let isPainting = false;
+let svg, projection, pathGen, counties, cPaths;
+let tourStep = -1;
+
+const TOUR = [
+  {
+    title: "Texas's 35th Congressional District",
+    body: "This is TX-35. It connects Austin and San Antonio along a thin strip of Interstate 35, stretching nearly 300 miles. It looks bizarre — a narrow corridor snaking through the Texas Hill Country. Here's why it was drawn this way.",
+    dist: 35
+  },
+  {
+    title: "Packing: concentrating voters",
+    body: "TX-35 was drawn to pack Hispanic voters into a single district — concentrating their votes so they couldn't influence surrounding districts. The district is 60% Hispanic. Their votes are effectively 'used up' winning by huge margins.",
+    dist: 35
+  },
+  {
+    title: "Cracking: splitting the Austin vote",
+    body: "The districts surrounding Austin were drawn to crack the city's Democratic-leaning voters across multiple Republican-majority districts — diluting their influence. No single Austin-area district can elect a Democrat under this plan.",
+    dist: 37
+  },
+  {
+    title: "The mathematical result",
+    body: "Republicans won 56% of statewide votes in 2020 but captured 63% of seats. The efficiency gap is 11.3% — well above the 7% threshold that courts have flagged as potentially unconstitutional. One party's votes count more than the other's.",
+    dist: null
+  },
+  {
+    title: "Now try it yourself",
+    body: "Can you draw a map that is both compact and fair? Use Click or Paint mode to reassign precincts between districts and watch the efficiency gap change in real time. It's harder than it looks — but the attempt teaches you more than any explanation can.",
+    dist: null,
+    last: true
+  }
+];
+
+// Store topology for mesh computation
+let us_obj = null;
+
+function assignDistricts() {
+  const minLon = -106.8, maxLon = -93.2;
+  const minLat = 25.4, maxLat = 36.9;
+
+  counties.forEach(c => {
+    const [lon, lat] = d3.geoCentroid(c);
+    c._lon = lon; c._lat = lat;
+  });
+
+  // Sort SW→NE diagonally for geographic district assignment
+  const sorted = [...counties].sort((a, b) => {
+    const ka = (a._lon - minLon) / (maxLon - minLon) * 6 +
+               (a._lat - minLat) / (maxLat - minLat) * 4;
+    const kb = (b._lon - minLon) / (maxLon - minLon) * 6 +
+               (b._lat - minLat) / (maxLat - minLat) * 4;
+    return ka - kb;
+  });
+
+  sorted.forEach((c, i) => {
+    const dId = Math.min(Math.floor(i / sorted.length * 38) + 1, 38);
+    c.properties.dId = dId;
+    countyAssignment[c.id] = dId;
+  });
+}
+
+function renderMap() {
+  svg.selectAll('*').remove();
+  const g = svg.append('g');
+
+  cPaths = g.selectAll('.county')
+    .data(counties)
+    .enter().append('path')
+    .attr('class', 'county')
+    .attr('d', pathGen)
+    .attr('fill', d => {
+      const dist = DISTRICTS.find(x => x.id === userAssignment[d.id]);
+      return dist ? distColor(dist) : '#CBD5E1';
+    })
+    .on('mouseover', onOver)
+    .on('mousemove', onMove)
+    .on('mouseout', onOut)
+    .on('mousedown', onDown)
+    .on('mouseenter', onEnter);
+
+  // District edges (boundaries between districts)
+  try {
+    // District borders
+    const distBorder = topojson.mesh(us_obj, us_obj.objects.counties, (a, b) =>
+      a !== b &&
+      String(a.id).startsWith('48') &&
+      String(b.id).startsWith('48') &&
+      countyAssignment[a.id] !== countyAssignment[b.id]
+    );
+    g.append('path')
+      .datum(distBorder)
+      .attr('class', 'district-edge')
+      .attr('d', pathGen);
+
+    // State border
+    const stateBorder = topojson.merge(us_obj,
+      us_obj.objects.counties.geometries.filter(x => String(x.id).startsWith('48'))
+    );
+    g.append('path')
+      .datum(stateBorder)
+      .attr('class', 'state-border')
+      .attr('d', pathGen);
+  } catch(e) { /* borders optional */ }
+
+  // District number labels
+  addDistrictLabels(g);
+}
+
+async function initMapFull() {
+  const wrap = document.getElementById('map-wrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+
+  svg = d3.select('#tx-svg')
+    .attr('width', W).attr('height', H);
+
+  try {
+    us_obj = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
+
+    const allFeatures = topojson.feature(us_obj, us_obj.objects.counties).features;
+    counties = allFeatures.filter(f => String(f.id).startsWith('48'));
+
+    const col = { type: 'FeatureCollection', features: counties };
+    projection = d3.geoMercator()
+      .fitExtent([[36, 24], [W - 24, H - 28]], col);
+    pathGen = d3.geoPath().projection(projection);
+
+    assignDistricts();
+    Object.assign(userAssignment, countyAssignment);
+
+    renderMap();
+    updateStats();  // compute all sidebar stats from live data
+    buildPalette();
+
+    const loader = document.getElementById('map-loading');
+    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove && loader.remove(), 500); }
+
+  } catch(e) {
+    const loader = document.getElementById('map-loading');
+    if (loader) loader.innerHTML = '<div style="text-align:center;padding:20px;"><div style="color:var(--red-500);font-weight:600;font-size:13px;margin-bottom:6px;">Could not load map data</div><div style="color:var(--slate-500);font-size:12px;">Check your connection and reload.</div></div>';
+  }
+}
+
+function addDistrictLabels(g) {
+  const centroids = {};
+  const counts = {};
+
+  counties.forEach(c => {
+    const dId = userAssignment[c.id];
+    if (!centroids[dId]) { centroids[dId] = [0, 0]; counts[dId] = 0; }
+    const [cx, cy] = pathGen.centroid(c);
+    if (!isNaN(cx) && !isNaN(cy)) {
+      centroids[dId][0] += cx;
+      centroids[dId][1] += cy;
+      counts[dId]++;
+    }
+  });
+
+  for (let i = 1; i <= 38; i++) {
+    if (centroids[i] && counts[i] > 0) {
+      const x = centroids[i][0] / counts[i];
+      const y = centroids[i][1] / counts[i];
+      const dist = DISTRICTS.find(d => d.id === i);
+      const textColor = dist ? (dist.mg > 25 ? 'rgba(255,255,255,.8)' : 'rgba(255,255,255,.6)') : 'rgba(255,255,255,.5)';
+      g.append('text')
+        .attr('class', 'district-label')
+        .attr('x', x).attr('y', y)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'central')
+        .attr('font-size', '8px')
+        .attr('font-weight', '700')
+        .attr('fill', textColor)
+        .attr('stroke', 'rgba(0,0,0,.25)')
+        .attr('stroke-width', '2.5')
+        .text(i);
+      g.append('text')
+        .attr('class', 'district-label')
+        .attr('x', x).attr('y', y)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'central')
+        .attr('font-size', '8px')
+        .attr('font-weight', '700')
+        .attr('fill', textColor)
+        .text(i);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// INTERACTION
+// ═══════════════════════════════════════════════════════
+function onOver(event, d) {
+  const tt = document.getElementById('tooltip');
+  const dId = userAssignment[d.id];
+  const dist = DISTRICTS.find(x => x.id === dId);
+  if (!dist) return;
+
+  const tot = dist.d + dist.r;
+  const dpct = Math.round(dist.d / tot * 100);
+  const rpct = 100 - dpct;
+
+  document.getElementById('tt-badge').textContent = dId;
+  document.getElementById('tt-badge').style.cssText =
+    `background:${distColor(dist)};color:${dist.p==='D'?'#1E3A8A':'#7F1D1D'};`;
+  document.getElementById('tt-name').textContent = `TX-${dId}`;
+  document.getElementById('tt-sub').textContent =
+    `${dist.p === 'D' ? 'Democratic' : 'Republican'} · ${dist.mg}pt margin`;
+  document.getElementById('tt-pop').textContent = (dist.pop/1000).toFixed(0) + 'K residents';
+  document.getElementById('tt-d').style.width = dpct + '%';
+  document.getElementById('tt-r').style.width = rpct + '%';
+  document.getElementById('tt-dpct').textContent = `Biden ${dpct}%`;
+  document.getElementById('tt-rpct').textContent = `Trump ${rpct}%`;
+  tt.classList.add('show');
+}
+
+function onMove(event) {
+  const tt = document.getElementById('tooltip');
+  const rect = document.getElementById('map-wrap').getBoundingClientRect();
+  let x = event.clientX - rect.left + 14;
+  let y = event.clientY - rect.top - 10;
+  if (x + 230 > rect.width)  x = event.clientX - rect.left - 244;
+  if (y + 140 > rect.height) y = event.clientY - rect.top - 154;
+  tt.style.left = x + 'px';
+  tt.style.top  = y + 'px';
+}
+
+function onOut() {
+  document.getElementById('tooltip').classList.remove('show');
+}
+
+function onDown(event, d) {
+  if (appMode === 'paint') {
+    isPainting = true;
+    applyPaint(d);
+  } else {
+    selectDistrict(userAssignment[d.id]);
+  }
+}
+
+function onEnter(event, d) {
+  if (appMode === 'paint' && isPainting) {
+    applyPaint(d);
+  }
+}
+
+function applyPaint(d) {
+  if (userAssignment[d.id] === paintTarget) return; // no-op if already correct
+  userAssignment[d.id] = paintTarget;
+  const dist = DISTRICTS.find(x => x.id === paintTarget);
+  const newColor = dist ? distColor(dist) : '#CBD5E1';
+  // Target the specific path using D3's datum filter
+  if (cPaths) cPaths.filter(c => c.id === d.id).attr('fill', newColor);
+  updateStats();
+}
+
+document.addEventListener('mouseup', () => { isPainting = false; });
+
+function selectDistrict(dId) {
+  selDistrict = dId;
+  cPaths.classed('sel', d => userAssignment[d.id] === dId);
+  showDistrictDetail(dId);
+  switchTab('district');
+}
+
+// ═══════════════════════════════════════════════════════
+// DISTRICT DETAIL
+// ═══════════════════════════════════════════════════════
+const DEMO_COLORS = { w:'#60A5FA', h:'#F59E0B', b:'#818CF8', o:'#34D399' };
+const DEMO_LABELS = { w:'White', h:'Hispanic', b:'Black', o:'Other' };
+
+function showDistrictDetail(dId) {
+  const dist = DISTRICTS.find(x => x.id === dId);
+  if (!dist) return;
+
+  document.getElementById('dd-empty').style.display = 'none';
+  document.getElementById('dd-content').style.display = 'block';
+
+  const col = distColor(dist);
+  const tc  = dist.p === 'D' ? '#1E3A8A' : '#7F1D1D';
+  const badge = document.getElementById('dd-badge');
+  badge.textContent = `TX-${dist.id}`;
+  badge.setAttribute('style', `background:${col};color:${tc};font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:10px;`);
+  document.getElementById('dd-title').textContent = `Texas District ${dist.id}`;
+  document.getElementById('dd-sub').textContent =
+    `${dist.p === 'D' ? 'Democratic' : 'Republican'}-held district`;
+
+  document.getElementById('dd-pop').textContent = dist.pop.toLocaleString();
+  const dev = ((dist.pop - IDEAL_POP) / IDEAL_POP * 100).toFixed(2);
+  const devNum = parseFloat(dev);
+  const devEl = document.getElementById('dd-dev');
+  devEl.textContent = `${devNum > 0 ? '+' : ''}${dev}%`;
+  devEl.style.cssText = `font-weight:600;color:${Math.abs(devNum) > 1 ? 'var(--red-600)' : 'var(--green-600)'};`;
+
+  const tot = dist.d + dist.r;
+  const dp = (dist.d / tot * 100).toFixed(1);
+  const rp = (dist.r / tot * 100).toFixed(1);
+  document.getElementById('dd-dpct').textContent = `Biden ${dp}%`;
+  document.getElementById('dd-rpct').textContent = `Trump ${rp}%`;
+  document.getElementById('dd-dbar').style.width = dp + '%';
+  document.getElementById('dd-rbar').style.width = rp + '%';
+
+  document.getElementById('dd-demobar').innerHTML =
+    Object.entries(dist.demo).map(([k,v]) =>
+      `<div style="width:${(v*100).toFixed(1)}%;background:${DEMO_COLORS[k]};"></div>`
+    ).join('');
+
+  document.getElementById('dd-demoleg').innerHTML =
+    Object.entries(dist.demo).map(([k,v]) =>
+      `<div class="demo-item"><div class="demo-dot" style="background:${DEMO_COLORS[k]}"></div>${DEMO_LABELS[k]} ${(v*100).toFixed(0)}%</div>`
+    ).join('');
+
+  const winner = dist.p === 'D' ? dist.d : dist.r;
+  const loser  = dist.p === 'D' ? dist.r : dist.d;
+  const wW = Math.round(winner - tot / 2);
+  const wL = loser;
+  const wD = dist.p === 'D' ? wW : wL;
+  const wR = dist.p === 'R' ? wW : wL;
+  document.getElementById('dd-wd').textContent = wD.toLocaleString();
+  document.getElementById('dd-wr').textContent = wR.toLocaleString();
+  const egC = ((wR - wD) / tot * 100).toFixed(2);
+  const egEl = document.getElementById('dd-eg');
+  egEl.textContent = `${egC > 0 ? '+' : ''}${egC}%`;
+  egEl.style.cssText = `font-weight:700;color:${egC > 0 ? 'var(--red-600)' : 'var(--blue-600)'};`;
+}
+
+// ═══════════════════════════════════════════════════════
+// LIVE STATS ENGINE — recomputes everything from userAssignment
+// ═══════════════════════════════════════════════════════
+function computeLiveStats() {
+  // Tally votes per district from live precinct (county) assignments
+  const distVotes = {}; // { distId: { d, r, pop } }
+  for (let i = 1; i <= 38; i++) distVotes[i] = { d: 0, r: 0, pop: 0 };
+
+  counties.forEach(c => {
+    const dId = userAssignment[c.id];
+    const base = DISTRICTS.find(x => x.id === countyAssignment[c.id]);
+    if (!base || !distVotes[dId]) return;
+    // Proportionally attribute this county's votes based on its original district data
+    const origCounties = counties.filter(x => countyAssignment[x.id] === countyAssignment[c.id]);
+    const share = 1 / Math.max(origCounties.length, 1);
+    distVotes[dId].d   += base.d * share;
+    distVotes[dId].r   += base.r * share;
+    distVotes[dId].pop += base.pop * share;
+  });
+
+  // Determine winner per district
+  let dSeats = 0, rSeats = 0;
+  let totalD = 0, totalR = 0;
+  let wastedD = 0, wastedR = 0;
+  let packed = 0, cracked = 0;
+  const liveDistricts = [];
+
+  for (let i = 1; i <= 38; i++) {
+    const v = distVotes[i];
+    const tot = v.d + v.r;
+    if (tot === 0) continue;
+    const dShare = v.d / tot;
+    const rShare = v.r / tot;
+    const winner = dShare >= 0.5 ? 'D' : 'R';
+    const margin = Math.abs(dShare - rShare) * 100;
+
+    if (winner === 'D') dSeats++; else rSeats++;
+    totalD += v.d; totalR += v.r;
+
+    // Wasted votes: loser wastes all votes; winner wastes surplus above 50%+1
+    if (winner === 'D') {
+      wastedD += Math.round(v.d - tot / 2);
+      wastedR += Math.round(v.r);
+    } else {
+      wastedR += Math.round(v.r - tot / 2);
+      wastedD += Math.round(v.d);
+    }
+
+    // Packed: winner margin > 40% (win by 70%+ of vote); Cracked: loser within 5pts
+    if (margin > 40) packed++;
+    else if (margin < 5) cracked++;
+
+    liveDistricts.push({ id: i, p: winner, d: v.d, r: v.r, pop: v.pop, mg: Math.round(margin) });
+  }
+
+  const totalSeats = dSeats + rSeats;
+  const totalVotes = totalD + totalR;
+  const eg = totalVotes > 0 ? ((wastedR - wastedD) / totalVotes * 100) : 0;
+  const dVotePct  = totalVotes > 0 ? totalD / totalVotes * 100 : 0;
+  const rVotePct  = totalVotes > 0 ? totalR / totalVotes * 100 : 0;
+  const dSeatPct  = totalSeats > 0 ? dSeats / totalSeats * 100 : 0;
+  const rSeatPct  = totalSeats > 0 ? rSeats / totalSeats * 100 : 0;
+  const seatVoteGap = Math.abs(rSeatPct - rVotePct);
+
+  return { dSeats, rSeats, totalSeats, eg, dVotePct, rVotePct, dSeatPct, rSeatPct,
+           seatVoteGap, packed, cracked, liveDistricts, totalD, totalR };
+}
+
+function updateStats() {
+  if (!counties || !counties.length) return;
+  const s = computeLiveStats();
+
+  // ── Seats ──
+  document.getElementById('s-dem').textContent = s.dSeats;
+  document.getElementById('s-rep').textContent = s.rSeats;
+  document.getElementById('sbar-d').style.width = s.dSeatPct.toFixed(1) + '%';
+  document.getElementById('sbar-r').style.width = s.rSeatPct.toFixed(1) + '%';
+  document.getElementById('s-dpct').textContent = s.dSeatPct.toFixed(1) + '% of seats';
+  document.getElementById('s-rpct').textContent = s.rSeatPct.toFixed(1) + '% of seats';
+
+  // ── Efficiency Gap ──
+  const egAbs = Math.abs(s.eg);
+  const egEl  = document.getElementById('eg-val');
+  egEl.textContent = egAbs.toFixed(1);
+  const egChip = document.getElementById('eg-chip');
+  let egClass, chipLabel;
+  if (egAbs < 4)       { egClass = 'green'; chipLabel = '✓ Within threshold'; }
+  else if (egAbs < 7)  { egClass = 'amber'; chipLabel = '⚠ Approaching limit'; }
+  else                 { egClass = 'red';   chipLabel = '▲ Above threshold'; }
+  egEl.className = `eg-num ${egClass}`;
+  egChip.className = `eg-chip ${egClass}`;
+  egChip.textContent = chipLabel;
+
+  // Needle: 0%→0px, 10%+→100%. Clamp at 95% so needle stays visible.
+  const needlePct = Math.min(egAbs / 10 * 100, 95);
+  document.getElementById('eg-needle').style.left = needlePct + '%';
+
+  const favors = s.eg > 0 ? 'Republicans' : (s.eg < 0 ? 'Democrats' : 'neither party');
+  document.getElementById('eg-desc').textContent =
+    egAbs < 4
+      ? `An efficiency gap of ${egAbs.toFixed(1)}% is within the acceptable range. Votes are distributed fairly evenly between parties.`
+      : `A score above 7% means one party's votes are significantly more wasted. The current map shows a structural advantage for ${favors}.`;
+
+  // ── Seat-Vote Gap ──
+  const rVotePctRnd = s.rVotePct.toFixed(0);
+  const rSeatPctRnd = s.rSeatPct.toFixed(0);
+  const dVotePctRnd = s.dVotePct.toFixed(0);
+  const dSeatPctRnd = s.dSeatPct.toFixed(0);
+  const gapDir = s.rSeatPct > s.rVotePct ? 'Republicans' : 'Democrats';
+  const gapAmt = s.seatVoteGap.toFixed(1);
+  document.getElementById('svgap-text').innerHTML =
+    `${gapDir} won <span class="svgap-hl">${gapDir==='Republicans'?rVotePctRnd:dVotePctRnd}%</span> of statewide votes but <span class="svgap-hl">${gapDir==='Republicans'?rSeatPctRnd:dSeatPctRnd}%</span> of seats.`;
+  const pill = document.getElementById('svgap-pill');
+  pill.textContent = s.seatVoteGap < 2 ? `≈ ${gapAmt} point gap` : `▲ +${gapAmt} point gap`;
+  pill.style.color = s.seatVoteGap < 2 ? 'var(--green-600)' : '';
+  pill.style.background = s.seatVoteGap < 2 ? '#ECFDF5' : '';
+  pill.style.borderColor = s.seatVoteGap < 2 ? '#A7F3D0' : '';
+
+  // ── Packed / Cracked ──
+  document.getElementById('pc-packed').textContent  = s.packed;
+  document.getElementById('pc-cracked').textContent = s.cracked;
+
+  // ── Seats Curve ──
+  renderSeatsCurve(s.liveDistricts);
+}
+
+// ═══════════════════════════════════════════════════════
+// SEATS CURVE
+// ═══════════════════════════════════════════════════════
+function renderSeatsCurve(liveDists) {
+  const distArr = liveDists || DISTRICTS;
+  const el = document.getElementById('seats-svg');
+  const rawW = el.parentElement.clientWidth - 24;
+  const W = rawW > 0 ? rawW : 300;
+  const H = 58;
+  const PAD_TOP = 4, PAD_BOT = 14;
+  const chartH = H - PAD_TOP - PAD_BOT;
+
+  const sorted = [...distArr].sort((a, b) => {
+    const da = a.d / (a.d + a.r);
+    const db = b.d / (b.d + b.r);
+    return da - db;
+  });
+
+  const bw = Math.max(1, Math.floor(W / sorted.length) - 1);
+  const half = PAD_TOP + chartH / 2;
+
+  const bars = sorted.map((d, i) => {
+    const share = d.d / (d.d + d.r);
+    const h = Math.round(share * chartH);
+    const x = i * (bw + 1);
+    const col = d.p === 'D' ? '#3B82F6' : '#EF4444';
+    const opacity = d.mg < 8 ? '.65' : '1';
+    return `<rect x="${x}" y="${PAD_TOP + chartH - h}" width="${bw}" height="${h}" fill="${col}" rx="1" opacity="${opacity}"/>`;
+  }).join('');
+
+  const lineY = Math.round(half);
+  const totalW = sorted.length * (bw + 1);
+
+  el.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  el.innerHTML = bars
+    + `<line x1="0" y1="${lineY}" x2="${totalW}" y2="${lineY}" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2"/>`
+    + `<text x="2" y="${lineY - 3}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">50%</text>`
+    + `<text x="2" y="${H}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">R</text>`
+    + `<text x="${totalW - 8}" y="${H}" font-size="8" fill="#3B82F6" font-family="Inter,sans-serif">D</text>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// PAINT PALETTE
+// ═══════════════════════════════════════════════════════
+function buildPalette() {
+  const grid = document.getElementById('palette-grid');
+  grid.innerHTML = DISTRICTS.map(d =>
+    `<div class="p-swatch${d.id===1?' active':''}"
+      style="background:${distColor(d)}"
+      title="TX-${d.id}"
+      onclick="selectPaint(${d.id}, this)">${d.id}</div>`
+  ).join('');
+}
+
+function selectPaint(id, el) {
+  paintTarget = id;
+  document.querySelectorAll('.p-swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════
+// TOOLBAR ACTIONS
+// ═══════════════════════════════════════════════════════
+function setMode(m) {
+  appMode = m;
+  document.getElementById('btn-click').classList.toggle('active', m === 'click');
+  document.getElementById('btn-paint').classList.toggle('active', m === 'paint');
+  document.getElementById('map-wrap').style.cursor = m === 'paint' ? 'crosshair' : '';
+  const pal = document.getElementById('paint-palette');
+  pal.classList.toggle('show', m === 'paint');
+}
+
+function toggleCompare() {
+  compareOn = !compareOn;
+  const btn = document.getElementById('btn-compare');
+  btn.classList.toggle('btn-primary', compareOn);
+  btn.innerHTML = compareOn
+    ? `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 2v9M2 6.5h9"/></svg> Comparing`
+    : `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 2v9M2 6.5h9"/></svg> Compare`;
+
+  ['compare-strip','compare-line','compare-l-label','compare-r-label'].forEach(id => {
+    document.getElementById(id).style.display = compareOn ? 'block' : 'none';
+  });
+}
+
+function resetMap() {
+  Object.assign(userAssignment, countyAssignment);
+  if (cPaths) {
+    cPaths
+      .classed('sel', false)
+      .attr('fill', d => {
+        const dist = DISTRICTS.find(x => x.id === userAssignment[d.id]);
+        return dist ? distColor(dist) : '#CBD5E1';
+      });
+  }
+  selDistrict = null;
+  document.getElementById('dd-empty').style.display = 'flex';
+  document.getElementById('dd-content').style.display = 'none';
+  switchTab('summary');
+  updateStats();
+}
+
+function showShare() {
+  const fake = `https://redrawthelines.vercel.app/?map=BZh91AY${Math.random().toString(36).substr(2,10)}`;
+  document.getElementById('share-url').value = fake;
+  document.getElementById('share-modal').classList.add('show');
+}
+
+function copyUrl() {
+  navigator.clipboard.writeText(document.getElementById('share-url').value).catch(() => {});
+  const btn = document.getElementById('copy-btn');
+  btn.textContent = 'Copied ✓';
+  setTimeout(() => btn.textContent = 'Copy', 1600);
+}
+
+// ═══════════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════════
+function switchTab(t) {
+  document.getElementById('pane-summary').style.display  = t === 'summary'  ? '' : 'none';
+  document.getElementById('pane-district').style.display = t === 'district' ? '' : 'none';
+  document.getElementById('tab-s').classList.toggle('active', t === 'summary');
+  document.getElementById('tab-d').classList.toggle('active', t === 'district');
+}
+
+// ═══════════════════════════════════════════════════════
+// TOUR
+// ═══════════════════════════════════════════════════════
+function startTour() {
+  tourStep = 0;
+  renderTourCard();
+  document.getElementById('tour-overlay').classList.add('on');
+}
+
+function renderTourCard() {
+  const s = TOUR[tourStep];
+  document.getElementById('tour-step-lbl').textContent = `Step ${tourStep+1} of ${TOUR.length}`;
+  document.getElementById('tour-title').textContent = s.title;
+  document.getElementById('tour-body').textContent = s.body;
+
+  const dots = document.getElementById('tour-dots');
+  dots.innerHTML = TOUR.map((_,i) => {
+    const cls = i < tourStep ? 'done' : i === tourStep ? 'cur' : 'fut';
+    return `<div class="tour-dot ${cls}"></div>`;
+  }).join('');
+
+  const prev = document.getElementById('tour-prev');
+  const next = document.getElementById('tour-next');
+  prev.style.display = tourStep === 0 ? 'none' : 'flex';
+
+  if (s.last) {
+    next.textContent = 'Start Exploring →';
+    next.onclick = endTour;
+  } else {
+    next.textContent = 'Next →';
+    next.onclick = () => tourNav(1);
+  }
+
+  // Highlight district on map
+  if (cPaths) {
+    cPaths.classed('sel', d => s.dist && userAssignment[d.id] === s.dist);
+  }
+}
+
+function tourNav(dir) {
+  tourStep = Math.max(0, Math.min(TOUR.length - 1, tourStep + dir));
+  renderTourCard();
+}
+
+function endTour() {
+  document.getElementById('tour-overlay').classList.remove('on');
+  if (cPaths) cPaths.classed('sel', false);
+  tourStep = -1;
+}
+
+// ═══════════════════════════════════════════════════════
+// RESIZE
+// ═══════════════════════════════════════════════════════
+window.addEventListener('resize', () => {
+  if (!counties) return;
+  const wrap = document.getElementById('map-wrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  svg.attr('width', W).attr('height', H);
+  const col = { type: 'FeatureCollection', features: counties };
+  projection.fitExtent([[36, 24], [W - 24, H - 28]], col);
+  pathGen = d3.geoPath().projection(projection);
+  renderMap();
+  renderSeatsCurve();
+});
+
+// ═══════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════
+initMapFull();
+</script>
+</body>
+</html>
