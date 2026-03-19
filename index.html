@@ -1,585 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redraw the Lines — Texas</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Redraw the Lines — Texas Congressional Redistricting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue-50:#EFF6FF;--blue-100:#DBEAFE;--blue-200:#BFDBFE;--blue-300:#93C5FD;
+  --blue-400:#60A5FA;--blue-500:#3B82F6;--blue-600:#2563EB;--blue-700:#1D4ED8;
+  --blue-800:#1E40AF;--blue-900:#1E3A5F;
+  --red-50:#FEF2F2;--red-100:#FEE2E2;--red-200:#FECACA;--red-300:#FCA5A5;
+  --red-400:#F87171;--red-500:#EF4444;--red-600:#DC2626;--red-700:#B91C1C;
+  --green-50:#ECFDF5;--green-400:#34D399;--green-500:#10B981;--green-600:#059669;
+  --amber-50:#FFFBEB;--amber-300:#FCD34D;--amber-400:#FBBF24;--amber-500:#F59E0B;--amber-600:#D97706;
+  --slate-50:#F8FAFC;--slate-100:#F1F5F9;--slate-200:#E2E8F0;--slate-300:#CBD5E1;
+  --slate-400:#94A3B8;--slate-500:#64748B;--slate-600:#475569;--slate-700:#334155;
+  --slate-800:#1E293B;--slate-900:#0F172A;
+  --f:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --r:6px;--rx:12px;--rl:10px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.05);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.13),0 4px 14px rgba(0,0,0,.08);
+}
+html,body{height:100%;overflow:hidden;background:#EEF5FF;}
+body{font-family:var(--f);color:var(--slate-900);font-size:14px;line-height:1.5;
+  display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--slate-200);border-radius:4px;}
 
-    :root {
-      --blue-50: #EFF6FF;
-      --blue-100: #DBEAFE;
-      --blue-200: #BFDBFE;
-      --blue-300: #93C5FD;
-      --blue-400: #60A5FA;
-      --blue-500: #3B82F6;
-      --blue-600: #2563EB;
-      --blue-700: #1D4ED8;
-      --blue-800: #1E40AF;
-      --blue-900: #1E3A5F;
-      --red-50: #FEF2F2;
-      --red-100: #FEE2E2;
-      --red-200: #FECACA;
-      --red-300: #FCA5A5;
-      --red-400: #F87171;
-      --red-500: #EF4444;
-      --red-600: #DC2626;
-      --red-700: #B91C1C;
-      --slate-50: #F8FAFC;
-      --slate-100: #F1F5F9;
-      --slate-200: #E2E8F0;
-      --slate-300: #CBD5E1;
-      --slate-400: #94A3B8;
-      --slate-500: #64748B;
-      --slate-600: #475569;
-      --slate-700: #334155;
-      --slate-800: #1E293B;
-      --slate-900: #0F172A;
-      --green-500: #10B981;
-      --green-600: #059669;
-      --amber-500: #F59E0B;
-      --f: 'Inter', -apple-system, sans-serif;
-      --r: 6px; --rl: 10px; --rx: 14px;
-      --sh: 0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
-      --shm: 0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.05);
-      --shl: 0 12px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.08);
-    }
+/* ─── TOOLBAR ─────────────────────────────────────────────────────── */
+.toolbar{
+  height:56px;background:#fff;border-bottom:1px solid var(--slate-200);
+  display:flex;align-items:center;padding:0 16px;gap:7px;flex-shrink:0;
+  box-shadow:0 1px 0 rgba(0,0,0,.03),var(--shadow-sm);z-index:100;
+}
+.logo{display:flex;align-items:center;gap:9px;user-select:none;flex-shrink:0;}
+.logo-mark{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--blue-600) 0%,var(--blue-800) 100%);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(37,99,235,.35);
+}
+.logo-text{line-height:1;white-space:nowrap;}
+.logo-title{display:block;font-size:14px;font-weight:750;color:var(--slate-900);letter-spacing:-.25px;}
+.logo-sub{display:block;font-size:10px;font-weight:500;color:var(--slate-400);
+  letter-spacing:.5px;text-transform:uppercase;margin-top:2px;}
+.tb-sep{width:1px;height:24px;background:var(--slate-200);flex-shrink:0;margin:0 2px;}
+.mode-toggle{
+  display:flex;background:var(--slate-100);border-radius:9px;padding:3px;gap:2px;flex-shrink:0;
+}
+.mode-btn{
+  display:flex;align-items:center;gap:4px;padding:5px 11px;border-radius:7px;border:none;
+  background:transparent;font-family:var(--f);font-size:12px;font-weight:500;
+  color:var(--slate-500);cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.mode-btn.active{
+  background:#fff;color:var(--slate-900);
+  box-shadow:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);
+}
+.mode-btn svg{flex-shrink:0;}
+.btn{
+  display:flex;align-items:center;gap:5px;padding:6px 11px;border-radius:var(--r);
+  border:1px solid var(--slate-200);background:#fff;font-family:var(--f);
+  font-size:12px;font-weight:500;color:var(--slate-700);cursor:pointer;
+  transition:all .14s;white-space:nowrap;flex-shrink:0;user-select:none;
+}
+.btn:hover{background:var(--slate-50);border-color:var(--slate-300);}
+.btn:active{transform:scale(.97);}
+.btn:disabled{opacity:.38;cursor:default;pointer-events:none;}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--slate-500);}
+.btn-ghost:hover{background:var(--slate-50);border-color:var(--slate-200);}
+.btn-primary{background:var(--blue-600);border-color:var(--blue-600);color:#fff;}
+.btn-primary:hover{background:var(--blue-700);border-color:var(--blue-700);}
+.btn-icon{padding:6px;width:30px;height:30px;justify-content:center;}
+.btn-tour{
+  background:var(--blue-600);border-color:transparent;color:#fff;
+  font-weight:600;position:relative;overflow:visible;
+}
+.btn-tour::after{
+  content:'';position:absolute;inset:-4px;
+  border-radius:calc(var(--r) + 4px);border:2px solid var(--blue-400);
+  animation:tour-ring 2.5s ease-out infinite;pointer-events:none;
+}
+@keyframes tour-ring{0%{opacity:0;transform:scale(.88);}40%{opacity:.55;}100%{opacity:0;transform:scale(1.14);}}
+.changes-pill{
+  display:none;align-items:center;gap:4px;padding:4px 9px;
+  background:linear-gradient(135deg,var(--amber-50),#FEF3C7);
+  border:1px solid var(--amber-300);border-radius:100px;
+  font-size:11px;font-weight:600;color:#92400E;white-space:nowrap;flex-shrink:0;
+}
+.changes-pill.show{display:flex;}
+.tb-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
 
-    html, body { height: 100%; overflow: hidden; background: #EEF5FF; }
+/* ─── LAYOUT ───────────────────────────────────────────────────────── */
+.main{flex:1;display:flex;overflow:hidden;}
 
-    body {
-      font-family: var(--f);
-      color: var(--slate-900);
-      font-size: 14px;
-      line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      -webkit-font-smoothing: antialiased;
-    }
+/* ─── MAP ──────────────────────────────────────────────────────────── */
+.map-wrap{flex:1;position:relative;overflow:hidden;background:#ddeeff;}
+#tx-svg{width:100%;height:100%;display:block;touch-action:none;}
+.map-hint{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,.93);backdrop-filter:blur(12px) saturate(1.6);
+  border:1px solid rgba(255,255,255,.85);border-radius:100px;
+  padding:7px 18px;font-size:12px;font-weight:500;color:var(--slate-600);
+  box-shadow:var(--shadow-md);white-space:nowrap;z-index:10;pointer-events:none;
+  transition:opacity .3s;
+}
+.map-hint b{color:var(--blue-600);}
+.map-loading{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;
+  background:#ddeeff;z-index:50;transition:opacity .5s;
+}
+.map-loading.out{opacity:0;pointer-events:none;}
+.loader{
+  width:36px;height:36px;border:3px solid rgba(37,99,235,.15);
+  border-top-color:var(--blue-600);border-radius:50%;
+  animation:spin .75s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.load-text{font-size:12.5px;font-weight:500;color:var(--slate-500);}
+.carnegie{
+  position:absolute;bottom:11px;right:13px;font-size:10px;
+  color:rgba(100,116,139,.38);font-weight:500;letter-spacing:.3px;pointer-events:none;
+}
+/* SVG paths */
+.precinct{cursor:pointer;pointer-events:all;stroke:rgba(255,255,255,.3);stroke-width:.35px;}
+.precinct:hover{filter:brightness(1.08);}
+.precinct.sel{stroke:#fff;stroke-width:1.6px;filter:brightness(1.06);}
+.precinct.edited{stroke:rgba(251,191,36,.55);stroke-width:.7px;}
+.precinct.sel.edited{stroke:#fff;stroke-width:1.6px;}
+.dist-border{fill:none;stroke:rgba(255,255,255,.78);stroke-width:1.5px;pointer-events:none;}
+.state-border{fill:none;stroke:rgba(30,58,95,.38);stroke-width:2px;pointer-events:none;}
+.dist-label{font-family:var(--f);pointer-events:none;paint-order:stroke fill;}
 
-    /* ── TOOLBAR ─────────────────────────────────────────── */
-    .toolbar {
-      height: 58px;
-      background: #fff;
-      border-bottom: 1px solid var(--slate-200);
-      display: flex;
-      align-items: center;
-      padding: 0 18px;
-      gap: 10px;
-      flex-shrink: 0;
-      z-index: 100;
-      box-shadow: 0 1px 0 var(--slate-100), var(--sh);
-    }
+/* ─── TOOLTIP ──────────────────────────────────────────────────────── */
+.tooltip{position:absolute;pointer-events:none;z-index:200;opacity:0;transition:opacity .1s;}
+.tooltip.show{opacity:1;}
+.tt{
+  background:#fff;border:1px solid var(--slate-200);border-radius:var(--rx);
+  padding:11px 13px;min-width:210px;box-shadow:var(--shadow-lg);
+}
+.tt-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.tt-dot{width:30px;height:30px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10.5px;font-weight:700;flex-shrink:0;}
+.tt-name{font-size:13px;font-weight:600;color:var(--slate-900);}
+.tt-meta{font-size:11px;color:var(--slate-400);margin-top:1px;}
+.tt-row{display:flex;justify-content:space-between;font-size:11.5px;
+  color:var(--slate-500);padding:2px 0;}
+.tt-val{font-weight:600;color:var(--slate-800);}
+.vote-mini{height:7px;border-radius:4px;overflow:hidden;display:flex;
+  width:100%;margin:6px 0 3px;background:var(--slate-100);}
+.vote-mini>div{height:100%;}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      user-select: none;
-      margin-right: 6px;
-    }
+/* ─── PAINT PALETTE ────────────────────────────────────────────────── */
+.paint-palette{
+  position:absolute;top:68px;left:13px;background:#fff;
+  border:1px solid var(--slate-200);border-radius:var(--rx);
+  padding:12px;box-shadow:var(--shadow-md);z-index:20;
+  display:none;flex-direction:column;gap:8px;min-width:188px;
+}
+.paint-palette.show{display:flex;}
+.pal-label{font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--slate-400);}
+.pal-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;}
+.p-sw{
+  width:21px;height:21px;border-radius:4px;cursor:pointer;
+  transition:transform .1s;border:2px solid transparent;
+  font-size:6.5px;font-weight:700;color:rgba(255,255,255,.7);
+  display:flex;align-items:center;justify-content:center;
+}
+.p-sw:hover{transform:scale(1.18);}
+.p-sw.active{border-color:var(--slate-900);transform:scale(1.15);}
 
-    .logo-mark {
-      width: 34px; height: 34px;
-      background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
-      border-radius: var(--rl);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(37,99,235,.3);
-    }
+/* ─── COMPARE ──────────────────────────────────────────────────────── */
+#cmp-strip{
+  position:absolute;top:50px;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-500) 50%,var(--red-500) 50%);
+  z-index:10;display:none;
+}
+#cmp-line{position:absolute;top:0;bottom:0;left:50%;width:2px;
+  background:rgba(15,23,42,.2);z-index:10;display:none;}
+.cmp-lbl{
+  position:absolute;top:60px;z-index:12;
+  background:rgba(15,23,42,.68);color:#fff;font-size:11px;font-weight:600;
+  padding:4px 12px;border-radius:100px;display:none;letter-spacing:.3px;
+}
+#cmp-l{left:13px;}#cmp-r{right:13px;}
 
-    .logo-text { display: flex; flex-direction: column; line-height: 1; white-space: nowrap; }
-    .logo-title { font-size: 14.5px; font-weight: 700; color: var(--slate-900); letter-spacing: -.3px; }
-    .logo-sub { font-size: 10.5px; font-weight: 500; color: var(--slate-400); letter-spacing: .4px; text-transform: uppercase; margin-top: 2px; white-space: nowrap; }
+/* ─── TOUR OVERLAY ─────────────────────────────────────────────────── */
+.tour-ov{position:absolute;inset:0;z-index:300;pointer-events:none;opacity:0;transition:opacity .25s;}
+.tour-ov.on{opacity:1;pointer-events:all;}
+.tour-bg{position:absolute;inset:0;background:rgba(15,23,42,.48);backdrop-filter:blur(1.5px);}
+.tour-card{
+  position:absolute;bottom:68px;left:50%;transform:translateX(-50%);
+  width:490px;max-width:calc(100vw-60px);background:#fff;
+  border-radius:20px;padding:24px 26px;
+  box-shadow:0 24px 64px rgba(0,0,0,.22),0 4px 16px rgba(0,0,0,.1);
+}
+.t-dots{display:flex;gap:5px;margin-bottom:13px;}
+.t-dot{height:5px;border-radius:3px;background:var(--slate-200);transition:all .2s;}
+.t-dot.done{background:var(--blue-300);width:12px;}
+.t-dot.cur{background:var(--blue-600);width:20px;}
+.t-dot.fut{width:5px;}
+.t-step-lbl{font-size:10px;font-weight:700;color:var(--blue-500);
+  text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;}
+.tour-card h3{font-size:17px;font-weight:750;color:var(--slate-900);
+  margin-bottom:8px;line-height:1.3;}
+.tour-card p{font-size:13px;color:var(--slate-600);line-height:1.68;margin-bottom:18px;}
+.t-foot{display:flex;justify-content:space-between;align-items:center;}
+.t-skip{font-size:12px;color:var(--slate-400);cursor:pointer;padding:4px;}
+.t-skip:hover{color:var(--slate-600);}
+.t-nav{display:flex;gap:8px;}
 
-    .tb-div { width: 1px; height: 26px; background: var(--slate-200); flex-shrink: 0; }
+/* ─── SHARE MODAL ──────────────────────────────────────────────────── */
+.modal-bg{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(15,23,42,.42);backdrop-filter:blur(3px);
+  align-items:center;justify-content:center;
+}
+.modal-bg.show{display:flex;}
+.modal{
+  background:#fff;border-radius:20px;padding:26px;width:450px;max-width:calc(100vw-32px);
+  box-shadow:var(--shadow-lg);animation:pop-in .18s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes pop-in{from{opacity:0;transform:scale(.94) translateY(10px);}}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:5px;}
+.modal-sub{font-size:12.5px;color:var(--slate-500);margin-bottom:16px;}
+.modal-input-row{display:flex;gap:8px;}
+.url-box{
+  flex:1;background:var(--slate-50);border:1px solid var(--slate-200);
+  border-radius:var(--r);padding:8px 11px;font-size:11.5px;font-family:'Courier New',monospace;
+  color:var(--slate-600);outline:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.kbd-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px;
+  padding-top:14px;border-top:1px solid var(--slate-100);}
+.kbd-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate-500);}
+.kbd{
+  background:var(--slate-100);border:1px solid var(--slate-300);border-bottom-width:2px;
+  border-radius:4px;padding:1px 6px;font-size:10px;font-family:monospace;color:var(--slate-700);
+}
+.modal-foot{display:flex;justify-content:flex-end;margin-top:14px;}
 
-    /* Mode toggle */
-    .mode-toggle {
-      display: flex;
-      background: var(--slate-100);
-      border-radius: 9px;
-      padding: 3px;
-      gap: 2px;
-    }
+/* ─── SIDEBAR ──────────────────────────────────────────────────────── */
+.sidebar{
+  width:356px;flex-shrink:0;background:#fff;
+  border-left:1px solid var(--slate-200);display:flex;flex-direction:column;overflow:hidden;
+}
+.sb-tabs{display:flex;border-bottom:1px solid var(--slate-200);padding:0 16px;flex-shrink:0;}
+.sb-tab{
+  padding:12px 14px;font-size:12.5px;font-weight:500;color:var(--slate-500);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:all .14s;user-select:none;
+}
+.sb-tab.active{color:var(--blue-600);border-bottom-color:var(--blue-600);}
+.sb-tab:hover:not(.active){color:var(--slate-700);}
+.sb-body{flex:1;overflow-y:auto;padding:17px 15px;scroll-behavior:smooth;}
+.sec{margin-bottom:17px;}
+.sl{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;
+  color:var(--slate-400);margin-bottom:7px;display:flex;align-items:center;gap:5px;
+}
+.info-tip{
+  cursor:help;color:var(--blue-400);font-size:11px;font-weight:400;
+  display:inline-flex;align-items:center;
+}
 
-    .mode-btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 6px 13px;
-      border-radius: 7px; border: none;
-      background: transparent;
-      font-family: var(--f); font-size: 12.5px; font-weight: 500;
-      color: var(--slate-500); cursor: pointer;
-      transition: all .15s ease;
-      white-space: nowrap;
-    }
-    .mode-btn.active {
-      background: #fff; color: var(--slate-900);
-      box-shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-    }
-    .mode-btn svg { flex-shrink: 0; }
+/* Cards */
+.card{
+  background:var(--slate-50);border:1px solid var(--slate-200);
+  border-radius:var(--rx);padding:13px 15px;
+}
+.card-white{
+  background:#fff;border:1px solid var(--slate-200);border-radius:var(--rx);
+  padding:13px 15px;box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
 
-    /* Toolbar buttons */
-    .tb-actions { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+/* Seats */
+.seat-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.seat-block{text-align:center;flex:1;}
+.seat-n{
+  display:block;font-size:42px;font-weight:800;line-height:1;
+  letter-spacing:-2px;transition:color .4s;font-variant-numeric:tabular-nums;
+}
+.seat-n.d{color:var(--blue-600);}
+.seat-n.r{color:var(--red-600);}
+.seat-lbl{display:block;font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--slate-400);margin-top:4px;}
+.seat-div{width:1px;height:44px;background:var(--slate-200);flex-shrink:0;}
+.seat-bar{height:7px;border-radius:4px;overflow:hidden;display:flex;width:100%;}
+.sbar-d{background:var(--blue-500);transition:width .6s cubic-bezier(.4,0,.2,1);height:100%;}
+.sbar-r{background:var(--red-500);height:100%;flex:1;}
+.seat-sub{display:flex;justify-content:space-between;font-size:10.5px;color:var(--slate-400);margin-top:5px;}
 
-    .btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 7px 13px;
-      border-radius: var(--r); border: 1px solid var(--slate-200);
-      background: #fff;
-      font-family: var(--f); font-size: 12.5px; font-weight: 500;
-      color: var(--slate-700); cursor: pointer;
-      transition: all .15s ease;
-      white-space: nowrap;
-    }
-    .btn:hover { background: var(--slate-50); border-color: var(--slate-300); }
-    .btn:active { transform: scale(.98); }
+/* EG */
+.eg-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.eg-numrow{display:flex;align-items:baseline;gap:2px;}
+.eg-num{font-size:46px;font-weight:800;line-height:1;letter-spacing:-2px;
+  transition:color .4s;font-variant-numeric:tabular-nums;}
+.eg-pct{font-size:22px;font-weight:600;color:var(--slate-300);}
+.eg-num.green{color:var(--green-600);}
+.eg-num.amber{color:var(--amber-500);}
+.eg-num.red{color:var(--red-600);}
+.eg-chip{
+  display:inline-flex;align-items:center;gap:3px;padding:4px 10px;
+  border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.2px;transition:all .3s;
+}
+.eg-chip.green{background:var(--green-50);color:#065F46;border:1px solid #A7F3D0;}
+.eg-chip.amber{background:var(--amber-50);color:#92400E;border:1px solid var(--amber-300);}
+.eg-chip.red{background:var(--red-50);color:var(--red-700);border:1px solid var(--red-200);}
+.eg-scale{position:relative;margin-bottom:10px;}
+.eg-bar{height:7px;border-radius:4px;overflow:hidden;display:flex;width:100%;}
+.eg-bar>div.gn{flex:4;background:var(--green-500);}
+.eg-bar>div.am{flex:3;background:var(--amber-500);}
+.eg-bar>div.rd{flex:3;background:var(--red-500);}
+.eg-track{height:2px;background:var(--slate-100);border-radius:2px;margin:7px 0 4px;position:relative;}
+.eg-needle{
+  position:absolute;width:12px;height:12px;background:#fff;border-radius:50%;
+  top:-5px;transform:translateX(-50%);
+  border:2.5px solid var(--red-600);box-shadow:0 1px 6px rgba(0,0,0,.22);
+  transition:left .65s cubic-bezier(.4,0,.2,1);
+}
+.eg-ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--slate-400);margin-top:2px;}
+.eg-desc{font-size:11.5px;color:var(--slate-500);line-height:1.6;
+  margin-top:9px;border-top:1px solid var(--slate-100);padding-top:9px;}
+@keyframes eg-flash{
+  0%,100%{box-shadow:none;}
+  30%,70%{box-shadow:inset 0 0 0 2px var(--red-300);}
+}
+.eg-flash{animation:eg-flash .7s ease 1;}
 
-    .btn-ghost {
-      background: transparent; border-color: transparent; color: var(--slate-600);
-    }
-    .btn-ghost:hover { background: var(--slate-50); border-color: var(--slate-200); }
+/* Seat-vote gap */
+.svgap-txt{font-size:12.5px;color:var(--slate-700);line-height:1.65;}
+.svgap-hl{font-weight:700;color:var(--red-600);}
+.svgap-pill{
+  display:inline-flex;align-items:center;gap:3px;background:var(--red-50);
+  color:var(--red-700);font-size:11.5px;font-weight:600;padding:3px 10px;
+  border-radius:100px;border:1px solid var(--red-200);margin-top:7px;transition:all .3s;
+}
+.svgap-pill.good{background:var(--green-50);color:#065F46;border-color:#A7F3D0;}
 
-    .btn-primary {
-      background: var(--blue-600); border-color: var(--blue-600); color: #fff;
-    }
-    .btn-primary:hover { background: var(--blue-700); border-color: var(--blue-700); }
+/* Packed/cracked */
+.pc-grid{display:flex;gap:8px;}
+.pc-box{flex:1;background:#fff;border:1px solid var(--slate-200);
+  border-radius:var(--rx);padding:11px;text-align:center;}
+.pc-n{font-size:32px;font-weight:800;letter-spacing:-1px;display:block;
+  line-height:1;transition:all .4s;font-variant-numeric:tabular-nums;}
+.pc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+  color:var(--slate-400);display:block;margin-top:3px;}
+.pc-def{font-size:10px;color:var(--slate-400);margin-top:3px;line-height:1.4;}
 
-    .btn-tour {
-      background: var(--blue-600); border-color: transparent; color: #fff;
-      font-weight: 600; font-size: 12.5px;
-      padding: 7px 14px;
-      position: relative;
-    }
-    .btn-tour::after {
-      content: ''; position: absolute; inset: -4px;
-      border-radius: calc(var(--r) + 4px);
-      border: 2px solid var(--blue-400);
-      animation: tour-ring 2.5s ease-out infinite;
-      pointer-events: none;
-    }
-    @keyframes tour-ring {
-      0% { opacity: 0; transform: scale(.9); }
-      40% { opacity: .5; }
-      100% { opacity: 0; transform: scale(1.12); }
-    }
+/* Seats curve */
+.curve-wrap{background:var(--slate-50);border:1px solid var(--slate-200);
+  border-radius:var(--rx);padding:11px 11px 7px;overflow:hidden;}
 
-    /* ── MAIN AREA ───────────────────────────────────────── */
-    .main { flex: 1; display: flex; overflow: hidden; }
+/* Fairness reference panel */
+.ref-hdr{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.ref-chevron{font-size:11px;color:var(--slate-300);transition:transform .22s;}
+.ref-chevron.open{transform:rotate(180deg);}
+.ref-body{overflow:hidden;max-height:0;transition:max-height .32s ease;}
+.ref-body.open{max-height:600px;}
+.ref-intro{font-size:11.5px;color:var(--slate-500);line-height:1.55;
+  margin:9px 0 10px;}
+.ref-row{display:flex;align-items:center;gap:7px;padding:5px 0;
+  border-bottom:1px solid var(--slate-100);}
+.ref-row:last-child{border-bottom:none;}
+.ref-name{font-size:11px;color:var(--slate-600);font-weight:500;width:114px;flex-shrink:0;line-height:1.3;}
+.ref-name.you{color:var(--slate-900);font-weight:700;}
+.ref-track{flex:1;height:5px;background:var(--slate-100);border-radius:3px;overflow:hidden;}
+.ref-fill{height:100%;border-radius:3px;transition:width .5s ease;}
+.ref-pct{font-size:11px;font-weight:700;width:34px;text-align:right;flex-shrink:0;}
+.ref-badge{
+  font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;
+  flex-shrink:0;text-transform:uppercase;letter-spacing:.3px;
+}
+.ref-badge.ok{background:var(--green-50);color:#065F46;border:1px solid #A7F3D0;}
+.ref-badge.warn{background:var(--amber-50);color:#92400E;border:1px solid var(--amber-300);}
+.ref-badge.bad{background:var(--red-50);color:var(--red-700);border:1px solid var(--red-200);}
+.ref-badge.curr{background:var(--blue-50);color:var(--blue-700);border:1px solid var(--blue-200);}
+.ref-threshold-row{
+  display:flex;align-items:center;gap:7px;padding:4px 0;
+  font-size:9.5px;font-weight:700;color:#92400E;
+}
+.ref-threshold-line{flex:1;height:1px;background:var(--amber-400);opacity:.5;}
 
-    /* Map */
-    .map-wrap {
-      flex: 1; position: relative; overflow: hidden;
-      background: #E8F3FF;
-    }
-
-    .map-wrap svg { width: 100%; height: 100%; display: block; }
-
-    /* Banner */
-    .map-banner {
-      position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(10px) saturate(1.5);
-      border: 1px solid rgba(255,255,255,.8);
-      border-radius: 100px;
-      padding: 8px 20px;
-      font-size: 12.5px; font-weight: 500; color: var(--slate-600);
-      box-shadow: var(--shm); white-space: nowrap; z-index: 10;
-      pointer-events: none;
-    }
-    .map-banner b { color: var(--blue-600); font-weight: 600; }
-
-    /* Loading */
-    .map-loading {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 14px; background: #E8F3FF; z-index: 50;
-      transition: opacity .4s ease;
-    }
-    .map-loading.hidden { opacity: 0; pointer-events: none; }
-
-    .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid var(--blue-100);
-      border-top-color: var(--blue-600);
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .loading-text { font-size: 13px; color: var(--slate-500); font-weight: 500; }
-
-    /* Tooltip */
-    .tooltip {
-      position: absolute; pointer-events: none; z-index: 200;
-      opacity: 0; transition: opacity .12s ease;
-    }
-    .tooltip.show { opacity: 1; }
-
-    .tt-card {
-      background: #fff;
-      border: 1px solid var(--slate-200);
-      border-radius: var(--rx);
-      padding: 12px 14px;
-      min-width: 210px;
-      box-shadow: var(--shl);
-    }
-
-    .tt-header {
-      display: flex; align-items: center; gap: 9px; margin-bottom: 9px;
-    }
-
-    .tt-badge {
-      width: 30px; height: 30px; border-radius: var(--r);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; flex-shrink: 0;
-    }
-
-    .tt-name { font-size: 13px; font-weight: 600; color: var(--slate-900); }
-    .tt-sub { font-size: 11px; color: var(--slate-400); margin-top: 1px; }
-
-    .tt-row {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 12px; color: var(--slate-500); padding: 2px 0;
-    }
-    .tt-val { font-weight: 600; color: var(--slate-800); }
-
-    .vote-bar {
-      height: 8px; border-radius: 4px; overflow: hidden;
-      display: flex; width: 100%; margin: 7px 0 4px;
-      background: var(--slate-100);
-    }
-    .vote-bar > div { height: 100%; transition: width .3s ease; }
-
-    /* Watermarks */
-    .watermark {
-      position: absolute; bottom: 14px; left: 14px;
-      font-size: 10.5px; color: rgba(100,116,139,.6);
-      font-weight: 500; letter-spacing: .3px; pointer-events: none;
-    }
-
-    .carnegie {
-      position: absolute; bottom: 12px; right: 14px;
-      font-size: 10px; font-weight: 500; color: rgba(100,116,139,.45);
-      letter-spacing: .3px;
-      pointer-events: none;
-    }
-
-    /* County / district paths */
-    .county { stroke: rgba(255,255,255,.35); stroke-width: .4px; cursor: pointer; pointer-events: all; }
-    .county:hover { filter: brightness(1.08); }
-    .county.sel { stroke: #fff; stroke-width: 1.8px; filter: brightness(1.06); }
-    .district-edge { fill: none; stroke: rgba(255,255,255,.8); stroke-width: 1.6px; pointer-events: none; }
-    .state-border { fill: none; stroke: rgba(30,58,95,.4); stroke-width: 2px; pointer-events: none; }
-    .district-label { font-family: var(--f); pointer-events: none; paint-order: stroke; }
-    #tx-svg { touch-action: none; }
-
-    /* ── SIDEBAR ─────────────────────────────────────────── */
-    .sidebar {
-      width: 348px; flex-shrink: 0;
-      background: #fff; border-left: 1px solid var(--slate-200);
-      display: flex; flex-direction: column; overflow: hidden;
-    }
-
-    .sb-tabs {
-      display: flex; border-bottom: 1px solid var(--slate-200);
-      padding: 0 16px; flex-shrink: 0;
-    }
-    .sb-tab {
-      padding: 13px 14px; font-size: 12.5px; font-weight: 500;
-      color: var(--slate-500); cursor: pointer;
-      border-bottom: 2px solid transparent; margin-bottom: -1px;
-      transition: all .15s; user-select: none;
-    }
-    .sb-tab.active { color: var(--blue-600); border-bottom-color: var(--blue-600); }
-    .sb-tab:hover:not(.active) { color: var(--slate-700); }
-
-    .sb-body {
-      flex: 1; overflow-y: auto; padding: 18px 16px;
-      scroll-behavior: smooth;
-    }
-    .sb-body::-webkit-scrollbar { width: 4px; }
-    .sb-body::-webkit-scrollbar-track { background: transparent; }
-    .sb-body::-webkit-scrollbar-thumb { background: var(--slate-200); border-radius: 2px; }
-
-    /* Section label */
-    .sl {
-      font-size: 10.5px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .6px; color: var(--slate-400); margin-bottom: 7px;
-    }
-    .section { margin-bottom: 18px; }
-
-    /* Card */
-    .card {
-      background: var(--slate-50);
-      border: 1px solid var(--slate-200);
-      border-radius: var(--rx);
-      padding: 14px 16px;
-    }
-    .card-white {
-      background: #fff;
-      border: 1px solid var(--slate-200);
-      border-radius: var(--rx);
-      padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.04);
-    }
-
-    /* Seat count */
-    .seat-row {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px;
-    }
-    .seat-block { text-align: center; flex: 1; }
-    .seat-n {
-      display: block; font-size: 40px; font-weight: 800; line-height: 1;
-      letter-spacing: -1.5px;
-    }
-    .seat-n.d { color: var(--blue-600); }
-    .seat-n.r { color: var(--red-600); }
-    .seat-lbl {
-      display: block; font-size: 10px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .6px; color: var(--slate-400);
-      margin-top: 4px;
-    }
-    .seat-mid {
-      color: var(--slate-200); font-size: 28px; font-weight: 300;
-      align-self: center; flex-shrink: 0; line-height: 1; padding: 0 8px;
-    }
-    .seat-bar {
-      height: 8px; border-radius: 4px; overflow: hidden;
-      display: flex; width: 100%;
-    }
-    .sb-d { background: var(--blue-500); transition: width .5s ease; height: 100%; }
-    .sb-r { background: var(--red-500); transition: width .5s ease; height: 100%; flex: 1; }
-    .seat-sublbl {
-      display: flex; justify-content: space-between;
-      font-size: 10.5px; color: var(--slate-400); margin-top: 5px;
-    }
-
-    /* Efficiency gap */
-    .eg-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-    .eg-num-row { display: flex; align-items: baseline; gap: 3px; }
-    .eg-num {
-      font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -2px;
-    }
-    .eg-pct { font-size: 20px; font-weight: 600; color: var(--slate-300); }
-    .eg-num.green { color: var(--green-600); }
-    .eg-num.amber { color: var(--amber-500); }
-    .eg-num.red { color: var(--red-600); }
-
-    .eg-chip {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 4px 10px; border-radius: 100px;
-      font-size: 11px; font-weight: 600; letter-spacing: .2px;
-    }
-    .eg-chip.red { background: var(--red-50); color: var(--red-700); border: 1px solid var(--red-200); }
-    .eg-chip.amber { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
-    .eg-chip.green { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
-
-    .eg-scale-wrap { position: relative; margin-bottom: 12px; }
-    .eg-scale-bar {
-      height: 7px; border-radius: 4px; overflow: hidden; display: flex; width: 100%;
-    }
-    .eg-green { flex: 4; background: var(--green-500); }
-    .eg-amber { flex: 3; background: var(--amber-500); }
-    .eg-red { flex: 3; background: var(--red-500); }
-
-    .eg-needle-track {
-      height: 2px; background: var(--slate-100); border-radius: 2px;
-      margin: 7px 0 4px; position: relative; width: 100%;
-    }
-    .eg-needle {
-      position: absolute; width: 12px; height: 12px;
-      background: var(--red-600); border-radius: 50%;
-      top: -5px; transform: translateX(-50%);
-      border: 2.5px solid #fff;
-      box-shadow: 0 1px 6px rgba(0,0,0,.25);
-      transition: left .5s ease;
-    }
-    .eg-ticks {
-      display: flex; justify-content: space-between;
-      font-size: 10px; color: var(--slate-400); margin-top: 3px;
-    }
-    .eg-desc { font-size: 11.5px; color: var(--slate-500); line-height: 1.6; margin-top: 8px; border-top: 1px solid var(--slate-100); padding-top: 8px; }
-
-    /* Seat-vote gap */
-    .svgap-text { font-size: 12.5px; color: var(--slate-700); line-height: 1.65; }
-    .svgap-hl { font-weight: 700; color: var(--red-600); }
-    .svgap-pill {
-      display: inline-flex; align-items: center; gap: 3px;
-      background: var(--red-50); color: var(--red-700);
-      font-size: 11.5px; font-weight: 600;
-      padding: 3px 10px; border-radius: 100px;
-      border: 1px solid var(--red-200); margin-top: 7px;
-    }
-
-    /* Packed/cracked */
-    .pc-grid { display: flex; gap: 8px; }
-    .pc-box {
-      flex: 1; background: #fff; border: 1px solid var(--slate-200);
-      border-radius: var(--rx); padding: 12px; text-align: center;
-    }
-    .pc-n { font-size: 30px; font-weight: 800; letter-spacing: -1px; display: block; line-height: 1; }
-    .pc-lbl {
-      font-size: 10.5px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .5px; color: var(--slate-400); display: block; margin-top: 3px;
-    }
-    .pc-def { font-size: 10px; color: var(--slate-400); margin-top: 4px; line-height: 1.4; }
-
-    /* Seats curve */
-    .curve-wrap {
-      background: var(--slate-50); border: 1px solid var(--slate-200);
-      border-radius: var(--rx); padding: 12px 12px 8px;
-    }
-
-    /* District detail */
-    .dd-empty {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      height: 100%; gap: 12px; color: var(--slate-400); text-align: center; padding: 40px 20px;
-    }
-    .dd-empty p { font-size: 13px; color: var(--slate-500); font-weight: 500; }
-    .dd-empty span { font-size: 12px; color: var(--slate-400); margin-top: 4px; line-height: 1.5; display: block; }
-
-    .dd-header {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px 16px; border-bottom: 1px solid var(--slate-100);
-      margin: -18px -16px 16px;
-    }
-    .dd-badge {
-      width: 48px; height: 48px; border-radius: var(--rl);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 700; flex-shrink: 0;
-    }
-    .dd-title { font-size: 17px; font-weight: 700; color: var(--slate-900); }
-    .dd-sub { font-size: 12px; color: var(--slate-400); margin-top: 2px; }
-
-    .dd-row {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 12.5px; color: var(--slate-600); padding: 5px 0;
-    }
-    .dd-val { font-weight: 600; color: var(--slate-900); }
-
-    .demo-bar { height: 10px; border-radius: 5px; overflow: hidden; display: flex; width: 100%; background: var(--slate-100); }
-    .demo-bar > div { height: 100%; }
-    .demo-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; }
-    .demo-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--slate-600); }
-    .demo-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-    /* Tour overlay */
-    .tour-overlay {
-      position: absolute; inset: 0; z-index: 300;
-      pointer-events: none; opacity: 0; transition: opacity .25s ease;
-    }
-    .tour-overlay.on { opacity: 1; pointer-events: all; }
-
-    .tour-backdrop {
-      position: absolute; inset: 0;
-      background: rgba(15,23,42,.45);
-      backdrop-filter: blur(1px);
-    }
-
-    .tour-card {
-      position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%);
-      width: 460px; background: #fff;
-      border-radius: 18px; padding: 22px 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 4px 16px rgba(0,0,0,.1);
-    }
-
-    .tour-dots { display: flex; gap: 5px; margin-bottom: 14px; }
-    .tour-dot {
-      height: 5px; border-radius: 3px;
-      background: var(--slate-200); transition: all .2s ease;
-    }
-    .tour-dot.done { background: var(--blue-300); width: 12px; }
-    .tour-dot.cur { background: var(--blue-600); width: 20px; }
-    .tour-dot.fut { width: 5px; }
-
-    .tour-step-lbl { font-size: 10.5px; font-weight: 600; color: var(--blue-500); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 5px; }
-    .tour-card h3 { font-size: 17px; font-weight: 700; color: var(--slate-900); margin-bottom: 7px; line-height: 1.3; }
-    .tour-card p { font-size: 13px; color: var(--slate-600); line-height: 1.65; margin-bottom: 18px; }
-    .tour-footer { display: flex; justify-content: space-between; align-items: center; }
-    .tour-skip { font-size: 12px; color: var(--slate-400); cursor: pointer; padding: 4px; }
-    .tour-skip:hover { color: var(--slate-600); }
-    .tour-nav { display: flex; gap: 8px; }
-
-    /* Share modal */
-    .modal-bg {
-      display: none; position: fixed; inset: 0; z-index: 500;
-      background: rgba(15,23,42,.4); backdrop-filter: blur(2px);
-      align-items: center; justify-content: center;
-    }
-    .modal-bg.show { display: flex; }
-    .modal {
-      background: #fff; border-radius: 18px; padding: 24px; width: 420px;
-      box-shadow: var(--shl); animation: modal-in .18s ease;
-    }
-    @keyframes modal-in { from { opacity:0; transform: scale(.96) translateY(8px); } }
-    .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .modal p { font-size: 12.5px; color: var(--slate-500); margin-bottom: 16px; }
-    .modal-input-row { display: flex; gap: 8px; }
-    .url-input {
-      flex: 1; background: var(--slate-50); border: 1px solid var(--slate-200);
-      border-radius: var(--r); padding: 8px 12px;
-      font-size: 12px; font-family: monospace; color: var(--slate-600);
-      outline: none;
-    }
-    .modal-footer { display: flex; justify-content: flex-end; margin-top: 16px; }
-
-    /* Paint palette */
-    .paint-palette {
-      position: absolute; top: 70px; left: 14px;
-      background: #fff; border: 1px solid var(--slate-200);
-      border-radius: var(--rx); padding: 12px;
-      box-shadow: var(--shm); z-index: 20;
-      display: none; flex-direction: column; gap: 8px;
-      min-width: 180px;
-    }
-    .paint-palette.show { display: flex; }
-    .palette-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--slate-400); }
-    .palette-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; }
-    .p-swatch {
-      width: 22px; height: 22px; border-radius: 4px; cursor: pointer;
-      transition: transform .1s; border: 2px solid transparent;
-      font-size: 7px; font-weight: 700; color: rgba(255,255,255,.7);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .p-swatch:hover { transform: scale(1.2); }
-    .p-swatch.active { border-color: var(--slate-900); transform: scale(1.15); }
-
-    /* Compare banner */
-    #compare-strip {
-      position: absolute; top: 52px; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--blue-500) 50%, var(--red-500) 50%);
-      z-index: 10; display: none;
-    }
-    #compare-line {
-      position: absolute; top: 0; bottom: 0; left: 50%;
-      width: 2px; background: rgba(15,23,42,.25);
-      z-index: 10; display: none;
-    }
-    #compare-l-label, #compare-r-label {
-      position: absolute; top: 62px; z-index: 12;
-      background: rgba(15,23,42,.7); color: #fff;
-      font-size: 11px; font-weight: 600; padding: 4px 12px;
-      border-radius: 100px; display: none; letter-spacing: .3px;
-    }
-    #compare-l-label { left: 14px; }
-    #compare-r-label { right: 14px; }
-  </style>
+/* District detail */
+.dd-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:200px;gap:12px;padding:40px 20px;text-align:center;
+}
+.dd-empty p{font-size:13px;font-weight:500;color:var(--slate-500);}
+.dd-empty small{font-size:12px;color:var(--slate-400);line-height:1.5;display:block;margin-top:3px;}
+.dd-head{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 15px;border-bottom:1px solid var(--slate-100);
+  margin:-17px -15px 16px;
+}
+.dd-badge{
+  width:46px;height:46px;border-radius:var(--rl);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;
+}
+.dd-title{font-size:16.5px;font-weight:750;color:var(--slate-900);}
+.dd-sub{font-size:11.5px;color:var(--slate-400);margin-top:2px;}
+.dd-row{display:flex;justify-content:space-between;align-items:center;
+  font-size:12.5px;color:var(--slate-600);padding:4px 0;}
+.dd-val{font-weight:600;color:var(--slate-900);}
+.demo-bar{height:9px;border-radius:5px;overflow:hidden;display:flex;
+  width:100%;background:var(--slate-100);}
+.demo-bar>div{height:100%;}
+.demo-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:7px;}
+.demo-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--slate-600);}
+.demo-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.prog-bar{height:5px;background:var(--slate-100);border-radius:3px;overflow:hidden;margin-top:6px;}
+.prog-fill{height:100%;border-radius:3px;transition:width .45s;}
+.dev-bar-wrap{height:5px;background:var(--slate-100);border-radius:3px;
+  overflow:hidden;margin-top:6px;position:relative;}
+.dev-bar-fill{height:100%;position:absolute;transition:all .45s;}
+.dev-bar-mid{position:absolute;left:50%;width:2px;height:100%;
+  background:var(--slate-300);transform:translateX(-50%);}
+</style>
 </head>
 <body>
 
-<!-- ─── TOOLBAR ─────────────────────────────────────────── -->
+<!-- ─── TOOLBAR ──────────────────────────────────────────────────────── -->
 <div class="toolbar">
   <div class="logo">
     <div class="logo-mark">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M3 13L6.5 5L9.5 9.5L12.5 6L15 10" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M3 13H15" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+        <path d="M2.5 12.5L6 4.5L9 9L12 5.5L14.5 9.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2.5 12.5H14.5" stroke="rgba(255,255,255,.45)" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
     </div>
     <div class="logo-text">
@@ -588,1052 +444,1375 @@
     </div>
   </div>
 
-  <div class="tb-div"></div>
+  <div class="tb-sep"></div>
 
   <div class="mode-toggle">
-    <button class="mode-btn active" id="btn-click" onclick="setMode('click')">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4.5 1.5v7.5l2-2 1.5 3 1.2-.6-1.5-3H10l-5.5-4.9z"/>
+    <button class="mode-btn active" id="btn-click" onclick="setMode('click')" title="Click mode (Space)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 1.5v7l1.8-1.8 1.4 2.8 1-.5-1.4-2.8H9L4 1.5z"/>
       </svg>
       Click
     </button>
-    <button class="mode-btn" id="btn-paint" onclick="setMode('paint')">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 1.5l3.5 3.5-5.5 5.5-3.5-.5-.5-3.5L8 1.5z"/>
-        <circle cx="2.5" cy="10.5" r="1.2" fill="currentColor" stroke="none"/>
+    <button class="mode-btn" id="btn-paint" onclick="setMode('paint')" title="Paint mode (Space)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7.5 1.5l3 3-5 5-3-.4-.4-3 5.4-4.6z"/>
+        <circle cx="2.5" cy="9.5" r="1.1" fill="currentColor" stroke="none"/>
       </svg>
       Paint
     </button>
   </div>
 
-  <div class="tb-div"></div>
+  <div class="tb-sep"></div>
 
-  <div class="tb-actions">
-    <button class="btn" id="btn-compare" onclick="toggleCompare()">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <path d="M6.5 2v9M2 6.5h9"/>
+  <button class="btn btn-icon btn-ghost" id="btn-undo" onclick="undo()" title="Undo (Ctrl+Z)" disabled>
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 2v4h4M2 6A5 5 0 1 1 3.6 10"/>
+    </svg>
+  </button>
+  <button class="btn btn-icon btn-ghost" id="btn-redo" onclick="redo()" title="Redo (Ctrl+Y)" disabled>
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 2v4H7M11 6A5 5 0 1 0 9.4 10"/>
+    </svg>
+  </button>
+
+  <div class="changes-pill" id="changes-pill">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M1 5h8M5 1l4 4-4 4"/>
+    </svg>
+    <span id="n-changes">0</span> edits
+  </div>
+
+  <div class="tb-right">
+    <button class="btn" id="btn-compare" onclick="toggleCompare()" title="Compare official vs your map">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M6 1v10M1 6h10"/>
       </svg>
       Compare
     </button>
-    <button class="btn btn-ghost" onclick="resetMap()">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M2 2v3.5H5.5M2 5.5A5 5 0 1 1 3.5 10"/>
+    <button class="btn btn-ghost" onclick="resetMap()" title="Reset to official map (R)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1.5 1.5v3.5H5M1.5 5A4.5 4.5 0 1 1 3 9.3"/>
       </svg>
       Reset
     </button>
-    <button class="btn" onclick="showShare()">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9.5 2L11 3.5M11 3.5L9.5 5M11 3.5H5.5C4 3.5 2.5 4.7 2.5 6.5s1.5 3 3 3H9"/>
+    <button class="btn" onclick="openShare()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="2.5" r="1.5"/><circle cx="9" cy="9.5" r="1.5"/><circle cx="2.5" cy="6" r="1.5"/>
+        <path d="M4 5.2l3.5-2M4 6.8l3.5 2"/>
       </svg>
       Share
     </button>
-    <div class="tb-div"></div>
-    <button class="btn btn-tour" onclick="startTour()">
-      ✦ Take the Tour
-    </button>
+    <div class="tb-sep"></div>
+    <button class="btn btn-tour" onclick="startTour()">✦ Take the Tour</button>
   </div>
 </div>
 
-<!-- ─── MAIN ──────────────────────────────────────────────── -->
+<!-- ─── MAIN ─────────────────────────────────────────────────────────── -->
 <div class="main">
 
-  <!-- MAP -->
+  <!-- MAP AREA -->
   <div class="map-wrap" id="map-wrap">
-
-    <div class="map-banner">
-      Current official Texas map ·
-      <b>Click or paint precincts to redistrict. Watch outcomes change.</b>
+    <div class="map-hint" id="map-hint">
+      Official Texas congressional map (Plan C2193) ·
+      <b>Click or paint counties to redistrict — every number updates live.</b>
     </div>
 
-    <!-- Loading -->
     <div class="map-loading" id="map-loading">
-      <span class="loading-text">Loading Texas district data…</span>
+      <div class="loader"></div>
+      <span class="load-text">Loading Texas district data…</span>
     </div>
 
-    <!-- D3 map target -->
     <svg id="tx-svg"></svg>
 
     <!-- Compare overlays -->
-    <div id="compare-strip"></div>
-    <div id="compare-line"></div>
-    <div id="compare-l-label">Official Map</div>
-    <div id="compare-r-label">Your Map</div>
+    <div id="cmp-strip"></div>
+    <div id="cmp-line"></div>
+    <div class="cmp-lbl" id="cmp-l">Official Map</div>
+    <div class="cmp-lbl" id="cmp-r">Your Map</div>
 
     <!-- Paint palette -->
     <div class="paint-palette" id="paint-palette">
-      <span class="palette-label">Paint district</span>
-      <div class="palette-grid" id="palette-grid"></div>
+      <span class="pal-label">Paint into district</span>
+      <div class="pal-grid" id="pal-grid"></div>
     </div>
 
     <!-- Tooltip -->
     <div class="tooltip" id="tooltip">
-      <div class="tt-card">
-        <div class="tt-header">
-          <div class="tt-badge" id="tt-badge"></div>
+      <div class="tt">
+        <div class="tt-head">
+          <div class="tt-dot" id="tt-dot"></div>
           <div>
-            <div class="tt-name" id="tt-name"></div>
-            <div class="tt-sub" id="tt-sub"></div>
+            <div class="tt-name" id="tt-name">TX-1</div>
+            <div class="tt-meta" id="tt-meta">Republican</div>
           </div>
         </div>
-        <div class="tt-row"><span>Population</span><span class="tt-val" id="tt-pop"></span></div>
+        <div class="tt-row"><span>Population</span><span class="tt-val" id="tt-pop">—</span></div>
         <div class="tt-row"><span>2020 Presidential</span></div>
-        <div class="vote-bar" id="tt-bar">
+        <div class="vote-mini" id="tt-bar">
           <div id="tt-d" style="background:var(--blue-400);"></div>
-          <div id="tt-r" style="background:var(--red-400);"></div>
+          <div id="tt-r" style="background:var(--red-400);flex:1;"></div>
         </div>
         <div class="tt-row">
-          <span style="color:var(--blue-600);font-weight:600;" id="tt-dpct"></span>
-          <span style="color:var(--red-600);font-weight:600;" id="tt-rpct"></span>
+          <span style="color:var(--blue-600);font-weight:600;" id="tt-dp">—</span>
+          <span style="color:var(--red-600);font-weight:600;" id="tt-rp">—</span>
         </div>
       </div>
     </div>
 
     <!-- Tour overlay -->
-    <div class="tour-overlay" id="tour-overlay">
-      <div class="tour-backdrop" onclick="endTour()"></div>
+    <div class="tour-ov" id="tour-ov">
+      <div class="tour-bg" onclick="endTour()"></div>
       <div class="tour-card">
-        <div class="tour-dots" id="tour-dots"></div>
-        <div class="tour-step-lbl" id="tour-step-lbl">Step 1 of 5</div>
-        <h3 id="tour-title"></h3>
-        <p id="tour-body"></p>
-        <div class="tour-footer">
-          <span class="tour-skip" onclick="endTour()">Skip tour</span>
-          <div class="tour-nav">
-            <button class="btn" id="tour-prev" onclick="tourNav(-1)" style="display:none">← Back</button>
-            <button class="btn btn-primary" id="tour-next" onclick="tourNav(1)">Next →</button>
+        <div class="t-dots" id="t-dots"></div>
+        <div class="t-step-lbl" id="t-lbl"></div>
+        <h3 id="t-title"></h3>
+        <p id="t-body"></p>
+        <div class="t-foot">
+          <span class="t-skip" onclick="endTour()">Skip tour</span>
+          <div class="t-nav">
+            <button class="btn" id="t-prev" onclick="tourStep(-1)" style="display:none">← Back</button>
+            <button class="btn btn-primary" id="t-next" onclick="tourStep(1)">Next →</button>
           </div>
         </div>
       </div>
     </div>
-
 
     <div class="carnegie">© 2026 Carnegie Young Leaders Project</div>
   </div>
 
-  <!-- SIDEBAR -->
+  <!-- ─── SIDEBAR ───────────────────────────────────────────────────── -->
   <div class="sidebar">
     <div class="sb-tabs">
-      <div class="sb-tab active" id="tab-s" onclick="switchTab('summary')">Map Summary</div>
-      <div class="sb-tab" id="tab-d" onclick="switchTab('district')">District Detail</div>
+      <div class="sb-tab active" id="tab-sum" onclick="switchTab('sum')">Map Summary</div>
+      <div class="sb-tab" id="tab-dist" onclick="switchTab('dist')">District Detail</div>
     </div>
 
-    <!-- SUMMARY -->
-    <div class="sb-body" id="pane-summary">
+    <!-- SUMMARY PANE -->
+    <div class="sb-body" id="pane-sum">
 
-      <div class="section">
+      <div class="sec">
         <div class="sl">Congressional Seats</div>
         <div class="card">
           <div class="seat-row">
             <div class="seat-block">
-              <span class="seat-n d" id="s-dem">14</span>
+              <span class="seat-n d" id="s-d">—</span>
               <span class="seat-lbl">Democrat</span>
             </div>
-            <span class="seat-mid">·</span>
-            <div class="seat-block" style="text-align:right">
-              <span class="seat-n r" id="s-rep">24</span>
+            <div class="seat-div"></div>
+            <div class="seat-block">
+              <span class="seat-n r" id="s-r">—</span>
               <span class="seat-lbl">Republican</span>
             </div>
           </div>
           <div class="seat-bar">
-            <div class="sb-d" id="sbar-d" style="width:36.8%"></div>
-            <div class="sb-r" id="sbar-r" style="width:63.2%"></div>
+            <div class="sbar-d" id="sbar-d" style="width:37%"></div>
+            <div class="sbar-r"></div>
           </div>
-          <div class="seat-sublbl">
-            <span id="s-dpct">36.8% of seats</span>
-            <span id="s-rpct">63.2% of seats</span>
+          <div class="seat-sub">
+            <span id="s-dpct">37% D</span>
+            <span id="s-rpct">63% R</span>
           </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="sl" style="display:flex;align-items:center;gap:4px;">
+      <div class="sec">
+        <div class="sl">
           Efficiency Gap
-          <span style="cursor:help;color:var(--blue-400);font-size:10px;" title="Measures wasted votes. Above 7% is presumptively problematic — Stephanopoulos &amp; McGhee (2015)">ⓘ</span>
+          <span class="info-tip" title="Measures how many votes are 'wasted'. Above 7% is presumptively problematic (Stephanopoulos &amp; McGhee 2015). The US Supreme Court has not established a firm limit, but courts have struck down maps above 7–10%.">ⓘ</span>
         </div>
-        <div class="card-white">
+        <div class="card-white" id="eg-card">
           <div class="eg-top">
-            <div class="eg-num-row">
-              <span class="eg-num red" id="eg-val">11.3</span>
+            <div class="eg-numrow">
+              <span class="eg-num red" id="eg-num">—</span>
               <span class="eg-pct">%</span>
             </div>
             <span class="eg-chip red" id="eg-chip">▲ Above threshold</span>
           </div>
-          <div class="eg-scale-wrap">
-            <div class="eg-scale-bar">
-              <div class="eg-green"></div>
-              <div class="eg-amber"></div>
-              <div class="eg-red"></div>
+          <div class="eg-scale">
+            <div class="eg-bar">
+              <div class="gn"></div>
+              <div class="am"></div>
+              <div class="rd"></div>
             </div>
-            <div class="eg-needle-track">
-              <div class="eg-needle" id="eg-needle" style="left:80%"></div>
+            <div class="eg-track">
+              <div class="eg-needle" id="eg-needle" style="left:75%"></div>
             </div>
             <div class="eg-ticks">
               <span>0%</span><span>4%</span><span>7%</span><span>10%+</span>
             </div>
           </div>
-          <div class="eg-desc" id="eg-desc">
-            A score above 7% means one party's votes are significantly more wasted. The current map shows a strong structural advantage for Republicans.
-          </div>
+          <div class="eg-desc" id="eg-desc">Loading…</div>
         </div>
       </div>
 
-      <div class="section">
+      <div class="sec">
         <div class="sl">Seat–Vote Gap</div>
         <div class="card">
-          <div class="svgap-text" id="svgap-text">
-            Republicans won <span class="svgap-hl">56%</span> of statewide votes but <span class="svgap-hl">63%</span> of seats.
-          </div>
-          <div><span class="svgap-pill" id="svgap-pill">▲ +7 point gap</span></div>
+          <div class="svgap-txt" id="sv-txt">—</div>
+          <div><span class="svgap-pill" id="sv-pill">—</span></div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="sl" style="display:flex;align-items:center;gap:4px;">
-          Packed &amp; Cracked
-          <span style="cursor:help;color:var(--blue-400);font-size:10px;" title="Packed: win by 70%+. Cracked: lose by &lt;55%.">ⓘ</span>
+      <div class="sec">
+        <div class="sl">
+          Packed &amp; Cracked Districts
+          <span class="info-tip" title="Packing: winning 80%+ of votes — surplus votes are 'wasted'. Cracking: losing by under 10% — votes are diluted across multiple districts.">ⓘ</span>
         </div>
         <div class="pc-grid">
           <div class="pc-box">
-            <span class="pc-n" style="color:var(--blue-700)" id="pc-packed">6</span>
+            <span class="pc-n" style="color:var(--blue-700)" id="pc-pack">—</span>
             <span class="pc-lbl">Packed</span>
-            <div class="pc-def">Win by 70%+<br>votes wasted</div>
+            <div class="pc-def">Win by 80%+<br>surplus votes wasted</div>
           </div>
           <div class="pc-box">
-            <span class="pc-n" style="color:var(--amber-500)" id="pc-cracked">9</span>
+            <span class="pc-n" style="color:var(--amber-500)" id="pc-crack">—</span>
             <span class="pc-lbl">Cracked</span>
-            <div class="pc-def">Lose by &lt;55%<br>votes split</div>
+            <div class="pc-def">Lose by &lt;10%<br>votes diluted</div>
           </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="sl">Seats Curve — partisan lean by district</div>
+      <div class="sec">
+        <div class="sl">Partisan Seats Curve</div>
         <div class="curve-wrap">
-          <svg id="seats-svg" width="100%" height="52" style="display:block;"></svg>
+          <svg id="curve-svg" width="100%" height="60" style="display:block;overflow:visible;"></svg>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--slate-400);">
+            <span>← Most Republican</span>
+            <span>Most Democratic →</span>
+          </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="sl">Statewide 2020 Vote Totals</div>
+      <!-- FAIRNESS REFERENCE -->
+      <div class="sec">
+        <div class="ref-hdr" onclick="toggleRef()">
+          <div class="sl" style="margin-bottom:0;cursor:pointer;">
+            How Fair Is Your Map?
+            <span class="info-tip" title="Compare your map's efficiency gap to real maps, including ones courts have struck down.">ⓘ</span>
+          </div>
+          <span class="ref-chevron" id="ref-chev">▼</span>
+        </div>
+        <div class="ref-body" id="ref-body">
+          <p class="ref-intro">Compare your efficiency gap to real maps — including ones courts found unconstitutional.</p>
+          <div class="card-white" id="ref-rows"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sl">Statewide 2020 Vote</div>
         <div class="card">
-          <div class="dd-row" style="padding:5px 0;">
-            <span style="display:flex;align-items:center;gap:6px;">
-              <span style="width:9px;height:9px;border-radius:50%;background:var(--blue-500);display:inline-block;flex-shrink:0;"></span>
-              Biden / Democrats
+          <div class="dd-row" style="padding:4px 0;">
+            <span style="display:flex;align-items:center;gap:7px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--blue-500);display:inline-block;"></span>Biden / Democrats
             </span>
-            <span class="dd-val" style="color:var(--blue-600);">5.26M <span style="color:var(--slate-400);font-size:11px;font-weight:400">(46.5%)</span></span>
+            <span class="dd-val" style="color:var(--blue-600);" id="tot-d">—</span>
           </div>
-          <div class="dd-row" style="padding:5px 0;border-top:1px solid var(--slate-100);margin-top:4px;padding-top:9px;">
-            <span style="display:flex;align-items:center;gap:6px;">
-              <span style="width:9px;height:9px;border-radius:50%;background:var(--red-500);display:inline-block;flex-shrink:0;"></span>
-              Trump / Republicans
+          <div class="dd-row" style="padding:4px 0;border-top:1px solid var(--slate-100);margin-top:4px;padding-top:8px;">
+            <span style="display:flex;align-items:center;gap:7px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--red-500);display:inline-block;"></span>Trump / Republicans
             </span>
-            <span class="dd-val" style="color:var(--red-600);">5.89M <span style="color:var(--slate-400);font-size:11px;font-weight:400">(52.1%)</span></span>
+            <span class="dd-val" style="color:var(--red-600);" id="tot-r">—</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- DISTRICT DETAIL -->
-    <div class="sb-body" id="pane-district" style="display:none;">
+    </div><!-- /pane-sum -->
+
+    <!-- DISTRICT DETAIL PANE -->
+    <div class="sb-body" id="pane-dist" style="display:none;">
       <div class="dd-empty" id="dd-empty">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="var(--slate-200)" stroke-width="1.5">
-          <rect x="8" y="8" width="28" height="28" rx="5"/>
-          <path d="M8 18H36M18 8v28"/>
+        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="var(--slate-200)" stroke-width="1.4">
+          <rect x="7" y="7" width="28" height="28" rx="5"/>
+          <path d="M7 17h28M17 7v28"/>
         </svg>
         <div>
           <p>No district selected</p>
-          <span>Click any district on the map<br>to view its detailed stats.</span>
+          <small>Click any county on the map<br>to see its district statistics.</small>
         </div>
       </div>
-
       <div id="dd-content" style="display:none;">
-        <div class="dd-header">
+        <div class="dd-head">
           <div class="dd-badge" id="dd-badge"></div>
           <div>
-            <div class="dd-title" id="dd-title"></div>
-            <div class="dd-sub" id="dd-sub"></div>
+            <div class="dd-title" id="dd-title">Texas District —</div>
+            <div class="dd-sub" id="dd-sub">—</div>
           </div>
         </div>
 
-        <div class="section">
+        <div class="sec">
           <div class="sl">Population</div>
           <div class="card">
-            <div class="dd-row"><span>Total</span><span class="dd-val" id="dd-pop"></span></div>
-            <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:4px;padding-top:8px;">
-              <span>Deviation from ideal</span><span id="dd-dev"></span>
+            <div class="dd-row"><span>Total residents</span><span class="dd-val" id="dd-pop">—</span></div>
+            <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:3px;padding-top:7px;">
+              <span>Deviation from ideal (761K)</span><span id="dd-dev" class="dd-val">—</span>
+            </div>
+            <div class="dev-bar-wrap">
+              <div class="dev-bar-mid"></div>
+              <div class="dev-bar-fill" id="dev-fill"></div>
             </div>
           </div>
         </div>
 
-        <div class="section">
+        <div class="sec">
           <div class="sl">2020 Presidential Vote</div>
           <div class="card">
             <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:7px;">
-              <span style="color:var(--blue-600)" id="dd-dpct"></span>
-              <span style="color:var(--red-600)" id="dd-rpct"></span>
+              <span style="color:var(--blue-600)" id="dd-dpct">—</span>
+              <span style="color:var(--red-600)"  id="dd-rpct">—</span>
             </div>
-            <div class="vote-bar">
+            <div class="vote-mini">
               <div id="dd-dbar" style="background:var(--blue-400);transition:width .4s;"></div>
-              <div id="dd-rbar" style="background:var(--red-400);transition:width .4s;flex:1;"></div>
+              <div style="background:var(--red-400);flex:1;"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10.5px;color:var(--slate-400);">
+            <div style="display:flex;justify-content:space-between;margin-top:3px;font-size:10px;color:var(--slate-400);">
               <span>Biden</span><span>Trump</span>
             </div>
           </div>
         </div>
 
-        <div class="section">
+        <div class="sec">
           <div class="sl">Racial &amp; Ethnic Composition</div>
           <div class="card">
-            <div class="demo-bar" id="dd-demobar"></div>
-            <div class="demo-legend" id="dd-demoleg"></div>
+            <div class="demo-bar" id="dd-demo-bar"></div>
+            <div class="demo-legend" id="dd-demo-leg"></div>
           </div>
         </div>
 
-        <div class="section">
-          <div class="sl">Efficiency Gap Contribution</div>
+        <div class="sec">
+          <div class="sl">
+            Compactness Score
+            <span class="info-tip" title="Polsby-Popper approximation: 1 = perfectly circular, 0 = extremely elongated (like TX-35). Courts often examine compactness in gerrymandering cases.">ⓘ</span>
+          </div>
           <div class="card">
-            <div class="dd-row"><span>Wasted Dem votes</span><span class="dd-val" id="dd-wd"></span></div>
-            <div class="dd-row"><span>Wasted Rep votes</span><span class="dd-val" id="dd-wr"></span></div>
-            <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:5px;padding-top:8px;">
-              <span style="font-weight:500;">Net EG contribution</span>
-              <span id="dd-eg"></span>
+            <div class="dd-row">
+              <span>Polsby-Popper score</span>
+              <span class="dd-val" id="dd-compact">—</span>
+            </div>
+            <div class="prog-bar">
+              <div class="prog-fill" id="compact-fill"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--slate-400);">
+              <span>0 = elongated</span><span>1 = circular</span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ─── SHARE MODAL ───────────────────────────────────────── -->
-<div class="modal-bg" id="share-modal" onclick="if(event.target===this)this.classList.remove('show')">
+        <div class="sec">
+          <div class="sl">Efficiency Gap Contribution</div>
+          <div class="card">
+            <div class="dd-row"><span>Wasted Dem votes</span><span class="dd-val" id="dd-wd">—</span></div>
+            <div class="dd-row"><span>Wasted Rep votes</span><span class="dd-val" id="dd-wr">—</span></div>
+            <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:4px;padding-top:7px;">
+              <span style="font-weight:500">Net EG contribution</span>
+              <span id="dd-egc" class="dd-val">—</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /pane-dist -->
+
+  </div><!-- /sidebar -->
+
+</div><!-- /main -->
+
+<!-- ─── SHARE MODAL ──────────────────────────────────────────────────── -->
+<div class="modal-bg" id="share-modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <h3>Share your map</h3>
-    <p>Anyone with this link will see your exact redistricting layout.</p>
+    <h3>Share Your Map</h3>
+    <p class="modal-sub">
+      Your redistricting layout — <span id="share-n">0</span> edits from the official map —
+      is encoded in the URL below. Anyone who opens it sees your exact map.
+    </p>
     <div class="modal-input-row">
-      <input type="text" class="url-input" id="share-url" readonly>
+      <input class="url-box" id="share-url" type="text" readonly>
       <button class="btn btn-primary" id="copy-btn" onclick="copyUrl()">Copy</button>
     </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="document.getElementById('share-modal').classList.remove('show')">Close</button>
+    <div class="kbd-grid">
+      <span class="kbd-item"><span class="kbd">Space</span> toggle mode</span>
+      <span class="kbd-item"><span class="kbd">Ctrl Z</span> undo</span>
+      <span class="kbd-item"><span class="kbd">Ctrl Y</span> redo</span>
+      <span class="kbd-item"><span class="kbd">R</span> reset</span>
+      <span class="kbd-item"><span class="kbd">T</span> tour</span>
+      <span class="kbd-item"><span class="kbd">Esc</span> close</span>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
 
-<!-- ─── SCRIPTS ───────────────────────────────────────────── -->
+<!-- ─── LIBRARIES ────────────────────────────────────────────────────── -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 <script>
-// ═══════════════════════════════════════════════════════
-// DISTRICT DATA — 38 TX congressional districts (demo)
-// Party assignments roughly match Plan C2193
-// ═══════════════════════════════════════════════════════
+'use strict';
+
+// ═══════════════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════════════
 const IDEAL_POP = 761169;
 
-const DISTRICTS = [
-  {id:1,  p:'R', mg:45, pop:760000, d:102000, r:202000, demo:{w:.65,h:.15,b:.16,o:.04}},
-  {id:2,  p:'R', mg:30, pop:758000, d:128000, r:200000, demo:{w:.70,h:.18,b:.08,o:.04}},
-  {id:3,  p:'R', mg:28, pop:770000, d:135000, r:205000, demo:{w:.75,h:.12,b:.07,o:.06}},
-  {id:4,  p:'R', mg:42, pop:756000, d:102000, r:195000, demo:{w:.72,h:.10,b:.14,o:.04}},
-  {id:5,  p:'R', mg:32, pop:762000, d:125000, r:208000, demo:{w:.68,h:.20,b:.08,o:.04}},
-  {id:6,  p:'R', mg:18, pop:775000, d:152000, r:196000, demo:{w:.62,h:.25,b:.07,o:.06}},
-  {id:7,  p:'R', mg:15, pop:768000, d:159000, r:195000, demo:{w:.55,h:.22,b:.14,o:.09}},
-  {id:8,  p:'R', mg:40, pop:760000, d:112000, r:200000, demo:{w:.70,h:.18,b:.07,o:.05}},
-  {id:9,  p:'D', mg:55, pop:765000, d:205000, r: 95000, demo:{w:.15,h:.32,b:.47,o:.06}},
-  {id:10, p:'R', mg:20, pop:772000, d:148000, r:196000, demo:{w:.65,h:.22,b:.07,o:.06}},
-  {id:11, p:'R', mg:55, pop:757000, d: 82000, r:190000, demo:{w:.72,h:.22,b:.03,o:.03}},
-  {id:12, p:'R', mg:25, pop:769000, d:142000, r:200000, demo:{w:.68,h:.18,b:.08,o:.06}},
-  {id:13, p:'R', mg:60, pop:754000, d: 72000, r:188000, demo:{w:.74,h:.20,b:.03,o:.03}},
-  {id:14, p:'R', mg:22, pop:768000, d:146000, r:196000, demo:{w:.68,h:.18,b:.10,o:.04}},
-  {id:15, p:'D', mg:12, pop:763000, d:174000, r:153000, demo:{w:.10,h:.82,b:.04,o:.04}},
-  {id:16, p:'D', mg:30, pop:760000, d:184000, r:135000, demo:{w:.15,h:.78,b:.04,o:.03}},
-  {id:17, p:'R', mg:24, pop:769000, d:140000, r:194000, demo:{w:.62,h:.28,b:.06,o:.04}},
-  {id:18, p:'D', mg:40, pop:766000, d:196000, r:124000, demo:{w:.12,h:.30,b:.46,o:.12}},
-  {id:19, p:'R', mg:50, pop:755000, d: 93000, r:192000, demo:{w:.70,h:.24,b:.03,o:.03}},
-  {id:20, p:'D', mg:20, pop:764000, d:175000, r:143000, demo:{w:.15,h:.75,b:.06,o:.04}},
-  {id:21, p:'R', mg:20, pop:771000, d:148000, r:194000, demo:{w:.62,h:.28,b:.05,o:.05}},
-  {id:22, p:'R', mg:15, pop:773000, d:158000, r:193000, demo:{w:.55,h:.25,b:.12,o:.08}},
-  {id:23, p:'R', mg:8,  pop:769000, d:167000, r:188000, demo:{w:.40,h:.52,b:.04,o:.04}},
-  {id:24, p:'R', mg:14, pop:775000, d:158000, r:192000, demo:{w:.65,h:.20,b:.08,o:.07}},
-  {id:25, p:'R', mg:12, pop:771000, d:160000, r:190000, demo:{w:.64,h:.22,b:.07,o:.07}},
-  {id:26, p:'R', mg:22, pop:769000, d:145000, r:193000, demo:{w:.67,h:.20,b:.07,o:.06}},
-  {id:27, p:'R', mg:35, pop:762000, d:124000, r:197000, demo:{w:.58,h:.36,b:.03,o:.03}},
-  {id:28, p:'D', mg:8,  pop:765000, d:170000, r:156000, demo:{w:.12,h:.82,b:.03,o:.03}},
-  {id:29, p:'D', mg:38, pop:764000, d:192000, r:126000, demo:{w:.10,h:.62,b:.24,o:.04}},
-  {id:30, p:'D', mg:50, pop:768000, d:210000, r:105000, demo:{w:.15,h:.22,b:.58,o:.05}},
-  {id:31, p:'R', mg:18, pop:773000, d:152000, r:193000, demo:{w:.62,h:.26,b:.06,o:.06}},
-  {id:32, p:'D', mg:5,  pop:777000, d:172000, r:162000, demo:{w:.45,h:.22,b:.18,o:.15}},
-  {id:33, p:'D', mg:35, pop:764000, d:192000, r:122000, demo:{w:.10,h:.38,b:.42,o:.10}},
-  {id:34, p:'D', mg:10, pop:762000, d:172000, r:155000, demo:{w:.08,h:.86,b:.03,o:.03}},
-  {id:35, p:'D', mg:25, pop:770000, d:185000, r:142000, demo:{w:.15,h:.60,b:.18,o:.07}},
-  {id:36, p:'R', mg:35, pop:758000, d:124000, r:197000, demo:{w:.60,h:.28,b:.08,o:.04}},
-  {id:37, p:'D', mg:28, pop:768000, d:185000, r:143000, demo:{w:.48,h:.30,b:.12,o:.10}},
-  {id:38, p:'R', mg:28, pop:762000, d:136000, r:192000, demo:{w:.58,h:.30,b:.07,o:.05}},
+const DEMO_COLORS = { w:'#60A5FA', h:'#FBBF24', b:'#818CF8', a:'#34D399', o:'#94A3B8' };
+const DEMO_LABELS = { w:'White', h:'Hispanic', b:'Black', a:'Asian', o:'Other' };
+
+// Statewide 2020 TX reference (real numbers for accurate fallback display)
+const STATE_TOTALS = { d:5260000, r:5890000 };
+
+// Historical EG reference for the fairness panel
+const EG_REF = [
+  { name:'Iowa (commission)',      eg:1.2,  type:'ok'   },
+  { name:'Pennsylvania 2018',      eg:0.7,  type:'ok'   },
+  { name:'California (citizens)',  eg:2.4,  type:'ok'   },
+  { name:'─ 7% court threshold',   eg:7.0,  type:'line' },
+  { name:'Pennsylvania 2011',      eg:7.2,  type:'bad'  },
+  { name:'Wisconsin 2011',         eg:9.8,  type:'bad'  },
+  { name:'North Carolina 2016',    eg:10.1, type:'bad'  },
+  { name:'TX Plan C2193 (official)',eg:11.3, type:'curr' },
 ];
 
-const D_SCALE = ['#BFDBFE','#93C5FD','#60A5FA','#3B82F6','#2563EB','#1D4ED8'];
-const R_SCALE = ['#FECACA','#FCA5A5','#F87171','#EF4444','#DC2626','#B91C1C'];
+// Tour steps
+const TOUR_STEPS = [
+  { dist:35,
+    title:"Texas's 35th Congressional District",
+    body:"Look at TX-35. It's a narrow 300-mile corridor connecting Austin to San Antonio along Interstate 35. It looks bizarre — and that's intentional. This district was drawn with a specific goal in mind."
+  },
+  { dist:35,
+    title:"Packing: Concentrating Minority Voters",
+    body:"TX-35 was drawn to pack Hispanic voters into one district, concentrating their votes. The district is 60% Hispanic and wins by enormous margins. By packing so many Democratic voters together, their votes beyond the winning margin are simply wasted."
+  },
+  { dist:37,
+    title:"Cracking: Splitting Austin's Vote",
+    body:"The city of Austin is divided across multiple districts — TX-10, TX-17, TX-21, TX-25, TX-31, TX-35, TX-37. This 'cracks' Austin's progressive-leaning voters so that no single district can form a Democratic majority outside the packed corridor."
+  },
+  { dist:null,
+    title:"The Mathematical Result: 11.3% Efficiency Gap",
+    body:"Republicans won 56% of statewide votes in 2020 but captured 63% of seats — a 7-point seat-vote gap. The efficiency gap is 11.3%, above the 7% threshold researchers have flagged as presumptively problematic. Courts struck down Wisconsin's 2011 map at 11.7%."
+  },
+  { dist:null, last:true,
+    title:"Your Turn: Redraw the Map",
+    body:"Can you draw a fairer map? Switch to Paint mode and reassign counties to new districts. Watch the efficiency gap drop in real time. Try to get below 7% — that's the court-recognized threshold for fair representation. Check the Fairness Reference panel to compare your map to real ones."
+  },
+];
 
-function distColor(d) {
-  const b = Math.min(Math.floor(d.mg / 12), 5);
-  return d.p === 'D' ? D_SCALE[b] : R_SCALE[b];
-}
+// ═══════════════════════════════════════════════════════════════
+// SYNTHETIC DISTRICT DATA (fallback when real data not available)
+// These approximate the actual Plan C2193 districts
+// ═══════════════════════════════════════════════════════════════
+const SYNTH_DISTRICTS = [
+  {id:1, w:'R',mg:45,pop:760000,d:102000,r:202000,dw:.65,dh:.15,db:.16,da:.03},
+  {id:2, w:'R',mg:30,pop:758000,d:128000,r:200000,dw:.70,dh:.18,db:.08,da:.04},
+  {id:3, w:'R',mg:28,pop:770000,d:135000,r:205000,dw:.75,dh:.12,db:.07,da:.06},
+  {id:4, w:'R',mg:42,pop:756000,d:102000,r:195000,dw:.72,dh:.10,db:.14,da:.04},
+  {id:5, w:'R',mg:32,pop:762000,d:125000,r:208000,dw:.68,dh:.20,db:.08,da:.04},
+  {id:6, w:'R',mg:18,pop:775000,d:152000,r:196000,dw:.62,dh:.25,db:.07,da:.06},
+  {id:7, w:'R',mg:15,pop:768000,d:159000,r:195000,dw:.55,dh:.22,db:.14,da:.09},
+  {id:8, w:'R',mg:40,pop:760000,d:112000,r:200000,dw:.70,dh:.18,db:.07,da:.05},
+  {id:9, w:'D',mg:55,pop:765000,d:205000,r:95000, dw:.15,dh:.32,db:.47,da:.06},
+  {id:10,w:'R',mg:20,pop:772000,d:148000,r:196000,dw:.65,dh:.22,db:.07,da:.06},
+  {id:11,w:'R',mg:55,pop:757000,d:82000, r:190000,dw:.72,dh:.22,db:.03,da:.03},
+  {id:12,w:'R',mg:25,pop:769000,d:142000,r:200000,dw:.68,dh:.18,db:.08,da:.06},
+  {id:13,w:'R',mg:60,pop:754000,d:72000, r:188000,dw:.74,dh:.20,db:.03,da:.03},
+  {id:14,w:'R',mg:22,pop:768000,d:146000,r:196000,dw:.68,dh:.18,db:.10,da:.04},
+  {id:15,w:'D',mg:12,pop:763000,d:174000,r:153000,dw:.10,dh:.82,db:.04,da:.04},
+  {id:16,w:'D',mg:30,pop:760000,d:184000,r:135000,dw:.15,dh:.78,db:.04,da:.03},
+  {id:17,w:'R',mg:24,pop:769000,d:140000,r:194000,dw:.62,dh:.28,db:.06,da:.04},
+  {id:18,w:'D',mg:40,pop:766000,d:196000,r:124000,dw:.12,dh:.30,db:.46,da:.12},
+  {id:19,w:'R',mg:50,pop:755000,d:93000, r:192000,dw:.70,dh:.24,db:.03,da:.03},
+  {id:20,w:'D',mg:20,pop:764000,d:175000,r:143000,dw:.15,dh:.75,db:.06,da:.04},
+  {id:21,w:'R',mg:20,pop:771000,d:148000,r:194000,dw:.62,dh:.28,db:.05,da:.05},
+  {id:22,w:'R',mg:15,pop:773000,d:158000,r:193000,dw:.55,dh:.25,db:.12,da:.08},
+  {id:23,w:'R',mg:8, pop:769000,d:167000,r:188000,dw:.40,dh:.52,db:.04,da:.04},
+  {id:24,w:'R',mg:14,pop:775000,d:158000,r:192000,dw:.65,dh:.20,db:.08,da:.07},
+  {id:25,w:'R',mg:12,pop:771000,d:160000,r:190000,dw:.64,dh:.22,db:.07,da:.07},
+  {id:26,w:'R',mg:22,pop:769000,d:145000,r:193000,dw:.67,dh:.20,db:.07,da:.06},
+  {id:27,w:'R',mg:35,pop:762000,d:124000,r:197000,dw:.58,dh:.36,db:.03,da:.03},
+  {id:28,w:'D',mg:8, pop:765000,d:170000,r:156000,dw:.12,dh:.82,db:.03,da:.03},
+  {id:29,w:'D',mg:38,pop:764000,d:192000,r:126000,dw:.10,dh:.62,db:.24,da:.04},
+  {id:30,w:'D',mg:50,pop:768000,d:210000,r:105000,dw:.15,dh:.22,db:.58,da:.05},
+  {id:31,w:'R',mg:18,pop:773000,d:152000,r:193000,dw:.62,dh:.26,db:.06,da:.06},
+  {id:32,w:'D',mg:5, pop:777000,d:172000,r:162000,dw:.45,dh:.22,db:.18,da:.15},
+  {id:33,w:'D',mg:35,pop:764000,d:192000,r:122000,dw:.10,dh:.38,db:.42,da:.10},
+  {id:34,w:'D',mg:10,pop:762000,d:172000,r:155000,dw:.08,dh:.86,db:.03,da:.03},
+  {id:35,w:'D',mg:25,pop:770000,d:185000,r:142000,dw:.15,dh:.60,db:.18,da:.07},
+  {id:36,w:'R',mg:35,pop:758000,d:124000,r:197000,dw:.60,dh:.28,db:.08,da:.04},
+  {id:37,w:'D',mg:28,pop:768000,d:185000,r:143000,dw:.48,dh:.30,db:.12,da:.10},
+  {id:38,w:'R',mg:28,pop:762000,d:136000,r:192000,dw:.58,dh:.30,db:.07,da:.05},
+];
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════════════════
-let countyAssignment = {};  // countyId -> districtId
-let userAssignment   = {};  // countyId -> districtId (user edits)
-let selDistrict = null;
-let appMode = 'click';
-let compareOn = false;
-let paintTarget = 1;
-let isPainting = false;
-let svg, projection, pathGen, counties, cPaths;
-let tourStep = -1;
+// ═══════════════════════════════════════════════════════════════
+let svgEl, proj, path;
+let features   = [];        // GeoJSON features (counties / precincts)
+let official   = {};        // featureId → district (official, never changes)
+let current    = {};        // featureId → district (live, user edits this)
+let precinctData = {};      // featureId → { d, r, pop, w, b, h, a }
+let liveStats  = null;
+let selDist    = null;
+let appMode    = 'click';
+let comparing  = false;
+let paintDist  = 1;
+let painting   = false;
+let paintBatch = null;
+let refOpen    = false;
+let tourIdx    = -1;
+let prevEG     = 0;
+let usObj      = null;
+let cPaths     = null;
 
-const TOUR = [
-  {
-    title: "Texas's 35th Congressional District",
-    body: "This is TX-35. It connects Austin and San Antonio along a thin strip of Interstate 35, stretching nearly 300 miles. It looks bizarre — a narrow corridor snaking through the Texas Hill Country. Here's why it was drawn this way.",
-    dist: 35
-  },
-  {
-    title: "Packing: concentrating voters",
-    body: "TX-35 was drawn to pack Hispanic voters into a single district — concentrating their votes so they couldn't influence surrounding districts. The district is 60% Hispanic. Their votes are effectively 'used up' winning by huge margins.",
-    dist: 35
-  },
-  {
-    title: "Cracking: splitting the Austin vote",
-    body: "The districts surrounding Austin were drawn to crack the city's Democratic-leaning voters across multiple Republican-majority districts — diluting their influence. No single Austin-area district can elect a Democrat under this plan.",
-    dist: 37
-  },
-  {
-    title: "The mathematical result",
-    body: "Republicans won 56% of statewide votes in 2020 but captured 63% of seats. The efficiency gap is 11.3% — well above the 7% threshold that courts have flagged as potentially unconstitutional. One party's votes count more than the other's.",
-    dist: null
-  },
-  {
-    title: "Now try it yourself",
-    body: "Can you draw a map that is both compact and fair? Use Click or Paint mode to reassign precincts between districts and watch the efficiency gap change in real time. It's harder than it looks — but the attempt teaches you more than any explanation can.",
-    dist: null,
-    last: true
-  }
-];
+// Undo / redo
+const HISTORY  = [];
+let   histIdx  = -1;
+const EDITED   = new Set();
 
-// Store topology for mesh computation
-let us_obj = null;
+// ═══════════════════════════════════════════════════════════════
+// COLOR HELPERS
+// ═══════════════════════════════════════════════════════════════
+const D_RAMP = ['#DBEAFE','#BFDBFE','#93C5FD','#60A5FA','#3B82F6','#2563EB'];
+const R_RAMP = ['#FEE2E2','#FECACA','#FCA5A5','#F87171','#EF4444','#DC2626'];
 
-function assignDistricts() {
-  const minLon = -106.8, maxLon = -93.2;
-  const minLat = 25.4, maxLat = 36.9;
+function distColor(dId) {
+  if (!liveStats) return '#CBD5E1';
+  const s = liveStats.ds[dId];
+  if (!s || s.tot === 0) return '#CBD5E1';
+  const idx = Math.min(Math.floor(s.margin / 8), 5);
+  return s.win === 'D' ? D_RAMP[idx] : R_RAMP[idx];
+}
 
-  counties.forEach(c => {
-    const [lon, lat] = d3.geoCentroid(c);
-    c._lon = lon; c._lat = lat;
+// ═══════════════════════════════════════════════════════════════
+// DATA — build precinct data from synthetic district table
+// ═══════════════════════════════════════════════════════════════
+function synthPrecinctData() {
+  const distCount = {};
+  features.forEach(f => {
+    const d = official[f.id];
+    distCount[d] = (distCount[d] || 0) + 1;
   });
-
-  // Sort SW→NE diagonally for geographic district assignment
-  const sorted = [...counties].sort((a, b) => {
-    const ka = (a._lon - minLon) / (maxLon - minLon) * 6 +
-               (a._lat - minLat) / (maxLat - minLat) * 4;
-    const kb = (b._lon - minLon) / (maxLon - minLon) * 6 +
-               (b._lat - minLat) / (maxLat - minLat) * 4;
-    return ka - kb;
-  });
-
-  sorted.forEach((c, i) => {
-    const dId = Math.min(Math.floor(i / sorted.length * 38) + 1, 38);
-    c.properties.dId = dId;
-    countyAssignment[c.id] = dId;
+  features.forEach(f => {
+    const dId = official[f.id];
+    const sd  = SYNTH_DISTRICTS.find(x => x.id === dId);
+    if (!sd) { precinctData[f.id] = { d:0, r:0, pop:50000, w:.6, b:.1, h:.2, a:.04 }; return; }
+    const share = 1 / Math.max(distCount[dId], 1);
+    precinctData[f.id] = {
+      d:   sd.d * share,
+      r:   sd.r * share,
+      pop: sd.pop * share,
+      w:   sd.dw, b: sd.db, h: sd.dh, a: sd.da,
+    };
   });
 }
 
-function renderMap() {
-  svg.selectAll('*').remove();
-  const g = svg.append('g');
-
-  cPaths = g.selectAll('.county')
-    .data(counties)
-    .enter().append('path')
-    .attr('class', 'county')
-    .attr('d', pathGen)
-    .attr('fill', d => {
-      const dist = DISTRICTS.find(x => x.id === userAssignment[d.id]);
-      return dist ? distColor(dist) : '#CBD5E1';
-    })
-    .on('mouseover', onOver)
-    .on('mousemove', onMove)
-    .on('mouseout', onOut)
-    .on('mousedown', onDown)
-    .on('mouseenter', onEnter);
-
-  // District edges (boundaries between districts)
-  try {
-    // District borders
-    const distBorder = topojson.mesh(us_obj, us_obj.objects.counties, (a, b) =>
-      a !== b &&
-      String(a.id).startsWith('48') &&
-      String(b.id).startsWith('48') &&
-      countyAssignment[a.id] !== countyAssignment[b.id]
-    );
-    g.append('path')
-      .datum(distBorder)
-      .attr('class', 'district-edge')
-      .attr('d', pathGen);
-
-    // State border
-    const stateBorder = topojson.merge(us_obj,
-      us_obj.objects.counties.geometries.filter(x => String(x.id).startsWith('48'))
-    );
-    g.append('path')
-      .datum(stateBorder)
-      .attr('class', 'state-border')
-      .attr('d', pathGen);
-  } catch(e) { /* borders optional */ }
-
-  // District number labels
-  addDistrictLabels(g);
+function realPrecinctData(geoFeatures) {
+  geoFeatures.forEach(f => {
+    const p   = f.properties;
+    const pop = p.pop || p.TOTPOP20 || 0;
+    precinctData[f.id] = {
+      d:   p.biden  || p.G20PREDBID || 0,
+      r:   p.trump  || p.G20PRERTRM || 0,
+      pop: pop,
+      w:   pop > 0 ? (p.white || p.NH_WHITE20 || 0) / pop : 0,
+      b:   pop > 0 ? (p.black || p.NH_BLACK20 || 0) / pop : 0,
+      h:   pop > 0 ? (p.hisp  || p.HISP20     || 0) / pop : 0,
+      a:   pop > 0 ? (p.asian || p.NH_ASIAN20  || 0) / pop : 0,
+    };
+  });
 }
 
-async function initMapFull() {
+// ═══════════════════════════════════════════════════════════════
+// MAP INIT
+// ═══════════════════════════════════════════════════════════════
+async function boot() {
   const wrap = document.getElementById('map-wrap');
   const W = wrap.clientWidth, H = wrap.clientHeight;
+  svgEl = d3.select('#tx-svg').attr('width', W).attr('height', H);
 
-  svg = d3.select('#tx-svg')
-    .attr('width', W).attr('height', H);
+  let usedReal = false;
 
+  // ── Try real GeoJSON first ──
   try {
-    us_obj = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
+    const [pr, ar] = await Promise.all([
+      fetch('./data/precincts.geojson'),
+      fetch('./data/assignment.json'),
+    ]);
+    if (pr.ok && ar.ok) {
+      const geo = await pr.json();
+      const asgn = await ar.json();
+      features = geo.features;
+      features.forEach((f, i) => {
+        const pid = f.properties.precinct_id || String(f.id || i);
+        f.id = pid;
+      });
+      const col = { type:'FeatureCollection', features };
+      proj    = d3.geoMercator().fitExtent([[36, 22], [W - 22, H - 26]], col);
+      path    = d3.geoPath().projection(proj);
+      features.forEach(f => {
+        const d = parseInt(asgn[f.id] || f.properties.district || 1);
+        official[f.id] = d;
+      });
+      Object.assign(current, official);
+      realPrecinctData(features);
+      usedReal = true;
+      console.log(`✓ Real data: ${features.length} precincts`);
+    }
+  } catch (_) {}
 
-    const allFeatures = topojson.feature(us_obj, us_obj.objects.counties).features;
-    counties = allFeatures.filter(f => String(f.id).startsWith('48'));
-
-    const col = { type: 'FeatureCollection', features: counties };
-    projection = d3.geoMercator()
-      .fitExtent([[36, 24], [W - 24, H - 28]], col);
-    pathGen = d3.geoPath().projection(projection);
-
-    assignDistricts();
-    Object.assign(userAssignment, countyAssignment);
-
-    renderMap();
-    updateStats();  // compute all sidebar stats from live data
-    buildPalette();
-
-    const loader = document.getElementById('map-loading');
-    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove && loader.remove(), 500); }
-
-  } catch(e) {
-    const loader = document.getElementById('map-loading');
-    if (loader) loader.innerHTML = '<div style="text-align:center;padding:20px;"><div style="color:var(--red-500);font-weight:600;font-size:13px;margin-bottom:6px;">Could not load map data</div><div style="color:var(--slate-500);font-size:12px;">Check your connection and reload.</div></div>';
+  // ── CDN fallback ──
+  if (!usedReal) {
+    usObj = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
+    const all = topojson.feature(usObj, usObj.objects.counties).features;
+    features   = all.filter(f => String(f.id).startsWith('48'));
+    const col  = { type:'FeatureCollection', features };
+    proj  = d3.geoMercator().fitExtent([[36, 22], [W - 22, H - 26]], col);
+    path  = d3.geoPath().projection(proj);
+    assignSynthDistricts();
+    Object.assign(current, official);
+    synthPrecinctData();
+    console.log(`✓ CDN fallback: ${features.length} TX counties`);
   }
+
+  // Restore shared URL
+  restoreFromURL();
+
+  // Render
+  renderMap();
+  computeAndUpdate();
+  buildPalette();
+  buildRefPanel();
+
+  // Hide loader
+  const ld = document.getElementById('map-loading');
+  ld.classList.add('out');
+  setTimeout(() => ld.remove(), 600);
 }
 
-function addDistrictLabels(g) {
-  const centroids = {};
-  const counts = {};
+// Geographically sort TX counties and assign districts
+function assignSynthDistricts() {
+  features.forEach(f => {
+    const [lon, lat] = d3.geoCentroid(f);
+    f._lon = lon; f._lat = lat;
+  });
+  const sorted = [...features].sort((a, b) => {
+    // Sort west→east, then south→north for geographic spread
+    const ka = (a._lon - (-106.65)) / (106.65 - 93.51) * 5 + (a._lat - 25.84) / (36.5 - 25.84) * 3;
+    const kb = (b._lon - (-106.65)) / (106.65 - 93.51) * 5 + (b._lat - 25.84) / (36.5 - 25.84) * 3;
+    return ka - kb;
+  });
+  sorted.forEach((f, i) => {
+    official[f.id] = Math.min(Math.floor(i / sorted.length * 38) + 1, 38);
+  });
+}
 
-  counties.forEach(c => {
-    const dId = userAssignment[c.id];
-    if (!centroids[dId]) { centroids[dId] = [0, 0]; counts[dId] = 0; }
-    const [cx, cy] = pathGen.centroid(c);
-    if (!isNaN(cx) && !isNaN(cy)) {
-      centroids[dId][0] += cx;
-      centroids[dId][1] += cy;
-      counts[dId]++;
+// ═══════════════════════════════════════════════════════════════
+// RENDER MAP
+// ═══════════════════════════════════════════════════════════════
+function renderMap() {
+  svgEl.selectAll('*').remove();
+  const g = svgEl.append('g');
+
+  cPaths = g.selectAll('.precinct')
+    .data(features)
+    .enter().append('path')
+      .attr('class', f => 'precinct' + (EDITED.has(f.id) ? ' edited' : ''))
+      .attr('d', path)
+      .attr('fill', f => distColor(current[f.id]))
+      .on('mouseover',  hoverEnter)
+      .on('mousemove',  hoverMove)
+      .on('mouseout',   hoverOut)
+      .on('mousedown',  mouseDown)
+      .on('mouseenter', dragEnter);
+
+  // District borders
+  if (usObj) {
+    try {
+      const mesh = topojson.mesh(usObj, usObj.objects.counties,
+        (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48')
+                  && official[a.id] !== official[b.id]);
+      g.append('path').datum(mesh).attr('class','dist-border').attr('d', path);
+
+      const outline = topojson.merge(usObj,
+        usObj.objects.counties.geometries.filter(x => String(x.id).startsWith('48')));
+      g.append('path').datum(outline).attr('class','state-border').attr('d', path);
+    } catch (_) {}
+  }
+
+  drawLabels(g);
+}
+
+function drawLabels(g) {
+  const cx = {}, cy = {}, ct = {};
+  features.forEach(f => {
+    const dId = current[f.id];
+    if (!cx[dId]) { cx[dId] = 0; cy[dId] = 0; ct[dId] = 0; }
+    const [x, y] = path.centroid(f);
+    if (isFinite(x) && isFinite(y)) {
+      cx[dId] += x; cy[dId] += y; ct[dId]++;
     }
   });
-
-  for (let i = 1; i <= 38; i++) {
-    if (centroids[i] && counts[i] > 0) {
-      const x = centroids[i][0] / counts[i];
-      const y = centroids[i][1] / counts[i];
-      const dist = DISTRICTS.find(d => d.id === i);
-      const textColor = dist ? (dist.mg > 25 ? 'rgba(255,255,255,.8)' : 'rgba(255,255,255,.6)') : 'rgba(255,255,255,.5)';
-      g.append('text')
-        .attr('class', 'district-label')
-        .attr('x', x).attr('y', y)
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'central')
-        .attr('font-size', '8px')
-        .attr('font-weight', '700')
-        .attr('fill', textColor)
-        .attr('stroke', 'rgba(0,0,0,.25)')
-        .attr('stroke-width', '2.5')
-        .text(i);
-      g.append('text')
-        .attr('class', 'district-label')
-        .attr('x', x).attr('y', y)
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'central')
-        .attr('font-size', '8px')
-        .attr('font-weight', '700')
-        .attr('fill', textColor)
-        .text(i);
-    }
+  for (let d = 1; d <= 38; d++) {
+    if (!ct[d]) continue;
+    const x = cx[d] / ct[d], y = cy[d] / ct[d];
+    // Stroke for contrast
+    g.append('text').attr('class','dist-label')
+      .attr('x', x).attr('y', y)
+      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('font-size','8').attr('font-weight','700')
+      .attr('fill','none').attr('stroke','rgba(0,0,0,.25)').attr('stroke-width','3')
+      .text(d);
+    g.append('text').attr('class','dist-label')
+      .attr('x', x).attr('y', y)
+      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('font-size','8').attr('font-weight','700')
+      .attr('fill','rgba(255,255,255,.9)')
+      .text(d);
   }
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
 // INTERACTION
-// ═══════════════════════════════════════════════════════
-function onOver(event, d) {
-  const tt = document.getElementById('tooltip');
-  const dId = userAssignment[d.id];
-  const dist = DISTRICTS.find(x => x.id === dId);
-  if (!dist) return;
+// ═══════════════════════════════════════════════════════════════
+function hoverEnter(event, f) {
+  const dId = current[f.id];
+  const s   = liveStats?.ds?.[dId];
+  const p   = precinctData[f.id];
+  const col = distColor(dId);
+  const d0  = s ? s.d : (p?.d || 0);
+  const r0  = s ? s.r : (p?.r || 0);
+  const tot = d0 + r0;
+  const dpct = tot > 0 ? Math.round(d0 / tot * 100) : 50;
+  const win  = s?.win || (dpct >= 50 ? 'D' : 'R');
+  const mg   = s ? s.margin.toFixed(1) : '—';
 
-  const tot = dist.d + dist.r;
-  const dpct = Math.round(dist.d / tot * 100);
-  const rpct = 100 - dpct;
-
-  document.getElementById('tt-badge').textContent = dId;
-  document.getElementById('tt-badge').style.cssText =
-    `background:${distColor(dist)};color:${dist.p==='D'?'#1E3A8A':'#7F1D1D'};`;
+  document.getElementById('tt-dot').style.cssText =
+    `background:${col};color:${win==='D'?'#1E3A8A':'#7F1D1D'};font-size:10px;font-weight:700;`;
+  document.getElementById('tt-dot').textContent = dId;
   document.getElementById('tt-name').textContent = `TX-${dId}`;
-  document.getElementById('tt-sub').textContent =
-    `${dist.p === 'D' ? 'Democratic' : 'Republican'} · ${dist.mg}pt margin`;
-  document.getElementById('tt-pop').textContent = (dist.pop/1000).toFixed(0) + 'K residents';
+  document.getElementById('tt-meta').textContent =
+    `${win==='D'?'Democratic':'Republican'} · ${mg}pt margin`;
+  document.getElementById('tt-pop').textContent =
+    s ? Math.round(s.pop / 1000) + 'K residents' : '—';
   document.getElementById('tt-d').style.width = dpct + '%';
-  document.getElementById('tt-r').style.width = rpct + '%';
-  document.getElementById('tt-dpct').textContent = `Biden ${dpct}%`;
-  document.getElementById('tt-rpct').textContent = `Trump ${rpct}%`;
-  tt.classList.add('show');
+  document.getElementById('tt-dp').textContent = `Biden ${dpct}%`;
+  document.getElementById('tt-rp').textContent = `Trump ${100 - dpct}%`;
+  document.getElementById('tooltip').classList.add('show');
 }
 
-function onMove(event) {
-  const tt = document.getElementById('tooltip');
+function hoverMove(event) {
+  const tt   = document.getElementById('tooltip');
   const rect = document.getElementById('map-wrap').getBoundingClientRect();
-  let x = event.clientX - rect.left + 14;
-  let y = event.clientY - rect.top - 10;
-  if (x + 230 > rect.width)  x = event.clientX - rect.left - 244;
-  if (y + 140 > rect.height) y = event.clientY - rect.top - 154;
+  let x = event.clientX - rect.left + 16;
+  let y = event.clientY - rect.top  - 14;
+  if (x + 220 > rect.width)  x = event.clientX - rect.left - 236;
+  if (y + 160 > rect.height) y = event.clientY - rect.top  - 174;
   tt.style.left = x + 'px';
   tt.style.top  = y + 'px';
 }
 
-function onOut() {
+function hoverOut() {
   document.getElementById('tooltip').classList.remove('show');
 }
 
-function onDown(event, d) {
+function mouseDown(event, f) {
   if (appMode === 'paint') {
-    isPainting = true;
-    applyPaint(d);
+    painting   = true;
+    paintBatch = [];
+    doPaint(f);
   } else {
-    selectDistrict(userAssignment[d.id]);
+    selectDistrict(current[f.id]);
   }
 }
 
-function onEnter(event, d) {
-  if (appMode === 'paint' && isPainting) {
-    applyPaint(d);
+function dragEnter(event, f) {
+  if (painting && appMode === 'paint') doPaint(f);
+}
+
+document.addEventListener('mouseup', () => {
+  if (painting) {
+    if (paintBatch?.length) histPush(paintBatch);
+    paintBatch = null;
   }
-}
+  painting = false;
+});
 
-function applyPaint(d) {
-  if (userAssignment[d.id] === paintTarget) return; // no-op if already correct
-  userAssignment[d.id] = paintTarget;
-  const dist = DISTRICTS.find(x => x.id === paintTarget);
-  const newColor = dist ? distColor(dist) : '#CBD5E1';
-  // Target the specific path using D3's datum filter
-  if (cPaths) cPaths.filter(c => c.id === d.id).attr('fill', newColor);
-  updateStats();
+function doPaint(f) {
+  if (current[f.id] === paintDist) return;
+  const prev = current[f.id];
+  current[f.id] = paintDist;
+  if (paintBatch) paintBatch.push({ id: f.id, prev, next: paintDist });
+  if (current[f.id] !== official[f.id]) EDITED.add(f.id);
+  else EDITED.delete(f.id);
+  computeAndUpdate();
+  if (cPaths) {
+    cPaths.filter(c => c.id === f.id)
+      .attr('fill', distColor(paintDist))
+      .classed('edited', EDITED.has(f.id));
+  }
+  updateEditBadge();
 }
-
-document.addEventListener('mouseup', () => { isPainting = false; });
 
 function selectDistrict(dId) {
-  selDistrict = dId;
-  cPaths.classed('sel', d => userAssignment[d.id] === dId);
-  showDistrictDetail(dId);
-  switchTab('district');
+  selDist = dId;
+  cPaths?.classed('sel', f => current[f.id] === dId);
+  renderDistrictDetail(dId);
+  switchTab('dist');
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════════════════════
+function histPush(batch) {
+  if (!batch?.length) return;
+  HISTORY.splice(histIdx + 1);
+  HISTORY.push(batch);
+  if (HISTORY.length > 250) HISTORY.shift(); else histIdx++;
+  refreshUndoRedo();
+}
+
+function undo() {
+  if (histIdx < 0) return;
+  HISTORY[histIdx--].forEach(({ id, prev }) => {
+    current[id] = prev;
+    (current[id] !== official[id]) ? EDITED.add(id) : EDITED.delete(id);
+    cPaths?.filter(c => c.id === id).attr('fill', distColor(current[id])).classed('edited', EDITED.has(id));
+  });
+  refreshUndoRedo();
+  updateEditBadge();
+  computeAndUpdate();
+  if (selDist !== null) renderDistrictDetail(selDist);
+}
+
+function redo() {
+  if (histIdx >= HISTORY.length - 1) return;
+  HISTORY[++histIdx].forEach(({ id, next }) => {
+    current[id] = next;
+    (current[id] !== official[id]) ? EDITED.add(id) : EDITED.delete(id);
+    cPaths?.filter(c => c.id === id).attr('fill', distColor(current[id])).classed('edited', EDITED.has(id));
+  });
+  refreshUndoRedo();
+  updateEditBadge();
+  computeAndUpdate();
+  if (selDist !== null) renderDistrictDetail(selDist);
+}
+
+function refreshUndoRedo() {
+  document.getElementById('btn-undo').disabled = histIdx < 0;
+  document.getElementById('btn-redo').disabled = histIdx >= HISTORY.length - 1;
+}
+
+function updateEditBadge() {
+  const pill = document.getElementById('changes-pill');
+  pill.classList.toggle('show', EDITED.size > 0);
+  document.getElementById('n-changes').textContent = EDITED.size;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STATS ENGINE
+// ═══════════════════════════════════════════════════════════════
+function computeStats() {
+  const acc = {};
+  for (let i = 1; i <= 38; i++) {
+    acc[i] = { d:0, r:0, pop:0, ww:0, wb:0, wh:0, wa:0 };
+  }
+  features.forEach(f => {
+    const dId = current[f.id];
+    const p   = precinctData[f.id];
+    if (!p || !acc[dId]) return;
+    acc[dId].d   += p.d;
+    acc[dId].r   += p.r;
+    acc[dId].pop += p.pop;
+    acc[dId].ww  += p.w * p.pop;
+    acc[dId].wb  += p.b * p.pop;
+    acc[dId].wh  += p.h * p.pop;
+    acc[dId].wa  += p.a * p.pop;
+  });
+
+  let dSeats=0, rSeats=0, totD=0, totR=0, wD=0, wR=0, packed=0, cracked=0;
+  const ds = {};
+
+  for (let i = 1; i <= 38; i++) {
+    const v   = acc[i];
+    const tot = v.d + v.r;
+    if (tot === 0) { ds[i]={ d:0, r:0, pop:0, tot:0, win:'R', margin:0, w:0,b:0,h:0,a:0 }; continue; }
+    const win    = v.d >= v.r ? 'D' : 'R';
+    const margin = Math.abs(v.d - v.r) / tot * 100;
+    win === 'D' ? dSeats++ : rSeats++;
+    totD += v.d; totR += v.r;
+    if (win==='D') { wD += v.d - tot/2; wR += v.r; }
+    else           { wR += v.r - tot/2; wD += v.d; }
+    if (margin > 30) packed++;
+    else if (margin < 5) cracked++;
+    const pop = Math.round(v.pop);
+    ds[i] = {
+      d: Math.round(v.d), r: Math.round(v.r), pop, tot: Math.round(tot),
+      win, margin,
+      w: pop > 0 ? v.ww/pop : 0, b: pop > 0 ? v.wb/pop : 0,
+      h: pop > 0 ? v.wh/pop : 0, a: pop > 0 ? v.wa/pop : 0,
+    };
+  }
+
+  const tv   = totD + totR;
+  const eg   = tv > 0 ? (wR - wD) / tv * 100 : 0;
+  const dSP  = dSeats + rSeats > 0 ? dSeats / (dSeats + rSeats) * 100 : 50;
+  const dVP  = tv > 0 ? totD / tv * 100 : 50;
+  return {
+    dSeats, rSeats, ds, eg, dSeatPct: dSP, rSeatPct: 100-dSP,
+    dVotePct: dVP, rVotePct: 100-dVP, gap: Math.abs(dSP - dVP),
+    packed, cracked, totD, totR,
+  };
+}
+
+function computeAndUpdate() {
+  liveStats = computeStats();
+  renderSummary(liveStats);
+  if (selDist !== null) renderDistrictDetail(selDist);
+  // Recolor map
+  if (cPaths) cPaths.attr('fill', f => distColor(current[f.id]));
+  // Redraw labels
+  svgEl.select('g').selectAll('.dist-label').remove();
+  drawLabels(svgEl.select('g'));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SUMMARY RENDERING
+// ═══════════════════════════════════════════════════════════════
+function animN(el, to, decimals) {
+  const from = parseFloat(el.textContent) || 0;
+  const t0   = performance.now();
+  const dur  = 480;
+  function step(now) {
+    const t   = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = (from + (to - from) * ease).toFixed(decimals);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function renderSummary(s) {
+  // Seats
+  document.getElementById('s-d').textContent     = s.dSeats;
+  document.getElementById('s-r').textContent     = s.rSeats;
+  document.getElementById('sbar-d').style.width  = s.dSeatPct.toFixed(1) + '%';
+  document.getElementById('s-dpct').textContent  = s.dSeatPct.toFixed(1) + '% D';
+  document.getElementById('s-rpct').textContent  = s.rSeatPct.toFixed(1) + '% R';
+
+  // EG
+  const egAbs = Math.abs(s.eg);
+  animN(document.getElementById('eg-num'), egAbs, 1);
+  let cls, lbl;
+  if (egAbs < 4)      { cls='green'; lbl='✓ Within threshold'; }
+  else if (egAbs < 7) { cls='amber'; lbl='⚠ Approaching limit'; }
+  else                { cls='red';   lbl='▲ Above threshold'; }
+  document.getElementById('eg-num').className  = `eg-num ${cls}`;
+  const chip = document.getElementById('eg-chip');
+  chip.className = `eg-chip ${cls}`;
+  chip.textContent = lbl;
+  document.getElementById('eg-needle').style.left = Math.min(egAbs / 10 * 100, 96) + '%';
+
+  // Flash on threshold crossing
+  if ((prevEG < 7 && egAbs >= 7) || (prevEG >= 7 && egAbs < 7)) {
+    const c = document.getElementById('eg-card');
+    c.classList.remove('eg-flash'); void c.offsetWidth; c.classList.add('eg-flash');
+  }
+  prevEG = egAbs;
+
+  const fav = s.eg > 0.5 ? 'Republicans' : s.eg < -0.5 ? 'Democrats' : 'neither party';
+  document.getElementById('eg-desc').textContent = egAbs < 4
+    ? `An efficiency gap of ${egAbs.toFixed(1)}% is within the acceptable range. Votes are reasonably fairly distributed.`
+    : `A score above 7% indicates systematically wasted votes. This map favors ${fav} by ${egAbs.toFixed(1)} percentage points.`;
+
+  // Seat-vote gap
+  const big  = s.rSeatPct > s.rVotePct ? 'Republicans' : 'Democrats';
+  const gV   = big === 'Republicans' ? s.rVotePct.toFixed(0) : s.dVotePct.toFixed(0);
+  const gS   = big === 'Republicans' ? s.rSeatPct.toFixed(0) : s.dSeatPct.toFixed(0);
+  document.getElementById('sv-txt').innerHTML =
+    `${big} won <span class="svgap-hl">${gV}%</span> of statewide votes ` +
+    `but hold <span class="svgap-hl">${gS}%</span> of seats.`;
+  const pill = document.getElementById('sv-pill');
+  const good = s.gap < 2;
+  pill.className   = 'svgap-pill' + (good ? ' good' : '');
+  pill.textContent = good ? `≈ ${s.gap.toFixed(1)}pt gap (proportional)` : `▲ +${s.gap.toFixed(1)}pt gap`;
+
+  // Packed/cracked
+  document.getElementById('pc-pack').textContent  = s.packed;
+  document.getElementById('pc-crack').textContent = s.cracked;
+
+  // Statewide totals
+  const tv = s.totD + s.totR;
+  document.getElementById('tot-d').textContent =
+    `${(s.totD / 1e6).toFixed(2)}M (${s.dVotePct.toFixed(1)}%)`;
+  document.getElementById('tot-r').textContent =
+    `${(s.totR / 1e6).toFixed(2)}M (${s.rVotePct.toFixed(1)}%)`;
+
+  // Seats curve
+  renderCurve(Object.values(s.ds));
+
+  // Ref panel
+  updateRefRow(egAbs);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PARTISAN SEATS CURVE
+// ═══════════════════════════════════════════════════════════════
+function renderCurve(distArr) {
+  const svg = document.getElementById('curve-svg');
+  const W   = svg.parentElement.clientWidth - 22 || 300;
+  const H   = 60, PT = 5, PB = 5, CH = H - PT - PB;
+  const arr = distArr.filter(d => d.tot > 0).sort((a, b) => a.d/(a.tot||1) - b.d/(b.tot||1));
+  const bw  = Math.max(1, Math.floor(W / arr.length) - 1);
+  const mid = PT + CH / 2;
+
+  const bars = arr.map((d, i) => {
+    const share = d.d / d.tot;
+    const h     = Math.round(share * CH);
+    const x     = i * (bw + 1);
+    const color = d.win === 'D' ? '#3B82F6' : '#EF4444';
+    const op    = d.margin < 5 ? '.55' : '1';
+    return `<rect x="${x}" y="${PT+CH-h}" width="${bw}" height="${h}" fill="${color}" rx="1" opacity="${op}"/>`;
+  }).join('');
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = bars
+    + `<line x1="0" y1="${mid}" x2="${arr.length*(bw+1)}" y2="${mid}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,2"/>`
+    + `<text x="2" y="${mid-4}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">50%</text>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FAIRNESS REFERENCE PANEL
+// ═══════════════════════════════════════════════════════════════
+function buildRefPanel() {
+  const el = document.getElementById('ref-rows');
+  const MAX = 12;
+  el.innerHTML = '';
+
+  EG_REF.forEach(ref => {
+    if (ref.type === 'line') {
+      el.innerHTML += `<div class="ref-threshold-row">
+        <div class="ref-threshold-line"></div>
+        7% Court Threshold
+        <div class="ref-threshold-line"></div>
+      </div>`;
+      return;
+    }
+    const pct = Math.min(ref.eg / MAX * 100, 100);
+    const color = ref.type==='ok' ? 'var(--green-500)' : ref.type==='curr' ? 'var(--blue-500)' : 'var(--red-500)';
+    const badgeClass = ref.type==='ok' ? 'ok' : ref.type==='curr' ? 'curr' : 'bad';
+    const badgeText  = ref.type==='ok' ? 'Fair' : ref.type==='curr' ? 'Official TX' : 'Struck Down';
+    el.innerHTML += `<div class="ref-row">
+      <span class="ref-name">${ref.name}</span>
+      <div class="ref-track"><div class="ref-fill" style="width:${pct}%;background:${color};"></div></div>
+      <span class="ref-pct" style="color:${color};">${ref.eg}%</span>
+      <span class="ref-badge ${badgeClass}">${badgeText}</span>
+    </div>`;
+  });
+
+  // Your map row (live)
+  el.innerHTML += `<div class="ref-row" style="margin-top:4px;padding-top:6px;border-top:2px solid var(--slate-200);">
+    <span class="ref-name you">Your map</span>
+    <div class="ref-track"><div class="ref-fill" id="your-fill" style="width:0%;"></div></div>
+    <span class="ref-pct" id="your-pct" style="color:#92400E;">—</span>
+    <span class="ref-badge warn" id="your-badge">—</span>
+  </div>`;
+}
+
+function updateRefRow(eg) {
+  const fill = document.getElementById('your-fill');
+  const pct  = document.getElementById('your-pct');
+  const bdg  = document.getElementById('your-badge');
+  if (!fill) return;
+  fill.style.width      = Math.min(eg / 12 * 100, 100) + '%';
+  fill.style.background = eg < 4 ? 'var(--green-500)' : eg < 7 ? 'var(--amber-500)' : 'var(--red-500)';
+  pct.textContent       = eg.toFixed(1) + '%';
+  pct.style.color       = eg < 4 ? '#065F46' : eg < 7 ? '#92400E' : '#B91C1C';
+  bdg.textContent       = eg < 4 ? 'Fair' : eg < 7 ? 'Borderline' : eg < 10 ? 'Contested' : 'Struck Down?';
+  bdg.className         = 'ref-badge ' + (eg < 7 ? (eg < 4 ? 'ok' : 'warn') : 'bad');
+}
+
+function toggleRef() {
+  refOpen = !refOpen;
+  document.getElementById('ref-body').classList.toggle('open', refOpen);
+  document.getElementById('ref-chev').classList.toggle('open', refOpen);
+}
+
+// ═══════════════════════════════════════════════════════════════
 // DISTRICT DETAIL
-// ═══════════════════════════════════════════════════════
-const DEMO_COLORS = { w:'#60A5FA', h:'#F59E0B', b:'#818CF8', o:'#34D399' };
-const DEMO_LABELS = { w:'White', h:'Hispanic', b:'Black', o:'Other' };
-
-function showDistrictDetail(dId) {
-  const dist = DISTRICTS.find(x => x.id === dId);
-  if (!dist) return;
-
-  document.getElementById('dd-empty').style.display = 'none';
+// ═══════════════════════════════════════════════════════════════
+function renderDistrictDetail(dId) {
+  const s = liveStats?.ds?.[dId];
+  if (!s) return;
+  document.getElementById('dd-empty').style.display   = 'none';
   document.getElementById('dd-content').style.display = 'block';
 
-  const col = distColor(dist);
-  const tc  = dist.p === 'D' ? '#1E3A8A' : '#7F1D1D';
+  const col = distColor(dId);
+  const tc  = s.win === 'D' ? '#1E3A8A' : '#7F1D1D';
   const badge = document.getElementById('dd-badge');
-  badge.textContent = `TX-${dist.id}`;
-  badge.setAttribute('style', `background:${col};color:${tc};font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:10px;`);
-  document.getElementById('dd-title').textContent = `Texas District ${dist.id}`;
-  document.getElementById('dd-sub').textContent =
-    `${dist.p === 'D' ? 'Democratic' : 'Republican'}-held district`;
+  badge.textContent = `TX-${dId}`;
+  badge.style.cssText = `background:${col};color:${tc};font-size:11px;font-weight:700;` +
+    `width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;`;
+  document.getElementById('dd-title').textContent = `Texas District ${dId}`;
+  document.getElementById('dd-sub').textContent   =
+    `${s.win==='D'?'Dem.':'Rep.'}-held · ${s.margin.toFixed(1)}pt margin · ${s.tot.toLocaleString()} votes`;
 
-  document.getElementById('dd-pop').textContent = dist.pop.toLocaleString();
-  const dev = ((dist.pop - IDEAL_POP) / IDEAL_POP * 100).toFixed(2);
-  const devNum = parseFloat(dev);
+  // Population
+  document.getElementById('dd-pop').textContent = s.pop.toLocaleString();
+  const dev = (s.pop - IDEAL_POP) / IDEAL_POP * 100;
   const devEl = document.getElementById('dd-dev');
-  devEl.textContent = `${devNum > 0 ? '+' : ''}${dev}%`;
-  devEl.style.cssText = `font-weight:600;color:${Math.abs(devNum) > 1 ? 'var(--red-600)' : 'var(--green-600)'};`;
+  devEl.textContent = (dev > 0 ? '+' : '') + dev.toFixed(2) + '%';
+  devEl.style.color = Math.abs(dev) > 1 ? 'var(--red-600)' : 'var(--green-600)';
+  const fill = document.getElementById('dev-fill');
+  const pctH = Math.min(Math.abs(dev) / 3 * 50, 48);
+  fill.style.cssText = dev > 0
+    ? `left:50%;width:${pctH}%;background:${Math.abs(dev)>1?'var(--red-400)':'var(--green-400)'};`
+    : `right:50%;width:${pctH}%;background:${Math.abs(dev)>1?'var(--red-400)':'var(--green-400)'};`;
 
-  const tot = dist.d + dist.r;
-  const dp = (dist.d / tot * 100).toFixed(1);
-  const rp = (dist.r / tot * 100).toFixed(1);
+  // Vote
+  const dp = s.tot > 0 ? (s.d / s.tot * 100).toFixed(1) : '50.0';
+  const rp = s.tot > 0 ? (s.r / s.tot * 100).toFixed(1) : '50.0';
   document.getElementById('dd-dpct').textContent = `Biden ${dp}%`;
   document.getElementById('dd-rpct').textContent = `Trump ${rp}%`;
   document.getElementById('dd-dbar').style.width = dp + '%';
-  document.getElementById('dd-rbar').style.width = rp + '%';
 
-  document.getElementById('dd-demobar').innerHTML =
-    Object.entries(dist.demo).map(([k,v]) =>
-      `<div style="width:${(v*100).toFixed(1)}%;background:${DEMO_COLORS[k]};"></div>`
-    ).join('');
+  // Demographics
+  const rest = Math.max(0, 1 - s.w - s.b - s.h - s.a);
+  const demos = [
+    { k:'w', v:s.w },
+    { k:'h', v:s.h },
+    { k:'b', v:s.b },
+    { k:'a', v:s.a },
+    { k:'o', v:rest },
+  ];
+  document.getElementById('dd-demo-bar').innerHTML = demos
+    .map(({ k, v }) => `<div style="width:${(v*100).toFixed(1)}%;background:${DEMO_COLORS[k]};"></div>`)
+    .join('');
+  document.getElementById('dd-demo-leg').innerHTML = demos
+    .map(({ k, v }) =>
+      `<div class="demo-item"><div class="demo-dot" style="background:${DEMO_COLORS[k]};"></div>`+
+      `${DEMO_LABELS[k]} ${(v*100).toFixed(0)}%</div>`)
+    .join('');
 
-  document.getElementById('dd-demoleg').innerHTML =
-    Object.entries(dist.demo).map(([k,v]) =>
-      `<div class="demo-item"><div class="demo-dot" style="background:${DEMO_COLORS[k]}"></div>${DEMO_LABELS[k]} ${(v*100).toFixed(0)}%</div>`
-    ).join('');
+  // Compactness (Polsby-Popper proxy)
+  const compact = calcCompact(dId);
+  document.getElementById('dd-compact').textContent = compact.toFixed(2);
+  document.getElementById('dd-compact').style.color =
+    compact > 0.3 ? 'var(--green-600)' : compact > 0.15 ? 'var(--amber-500)' : 'var(--red-600)';
+  const cf = document.getElementById('compact-fill');
+  cf.style.width      = Math.min(compact * 150, 100) + '%';
+  cf.style.background = compact > 0.3 ? 'var(--green-500)' : compact > 0.15 ? 'var(--amber-500)' : 'var(--red-500)';
 
-  const winner = dist.p === 'D' ? dist.d : dist.r;
-  const loser  = dist.p === 'D' ? dist.r : dist.d;
-  const wW = Math.round(winner - tot / 2);
-  const wL = loser;
-  const wD = dist.p === 'D' ? wW : wL;
-  const wR = dist.p === 'R' ? wW : wL;
+  // EG contribution
+  let wD = 0, wR = 0;
+  if (s.win==='D') { wD = Math.round(s.d - s.tot/2); wR = Math.round(s.r); }
+  else             { wR = Math.round(s.r - s.tot/2); wD = Math.round(s.d); }
   document.getElementById('dd-wd').textContent = wD.toLocaleString();
   document.getElementById('dd-wr').textContent = wR.toLocaleString();
-  const egC = ((wR - wD) / tot * 100).toFixed(2);
-  const egEl = document.getElementById('dd-eg');
-  egEl.textContent = `${egC > 0 ? '+' : ''}${egC}%`;
-  egEl.style.cssText = `font-weight:700;color:${egC > 0 ? 'var(--red-600)' : 'var(--blue-600)'};`;
+  const egC = s.tot > 0 ? ((wR - wD) / s.tot * 100).toFixed(2) : '0.00';
+  const egEl = document.getElementById('dd-egc');
+  egEl.textContent = (parseFloat(egC) > 0 ? '+' : '') + egC + '%';
+  egEl.style.color = parseFloat(egC) > 0 ? 'var(--red-600)' : 'var(--blue-600)';
 }
 
-// ═══════════════════════════════════════════════════════
-// LIVE STATS ENGINE — recomputes everything from userAssignment
-// ═══════════════════════════════════════════════════════
-function computeLiveStats() {
-  // Tally votes per district from live precinct (county) assignments
-  const distVotes = {}; // { distId: { d, r, pop } }
-  for (let i = 1; i <= 38; i++) distVotes[i] = { d: 0, r: 0, pop: 0 };
-
-  counties.forEach(c => {
-    const dId = userAssignment[c.id];
-    const base = DISTRICTS.find(x => x.id === countyAssignment[c.id]);
-    if (!base || !distVotes[dId]) return;
-    // Proportionally attribute this county's votes based on its original district data
-    const origCounties = counties.filter(x => countyAssignment[x.id] === countyAssignment[c.id]);
-    const share = 1 / Math.max(origCounties.length, 1);
-    distVotes[dId].d   += base.d * share;
-    distVotes[dId].r   += base.r * share;
-    distVotes[dId].pop += base.pop * share;
+function calcCompact(dId) {
+  if (!features || !path) return 0;
+  const fs = features.filter(f => current[f.id] === dId);
+  if (!fs.length) return 0;
+  let area = 0, minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
+  fs.forEach(f => {
+    area += Math.abs(path.area(f));
+    try {
+      const [[x1,y1],[x2,y2]] = path.bounds(f);
+      minX=Math.min(minX,x1); maxX=Math.max(maxX,x2);
+      minY=Math.min(minY,y1); maxY=Math.max(maxY,y2);
+    } catch(_) {}
   });
-
-  // Determine winner per district
-  let dSeats = 0, rSeats = 0;
-  let totalD = 0, totalR = 0;
-  let wastedD = 0, wastedR = 0;
-  let packed = 0, cracked = 0;
-  const liveDistricts = [];
-
-  for (let i = 1; i <= 38; i++) {
-    const v = distVotes[i];
-    const tot = v.d + v.r;
-    if (tot === 0) continue;
-    const dShare = v.d / tot;
-    const rShare = v.r / tot;
-    const winner = dShare >= 0.5 ? 'D' : 'R';
-    const margin = Math.abs(dShare - rShare) * 100;
-
-    if (winner === 'D') dSeats++; else rSeats++;
-    totalD += v.d; totalR += v.r;
-
-    // Wasted votes: loser wastes all votes; winner wastes surplus above 50%+1
-    if (winner === 'D') {
-      wastedD += Math.round(v.d - tot / 2);
-      wastedR += Math.round(v.r);
-    } else {
-      wastedR += Math.round(v.r - tot / 2);
-      wastedD += Math.round(v.d);
-    }
-
-    // Packed: winner margin > 40% (win by 70%+ of vote); Cracked: loser within 5pts
-    if (margin > 40) packed++;
-    else if (margin < 5) cracked++;
-
-    liveDistricts.push({ id: i, p: winner, d: v.d, r: v.r, pop: v.pop, mg: Math.round(margin) });
-  }
-
-  const totalSeats = dSeats + rSeats;
-  const totalVotes = totalD + totalR;
-  const eg = totalVotes > 0 ? ((wastedR - wastedD) / totalVotes * 100) : 0;
-  const dVotePct  = totalVotes > 0 ? totalD / totalVotes * 100 : 0;
-  const rVotePct  = totalVotes > 0 ? totalR / totalVotes * 100 : 0;
-  const dSeatPct  = totalSeats > 0 ? dSeats / totalSeats * 100 : 0;
-  const rSeatPct  = totalSeats > 0 ? rSeats / totalSeats * 100 : 0;
-  const seatVoteGap = Math.abs(rSeatPct - rVotePct);
-
-  return { dSeats, rSeats, totalSeats, eg, dVotePct, rVotePct, dSeatPct, rSeatPct,
-           seatVoteGap, packed, cracked, liveDistricts, totalD, totalR };
+  const bbox = (maxX-minX)*(maxY-minY);
+  return bbox > 0 ? Math.min(area / bbox, 1) : 0;
 }
 
-function updateStats() {
-  if (!counties || !counties.length) return;
-  const s = computeLiveStats();
-
-  // ── Seats ──
-  document.getElementById('s-dem').textContent = s.dSeats;
-  document.getElementById('s-rep').textContent = s.rSeats;
-  document.getElementById('sbar-d').style.width = s.dSeatPct.toFixed(1) + '%';
-  document.getElementById('sbar-r').style.width = s.rSeatPct.toFixed(1) + '%';
-  document.getElementById('s-dpct').textContent = s.dSeatPct.toFixed(1) + '% of seats';
-  document.getElementById('s-rpct').textContent = s.rSeatPct.toFixed(1) + '% of seats';
-
-  // ── Efficiency Gap ──
-  const egAbs = Math.abs(s.eg);
-  const egEl  = document.getElementById('eg-val');
-  egEl.textContent = egAbs.toFixed(1);
-  const egChip = document.getElementById('eg-chip');
-  let egClass, chipLabel;
-  if (egAbs < 4)       { egClass = 'green'; chipLabel = '✓ Within threshold'; }
-  else if (egAbs < 7)  { egClass = 'amber'; chipLabel = '⚠ Approaching limit'; }
-  else                 { egClass = 'red';   chipLabel = '▲ Above threshold'; }
-  egEl.className = `eg-num ${egClass}`;
-  egChip.className = `eg-chip ${egClass}`;
-  egChip.textContent = chipLabel;
-
-  // Needle: 0%→0px, 10%+→100%. Clamp at 95% so needle stays visible.
-  const needlePct = Math.min(egAbs / 10 * 100, 95);
-  document.getElementById('eg-needle').style.left = needlePct + '%';
-
-  const favors = s.eg > 0 ? 'Republicans' : (s.eg < 0 ? 'Democrats' : 'neither party');
-  document.getElementById('eg-desc').textContent =
-    egAbs < 4
-      ? `An efficiency gap of ${egAbs.toFixed(1)}% is within the acceptable range. Votes are distributed fairly evenly between parties.`
-      : `A score above 7% means one party's votes are significantly more wasted. The current map shows a structural advantage for ${favors}.`;
-
-  // ── Seat-Vote Gap ──
-  const rVotePctRnd = s.rVotePct.toFixed(0);
-  const rSeatPctRnd = s.rSeatPct.toFixed(0);
-  const dVotePctRnd = s.dVotePct.toFixed(0);
-  const dSeatPctRnd = s.dSeatPct.toFixed(0);
-  const gapDir = s.rSeatPct > s.rVotePct ? 'Republicans' : 'Democrats';
-  const gapAmt = s.seatVoteGap.toFixed(1);
-  document.getElementById('svgap-text').innerHTML =
-    `${gapDir} won <span class="svgap-hl">${gapDir==='Republicans'?rVotePctRnd:dVotePctRnd}%</span> of statewide votes but <span class="svgap-hl">${gapDir==='Republicans'?rSeatPctRnd:dSeatPctRnd}%</span> of seats.`;
-  const pill = document.getElementById('svgap-pill');
-  pill.textContent = s.seatVoteGap < 2 ? `≈ ${gapAmt} point gap` : `▲ +${gapAmt} point gap`;
-  pill.style.color = s.seatVoteGap < 2 ? 'var(--green-600)' : '';
-  pill.style.background = s.seatVoteGap < 2 ? '#ECFDF5' : '';
-  pill.style.borderColor = s.seatVoteGap < 2 ? '#A7F3D0' : '';
-
-  // ── Packed / Cracked ──
-  document.getElementById('pc-packed').textContent  = s.packed;
-  document.getElementById('pc-cracked').textContent = s.cracked;
-
-  // ── Seats Curve ──
-  renderSeatsCurve(s.liveDistricts);
-}
-
-// ═══════════════════════════════════════════════════════
-// SEATS CURVE
-// ═══════════════════════════════════════════════════════
-function renderSeatsCurve(liveDists) {
-  const distArr = liveDists || DISTRICTS;
-  const el = document.getElementById('seats-svg');
-  const rawW = el.parentElement.clientWidth - 24;
-  const W = rawW > 0 ? rawW : 300;
-  const H = 58;
-  const PAD_TOP = 4, PAD_BOT = 14;
-  const chartH = H - PAD_TOP - PAD_BOT;
-
-  const sorted = [...distArr].sort((a, b) => {
-    const da = a.d / (a.d + a.r);
-    const db = b.d / (b.d + b.r);
-    return da - db;
-  });
-
-  const bw = Math.max(1, Math.floor(W / sorted.length) - 1);
-  const half = PAD_TOP + chartH / 2;
-
-  const bars = sorted.map((d, i) => {
-    const share = d.d / (d.d + d.r);
-    const h = Math.round(share * chartH);
-    const x = i * (bw + 1);
-    const col = d.p === 'D' ? '#3B82F6' : '#EF4444';
-    const opacity = d.mg < 8 ? '.65' : '1';
-    return `<rect x="${x}" y="${PAD_TOP + chartH - h}" width="${bw}" height="${h}" fill="${col}" rx="1" opacity="${opacity}"/>`;
-  }).join('');
-
-  const lineY = Math.round(half);
-  const totalW = sorted.length * (bw + 1);
-
-  el.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  el.innerHTML = bars
-    + `<line x1="0" y1="${lineY}" x2="${totalW}" y2="${lineY}" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2"/>`
-    + `<text x="2" y="${lineY - 3}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">50%</text>`
-    + `<text x="2" y="${H}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">R</text>`
-    + `<text x="${totalW - 8}" y="${H}" font-size="8" fill="#3B82F6" font-family="Inter,sans-serif">D</text>`;
-}
-
-// ═══════════════════════════════════════════════════════
-// PAINT PALETTE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// PALETTE
+// ═══════════════════════════════════════════════════════════════
 function buildPalette() {
-  const grid = document.getElementById('palette-grid');
-  grid.innerHTML = DISTRICTS.map(d =>
-    `<div class="p-swatch${d.id===1?' active':''}"
-      style="background:${distColor(d)}"
-      title="TX-${d.id}"
-      onclick="selectPaint(${d.id}, this)">${d.id}</div>`
-  ).join('');
+  document.getElementById('pal-grid').innerHTML = Array.from({length:38},(_,i)=>i+1).map(id => {
+    const c = distColor(id) || '#CBD5E1';
+    return `<div class="p-sw${id===1?' active':''}" style="background:${c};"
+      title="TX-${id}" onclick="selectPaint(${id},this)">${id}</div>`;
+  }).join('');
 }
 
 function selectPaint(id, el) {
-  paintTarget = id;
-  document.querySelectorAll('.p-swatch').forEach(s => s.classList.remove('active'));
-  el.classList.add('active');
+  paintDist = id;
+  document.querySelectorAll('.p-sw').forEach(s => s.classList.remove('active'));
+  el?.classList.add('active');
 }
 
-// ═══════════════════════════════════════════════════════
-// TOOLBAR ACTIONS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// TOOLBAR
+// ═══════════════════════════════════════════════════════════════
 function setMode(m) {
   appMode = m;
-  document.getElementById('btn-click').classList.toggle('active', m === 'click');
-  document.getElementById('btn-paint').classList.toggle('active', m === 'paint');
-  document.getElementById('map-wrap').style.cursor = m === 'paint' ? 'crosshair' : '';
-  const pal = document.getElementById('paint-palette');
-  pal.classList.toggle('show', m === 'paint');
+  document.getElementById('btn-click').classList.toggle('active', m==='click');
+  document.getElementById('btn-paint').classList.toggle('active', m==='paint');
+  document.getElementById('map-wrap').style.cursor = m==='paint' ? 'crosshair' : '';
+  document.getElementById('paint-palette').classList.toggle('show', m==='paint');
 }
 
 function toggleCompare() {
-  compareOn = !compareOn;
+  comparing = !comparing;
   const btn = document.getElementById('btn-compare');
-  btn.classList.toggle('btn-primary', compareOn);
-  btn.innerHTML = compareOn
-    ? `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 2v9M2 6.5h9"/></svg> Comparing`
-    : `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 2v9M2 6.5h9"/></svg> Compare`;
-
-  ['compare-strip','compare-line','compare-l-label','compare-r-label'].forEach(id => {
-    document.getElementById(id).style.display = compareOn ? 'block' : 'none';
+  btn.classList.toggle('btn-primary', comparing);
+  btn.innerHTML = comparing
+    ? `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg> Comparing`
+    : `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg> Compare`;
+  ['cmp-strip','cmp-line','cmp-l','cmp-r'].forEach(id => {
+    document.getElementById(id).style.display = comparing ? 'block' : 'none';
   });
 }
 
 function resetMap() {
-  Object.assign(userAssignment, countyAssignment);
-  if (cPaths) {
-    cPaths
-      .classed('sel', false)
-      .attr('fill', d => {
-        const dist = DISTRICTS.find(x => x.id === userAssignment[d.id]);
-        return dist ? distColor(dist) : '#CBD5E1';
-      });
-  }
-  selDistrict = null;
-  document.getElementById('dd-empty').style.display = 'flex';
+  const batch = [];
+  EDITED.forEach(id => {
+    batch.push({ id, prev: current[id], next: official[id] });
+    current[id] = official[id];
+  });
+  if (batch.length) histPush(batch);
+  EDITED.clear();
+  selDist = null;
+  cPaths?.classed('sel', false).classed('edited', false);
+  computeAndUpdate();
+  updateEditBadge();
+  document.getElementById('dd-empty').style.display   = 'flex';
   document.getElementById('dd-content').style.display = 'none';
-  switchTab('summary');
-  updateStats();
+  switchTab('sum');
 }
 
-function showShare() {
-  const fake = `https://redrawthelines.vercel.app/?map=BZh91AY${Math.random().toString(36).substr(2,10)}`;
-  document.getElementById('share-url').value = fake;
+function openShare() {
+  const n = EDITED.size;
+  document.getElementById('share-n').textContent = n;
+  let url = `${location.origin}${location.pathname}`;
+  if (typeof LZString !== 'undefined' && n > 0) {
+    const diff = {};
+    EDITED.forEach(id => { diff[id] = current[id]; });
+    url += '?map=' + LZString.compressToEncodedURIComponent(JSON.stringify(diff));
+  }
+  document.getElementById('share-url').value = url;
   document.getElementById('share-modal').classList.add('show');
 }
 
 function copyUrl() {
   navigator.clipboard.writeText(document.getElementById('share-url').value).catch(() => {});
   const btn = document.getElementById('copy-btn');
-  btn.textContent = 'Copied ✓';
-  setTimeout(() => btn.textContent = 'Copy', 1600);
+  const orig = btn.textContent;
+  btn.textContent  = 'Copied ✓';
+  btn.style.background = 'var(--green-600)';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2000);
 }
 
-// ═══════════════════════════════════════════════════════
-// TABS
-// ═══════════════════════════════════════════════════════
+function closeModal() {
+  document.getElementById('share-modal').classList.remove('show');
+}
+
+function restoreFromURL() {
+  try {
+    const p = new URLSearchParams(location.search);
+    const m = p.get('map');
+    if (!m || typeof LZString === 'undefined') return;
+    const diff = JSON.parse(LZString.decompressFromEncodedURIComponent(m));
+    Object.entries(diff).forEach(([id, d]) => {
+      current[id] = parseInt(d);
+      if (current[id] !== official[id]) EDITED.add(id);
+    });
+    if (EDITED.size) updateEditBadge();
+  } catch (_) {}
+}
+
 function switchTab(t) {
-  document.getElementById('pane-summary').style.display  = t === 'summary'  ? '' : 'none';
-  document.getElementById('pane-district').style.display = t === 'district' ? '' : 'none';
-  document.getElementById('tab-s').classList.toggle('active', t === 'summary');
-  document.getElementById('tab-d').classList.toggle('active', t === 'district');
+  document.getElementById('pane-sum').style.display  = t === 'sum'  ? '' : 'none';
+  document.getElementById('pane-dist').style.display = t === 'dist' ? '' : 'none';
+  document.getElementById('tab-sum').classList.toggle('active', t === 'sum');
+  document.getElementById('tab-dist').classList.toggle('active', t === 'dist');
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
 // TOUR
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+let _tourIdx = 0;
+
 function startTour() {
-  tourStep = 0;
-  renderTourCard();
-  document.getElementById('tour-overlay').classList.add('on');
+  _tourIdx = 0;
+  renderTour();
+  document.getElementById('tour-ov').classList.add('on');
 }
 
-function renderTourCard() {
-  const s = TOUR[tourStep];
-  document.getElementById('tour-step-lbl').textContent = `Step ${tourStep+1} of ${TOUR.length}`;
-  document.getElementById('tour-title').textContent = s.title;
-  document.getElementById('tour-body').textContent = s.body;
-
-  const dots = document.getElementById('tour-dots');
-  dots.innerHTML = TOUR.map((_,i) => {
-    const cls = i < tourStep ? 'done' : i === tourStep ? 'cur' : 'fut';
-    return `<div class="tour-dot ${cls}"></div>`;
+function renderTour() {
+  const s = TOUR_STEPS[_tourIdx];
+  document.getElementById('t-lbl').textContent   = `Step ${_tourIdx+1} of ${TOUR_STEPS.length}`;
+  document.getElementById('t-title').textContent  = s.title;
+  document.getElementById('t-body').textContent   = s.body;
+  document.getElementById('t-dots').innerHTML     = TOUR_STEPS.map((_, i) => {
+    const cls = i < _tourIdx ? 'done' : i === _tourIdx ? 'cur' : 'fut';
+    return `<div class="t-dot ${cls}"></div>`;
   }).join('');
-
-  const prev = document.getElementById('tour-prev');
-  const next = document.getElementById('tour-next');
-  prev.style.display = tourStep === 0 ? 'none' : 'flex';
-
+  const prev = document.getElementById('t-prev');
+  const next = document.getElementById('t-next');
+  prev.style.display = _tourIdx === 0 ? 'none' : 'flex';
   if (s.last) {
     next.textContent = 'Start Exploring →';
     next.onclick = endTour;
   } else {
     next.textContent = 'Next →';
-    next.onclick = () => tourNav(1);
+    next.onclick = () => tourStep(1);
   }
-
-  // Highlight district on map
-  if (cPaths) {
-    cPaths.classed('sel', d => s.dist && userAssignment[d.id] === s.dist);
-  }
+  // Highlight district
+  if (cPaths) cPaths.classed('sel', f => s.dist && current[f.id] === s.dist);
 }
 
-function tourNav(dir) {
-  tourStep = Math.max(0, Math.min(TOUR.length - 1, tourStep + dir));
-  renderTourCard();
+function tourStep(dir) {
+  _tourIdx = Math.max(0, Math.min(TOUR_STEPS.length - 1, _tourIdx + dir));
+  renderTour();
 }
 
 function endTour() {
-  document.getElementById('tour-overlay').classList.remove('on');
-  if (cPaths) cPaths.classed('sel', false);
-  tourStep = -1;
+  document.getElementById('tour-ov').classList.remove('on');
+  cPaths?.classed('sel', false);
 }
 
-// ═══════════════════════════════════════════════════════
-// RESIZE
-// ═══════════════════════════════════════════════════════
-window.addEventListener('resize', () => {
-  if (!counties) return;
-  const wrap = document.getElementById('map-wrap');
-  const W = wrap.clientWidth, H = wrap.clientHeight;
-  svg.attr('width', W).attr('height', H);
-  const col = { type: 'FeatureCollection', features: counties };
-  projection.fitExtent([[36, 24], [W - 24, H - 28]], col);
-  pathGen = d3.geoPath().projection(projection);
-  renderMap();
-  renderSeatsCurve();
+// ═══════════════════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const ctrl = e.ctrlKey || e.metaKey;
+  if (ctrl && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); return; }
+  if (ctrl && (e.key.toLowerCase() === 'y' || (e.shiftKey && e.key.toLowerCase() === 'z')))
+    { e.preventDefault(); redo(); return; }
+  switch (e.key) {
+    case ' ': e.preventDefault(); setMode(appMode === 'click' ? 'paint' : 'click'); break;
+    case 'r': case 'R': if (!ctrl) resetMap(); break;
+    case 't': case 'T': startTour(); break;
+    case 'Escape': closeModal(); endTour(); break;
+  }
 });
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// RESIZE
+// ═══════════════════════════════════════════════════════════════
+window.addEventListener('resize', () => {
+  if (!features.length) return;
+  const wrap = document.getElementById('map-wrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  svgEl.attr('width', W).attr('height', H);
+  const col = { type:'FeatureCollection', features };
+  proj.fitExtent([[36, 22], [W - 22, H - 26]], col);
+  path = d3.geoPath().projection(proj);
+  renderMap();
+  renderCurve(liveStats ? Object.values(liveStats.ds) : []);
+});
+
+// ═══════════════════════════════════════════════════════════════
 // BOOT
-// ═══════════════════════════════════════════════════════
-initMapFull();
+// ═══════════════════════════════════════════════════════════════
+boot();
 </script>
 </body>
 </html>
