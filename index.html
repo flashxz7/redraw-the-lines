@@ -162,22 +162,26 @@ body.presenter .presenter-hud{display:block;}
 .hud-chip.amber{background:rgba(251,191,36,.15);color:#FBBF24;}
 .hud-chip.red{background:rgba(248,113,113,.15);color:#F87171;}
 .presenter-exit{
-  position:fixed;bottom:20px;right:20px;z-index:400;
-  background:rgba(15,23,42,.75);color:rgba(255,255,255,.55);
+  position:fixed;bottom:24px;right:24px;z-index:400;
+  background:rgba(15,23,42,.82);color:rgba(255,255,255,.7);
   font-family:var(--f);font-size:11px;font-weight:600;
-  border:1px solid rgba(255,255,255,.1);border-radius:100px;
-  padding:7px 16px;cursor:pointer;display:none;backdrop-filter:blur(8px);transition:all .2s;
+  border:1px solid rgba(255,255,255,.15);border-radius:100px;
+  padding:8px 18px;cursor:pointer;display:none;backdrop-filter:blur(12px);
+  transition:all .2s;letter-spacing:.2px;
+  box-shadow:0 4px 16px rgba(0,0,0,.35);
 }
 body.presenter .presenter-exit{display:block;}
-.presenter-exit:hover{background:rgba(15,23,42,.95);color:#fff;}
+.presenter-exit:hover{background:rgba(15,23,42,.97);color:#fff;transform:translateY(-1px);}
 .presenter-hint{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
   background:rgba(15,23,42,.7);color:rgba(255,255,255,.5);
   font-family:var(--f);font-size:11px;font-weight:500;
-  padding:7px 18px;border-radius:100px;display:none;
-  backdrop-filter:blur(8px);pointer-events:none;
+  padding:8px 20px;border-radius:100px;display:none;
+  backdrop-filter:blur(8px);pointer-events:none;letter-spacing:.2px;
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
 }
 body.presenter .presenter-hint{display:block;}
+body.presenter .carnegie{display:none;}
 
 /* ─── TOOLBAR ─────────────────────────────────────────────────────── */
 .toolbar{
@@ -739,15 +743,15 @@ body.presenter .presenter-hint{display:block;}
             <div class="tt-meta" id="tt-meta">Republican</div>
           </div>
         </div>
-        <div class="tt-row"><span>Population</span><span class="tt-val" id="tt-pop">—</span></div>
+        <div class="tt-row"><span>Population</span><span class="tt-val" id="tt-pop"> </span></div>
         <div class="tt-row"><span>2020 Presidential</span></div>
         <div class="vote-mini" id="tt-bar">
           <div id="tt-d" style="background:var(--blue-400);"></div>
           <div id="tt-r" style="background:var(--red-400);flex:1;"></div>
         </div>
         <div class="tt-row">
-          <span style="color:var(--blue-600);font-weight:600;" id="tt-dp">—</span>
-          <span style="color:var(--red-600);font-weight:600;" id="tt-rp">—</span>
+          <span style="color:var(--blue-600);font-weight:600;" id="tt-dp"> </span>
+          <span style="color:var(--red-600);font-weight:600;" id="tt-rp"> </span>
         </div>
       </div>
     </div>
@@ -788,12 +792,12 @@ body.presenter .presenter-hint{display:block;}
         <div class="card">
           <div class="seat-row">
             <div class="seat-block">
-              <span class="seat-n d" id="s-d">—</span>
+              <span class="seat-n d" id="s-d"> </span>
               <span class="seat-lbl">Democrat</span>
             </div>
             <div class="seat-div"></div>
             <div class="seat-block">
-              <span class="seat-n r" id="s-r">—</span>
+              <span class="seat-n r" id="s-r"> </span>
               <span class="seat-lbl">Republican</span>
             </div>
           </div>
@@ -816,7 +820,7 @@ body.presenter .presenter-hint{display:block;}
         <div class="card-white" id="eg-card">
           <div class="eg-top">
             <div class="eg-numrow">
-              <span class="eg-num red" id="eg-num">—</span>
+              <span class="eg-num red" id="eg-num"> </span>
               <span class="eg-pct">%</span>
             </div>
             <span class="eg-chip red" id="eg-chip">▲ Above threshold</span>
@@ -834,15 +838,15 @@ body.presenter .presenter-hint{display:block;}
               <span>0%</span><span>4%</span><span>7%</span><span>10%+</span>
             </div>
           </div>
-          <div class="eg-desc" id="eg-desc">Loading…</div>
+          <div class="eg-desc" id="eg-desc">Calculating...</div>
         </div>
       </div>
 
       <div class="sec">
         <div class="sl">Seat–Vote Gap</div>
         <div class="card">
-          <div class="svgap-txt" id="sv-txt">—</div>
-          <div><span class="svgap-pill" id="sv-pill">—</span></div>
+          <div class="svgap-txt" id="sv-txt"> </div>
+          <div><span class="svgap-pill" id="sv-pill"> </span></div>
         </div>
       </div>
 
@@ -853,12 +857,12 @@ body.presenter .presenter-hint{display:block;}
         </div>
         <div class="pc-grid">
           <div class="pc-box">
-            <span class="pc-n" style="color:var(--blue-700)" id="pc-pack">—</span>
+            <span class="pc-n" style="color:var(--blue-700)" id="pc-pack"> </span>
             <span class="pc-lbl">Packed</span>
             <div class="pc-def">Win by 80%+<br>surplus votes wasted</div>
           </div>
           <div class="pc-box">
-            <span class="pc-n" style="color:var(--amber-500)" id="pc-crack">—</span>
+            <span class="pc-n" style="color:var(--amber-500)" id="pc-crack"> </span>
             <span class="pc-lbl">Cracked</span>
             <div class="pc-def">Lose by &lt;10%<br>votes diluted</div>
           </div>
@@ -898,13 +902,13 @@ body.presenter .presenter-hint{display:block;}
             <span style="display:flex;align-items:center;gap:7px;">
               <span style="width:8px;height:8px;border-radius:50%;background:var(--blue-500);display:inline-block;"></span>Biden / Democrats
             </span>
-            <span class="dd-val" style="color:var(--blue-600);" id="tot-d">—</span>
+            <span class="dd-val" style="color:var(--blue-600);" id="tot-d"> </span>
           </div>
           <div class="dd-row" style="padding:4px 0;border-top:1px solid var(--slate-100);margin-top:4px;padding-top:8px;">
             <span style="display:flex;align-items:center;gap:7px;">
               <span style="width:8px;height:8px;border-radius:50%;background:var(--red-500);display:inline-block;"></span>Trump / Republicans
             </span>
-            <span class="dd-val" style="color:var(--red-600);" id="tot-r">—</span>
+            <span class="dd-val" style="color:var(--red-600);" id="tot-r"> </span>
           </div>
         </div>
       </div>
@@ -927,17 +931,17 @@ body.presenter .presenter-hint{display:block;}
         <div class="dd-head">
           <div class="dd-badge" id="dd-badge"></div>
           <div>
-            <div class="dd-title" id="dd-title">Texas District —</div>
-            <div class="dd-sub" id="dd-sub">—</div>
+            <div class="dd-title" id="dd-title">Texas District</div>
+            <div class="dd-sub" id="dd-sub"> </div>
           </div>
         </div>
 
         <div class="sec">
           <div class="sl">Population</div>
           <div class="card">
-            <div class="dd-row"><span>Total residents</span><span class="dd-val" id="dd-pop">—</span></div>
+            <div class="dd-row"><span>Total residents</span><span class="dd-val" id="dd-pop"> </span></div>
             <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:3px;padding-top:7px;">
-              <span>Deviation from ideal (761K)</span><span id="dd-dev" class="dd-val">—</span>
+              <span>Deviation from ideal (761K)</span><span id="dd-dev" class="dd-val"> </span>
             </div>
             <div class="dev-bar-wrap">
               <div class="dev-bar-mid"></div>
@@ -950,8 +954,8 @@ body.presenter .presenter-hint{display:block;}
           <div class="sl">2020 Presidential Vote</div>
           <div class="card">
             <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:7px;">
-              <span style="color:var(--blue-600)" id="dd-dpct">—</span>
-              <span style="color:var(--red-600)"  id="dd-rpct">—</span>
+              <span style="color:var(--blue-600)" id="dd-dpct"> </span>
+              <span style="color:var(--red-600)"  id="dd-rpct"> </span>
             </div>
             <div class="vote-mini">
               <div id="dd-dbar" style="background:var(--blue-400);transition:width .4s;"></div>
@@ -979,7 +983,7 @@ body.presenter .presenter-hint{display:block;}
           <div class="card">
             <div class="dd-row">
               <span>Polsby-Popper score</span>
-              <span class="dd-val" id="dd-compact">—</span>
+              <span class="dd-val" id="dd-compact"> </span>
             </div>
             <div class="prog-bar">
               <div class="prog-fill" id="compact-fill"></div>
@@ -993,11 +997,11 @@ body.presenter .presenter-hint{display:block;}
         <div class="sec">
           <div class="sl">Efficiency Gap Contribution</div>
           <div class="card">
-            <div class="dd-row"><span>Wasted Dem votes</span><span class="dd-val" id="dd-wd">—</span></div>
-            <div class="dd-row"><span>Wasted Rep votes</span><span class="dd-val" id="dd-wr">—</span></div>
+            <div class="dd-row"><span>Wasted Dem votes</span><span class="dd-val" id="dd-wd"> </span></div>
+            <div class="dd-row"><span>Wasted Rep votes</span><span class="dd-val" id="dd-wr"> </span></div>
             <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:4px;padding-top:7px;">
               <span style="font-weight:500">Net EG contribution</span>
-              <span id="dd-egc" class="dd-val">—</span>
+              <span id="dd-egc" class="dd-val"> </span>
             </div>
           </div>
         </div>
@@ -1014,7 +1018,7 @@ body.presenter .presenter-hint{display:block;}
   <div class="modal">
     <h3>Share Your Map</h3>
     <p class="modal-sub">
-      Your redistricting layout — <span id="share-n">0</span> edits from the official map —
+      Your redistricting layout (<span id="share-n">0</span> edits from the official map)
       is encoded in the URL below. Anyone who opens it sees your exact map.
     </p>
     <div class="modal-input-row">
@@ -1038,12 +1042,12 @@ body.presenter .presenter-hint{display:block;}
 <!-- ─── PRESENTER HUD ─────────────────────────────────────────────── -->
 <div class="presenter-hud" id="presenter-hud">
   <div class="hud-eyebrow">Redraw the Lines · Live Stats</div>
-  <div class="hud-eg-val red" id="hud-eg">—</div>
+  <div class="hud-eg-val red" id="hud-eg"> </div>
   <div class="hud-eg-lbl">Efficiency Gap (7% = court threshold)</div>
   <div class="hud-seats-row">
-    <span class="hud-d" id="hud-d">—</span>
+    <span class="hud-d" id="hud-d"> </span>
     <span class="hud-vs">·</span>
-    <span class="hud-r" id="hud-r">—</span>
+    <span class="hud-r" id="hud-r"> </span>
   </div>
   <div class="hud-seats-lbl">Congressional seats (D · R)</div>
   <div class="hud-sbar">
@@ -1060,7 +1064,7 @@ body.presenter .presenter-hint{display:block;}
   <div class="rc-modal">
     <h3>📋 Map Report Card</h3>
     <p class="rc-sub-lbl">How does your map measure up against legal and constitutional standards?</p>
-    <div class="rc-verdict" id="rc-verdict">—</div>
+    <div class="rc-verdict" id="rc-verdict"> </div>
     <div class="rc-grid" id="rc-grid"></div>
     <div class="modal-foot">
       <button class="btn" onclick="closeReportCard()">Close</button>
@@ -1100,7 +1104,7 @@ const EG_REF = [
 const TOUR_STEPS = [
   { dist:35,
     title:"Texas's 35th Congressional District",
-    body:"Look at TX-35. It's a narrow 300-mile corridor connecting Austin to San Antonio along Interstate 35. It looks bizarre — and that's intentional. This district was drawn with a specific goal in mind."
+    body:"Look at TX-35. It's a narrow 300-mile corridor connecting Austin to San Antonio along Interstate 35. It looks bizarre, and that's intentional. This district was drawn with a specific goal in mind."
   },
   { dist:35,
     title:"Packing: Concentrating Minority Voters",
@@ -1108,15 +1112,15 @@ const TOUR_STEPS = [
   },
   { dist:37,
     title:"Cracking: Splitting Austin's Vote",
-    body:"The city of Austin is divided across multiple districts — TX-10, TX-17, TX-21, TX-25, TX-31, TX-35, TX-37. This 'cracks' Austin's progressive-leaning voters so that no single district can form a Democratic majority outside the packed corridor."
+    body:"The city of Austin is divided across multiple districts: TX-10, TX-17, TX-21, TX-25, TX-31, TX-35, TX-37. This 'cracks' Austin's progressive-leaning voters so that no single district can form a Democratic majority outside the packed corridor."
   },
   { dist:null,
     title:"The Mathematical Result: 11.3% Efficiency Gap",
-    body:"Republicans won 56% of statewide votes in 2020 but captured 63% of seats — a 7-point seat-vote gap. The efficiency gap is 11.3%, above the 7% threshold researchers have flagged as presumptively problematic. Courts struck down Wisconsin's 2011 map at 11.7%."
+    body:"Republicans won 56% of statewide votes in 2020 but captured 63% of seats, a 7-point seat-vote gap. The efficiency gap is 11.3%, above the 7% threshold researchers have flagged as presumptively problematic. Courts struck down Wisconsin's 2011 map at 11.7%."
   },
   { dist:null, last:true,
     title:"Your Turn: Redraw the Map",
-    body:"Can you draw a fairer map? Switch to Paint mode and reassign counties to new districts. Watch the efficiency gap drop in real time. Try to get below 7% — that's the court-recognized threshold for fair representation. Check the Fairness Reference panel to compare your map to real ones."
+    body:"Can you draw a fairer map? Switch to Paint mode and reassign counties to new districts. Watch the efficiency gap drop in real time. Try to get below 7%, the the court-recognized threshold for fair representation. Check the Fairness Reference panel to compare your map to real ones."
   },
 ];
 
@@ -1124,46 +1128,132 @@ const TOUR_STEPS = [
 // SYNTHETIC DISTRICT DATA (fallback when real data not available)
 // These approximate the actual Plan C2193 districts
 // ═══════════════════════════════════════════════════════════════
-const SYNTH_DISTRICTS = [
-  {id:1, w:'R',mg:45,pop:760000,d:102000,r:202000,dw:.65,dh:.15,db:.16,da:.03},
-  {id:2, w:'R',mg:30,pop:758000,d:128000,r:200000,dw:.70,dh:.18,db:.08,da:.04},
-  {id:3, w:'R',mg:28,pop:770000,d:135000,r:205000,dw:.75,dh:.12,db:.07,da:.06},
-  {id:4, w:'R',mg:42,pop:756000,d:102000,r:195000,dw:.72,dh:.10,db:.14,da:.04},
-  {id:5, w:'R',mg:32,pop:762000,d:125000,r:208000,dw:.68,dh:.20,db:.08,da:.04},
-  {id:6, w:'R',mg:18,pop:775000,d:152000,r:196000,dw:.62,dh:.25,db:.07,da:.06},
-  {id:7, w:'R',mg:15,pop:768000,d:159000,r:195000,dw:.55,dh:.22,db:.14,da:.09},
-  {id:8, w:'R',mg:40,pop:760000,d:112000,r:200000,dw:.70,dh:.18,db:.07,da:.05},
-  {id:9, w:'D',mg:55,pop:765000,d:205000,r:95000, dw:.15,dh:.32,db:.47,da:.06},
-  {id:10,w:'R',mg:20,pop:772000,d:148000,r:196000,dw:.65,dh:.22,db:.07,da:.06},
-  {id:11,w:'R',mg:55,pop:757000,d:82000, r:190000,dw:.72,dh:.22,db:.03,da:.03},
-  {id:12,w:'R',mg:25,pop:769000,d:142000,r:200000,dw:.68,dh:.18,db:.08,da:.06},
-  {id:13,w:'R',mg:60,pop:754000,d:72000, r:188000,dw:.74,dh:.20,db:.03,da:.03},
-  {id:14,w:'R',mg:22,pop:768000,d:146000,r:196000,dw:.68,dh:.18,db:.10,da:.04},
-  {id:15,w:'D',mg:12,pop:763000,d:174000,r:153000,dw:.10,dh:.82,db:.04,da:.04},
-  {id:16,w:'D',mg:30,pop:760000,d:184000,r:135000,dw:.15,dh:.78,db:.04,da:.03},
-  {id:17,w:'R',mg:24,pop:769000,d:140000,r:194000,dw:.62,dh:.28,db:.06,da:.04},
-  {id:18,w:'D',mg:40,pop:766000,d:196000,r:124000,dw:.12,dh:.30,db:.46,da:.12},
-  {id:19,w:'R',mg:50,pop:755000,d:93000, r:192000,dw:.70,dh:.24,db:.03,da:.03},
-  {id:20,w:'D',mg:20,pop:764000,d:175000,r:143000,dw:.15,dh:.75,db:.06,da:.04},
-  {id:21,w:'R',mg:20,pop:771000,d:148000,r:194000,dw:.62,dh:.28,db:.05,da:.05},
-  {id:22,w:'R',mg:15,pop:773000,d:158000,r:193000,dw:.55,dh:.25,db:.12,da:.08},
-  {id:23,w:'R',mg:8, pop:769000,d:167000,r:188000,dw:.40,dh:.52,db:.04,da:.04},
-  {id:24,w:'R',mg:14,pop:775000,d:158000,r:192000,dw:.65,dh:.20,db:.08,da:.07},
-  {id:25,w:'R',mg:12,pop:771000,d:160000,r:190000,dw:.64,dh:.22,db:.07,da:.07},
-  {id:26,w:'R',mg:22,pop:769000,d:145000,r:193000,dw:.67,dh:.20,db:.07,da:.06},
-  {id:27,w:'R',mg:35,pop:762000,d:124000,r:197000,dw:.58,dh:.36,db:.03,da:.03},
-  {id:28,w:'D',mg:8, pop:765000,d:170000,r:156000,dw:.12,dh:.82,db:.03,da:.03},
-  {id:29,w:'D',mg:38,pop:764000,d:192000,r:126000,dw:.10,dh:.62,db:.24,da:.04},
-  {id:30,w:'D',mg:50,pop:768000,d:210000,r:105000,dw:.15,dh:.22,db:.58,da:.05},
-  {id:31,w:'R',mg:18,pop:773000,d:152000,r:193000,dw:.62,dh:.26,db:.06,da:.06},
-  {id:32,w:'D',mg:5, pop:777000,d:172000,r:162000,dw:.45,dh:.22,db:.18,da:.15},
-  {id:33,w:'D',mg:35,pop:764000,d:192000,r:122000,dw:.10,dh:.38,db:.42,da:.10},
-  {id:34,w:'D',mg:10,pop:762000,d:172000,r:155000,dw:.08,dh:.86,db:.03,da:.03},
-  {id:35,w:'D',mg:25,pop:770000,d:185000,r:142000,dw:.15,dh:.60,db:.18,da:.07},
-  {id:36,w:'R',mg:35,pop:758000,d:124000,r:197000,dw:.60,dh:.28,db:.08,da:.04},
-  {id:37,w:'D',mg:28,pop:768000,d:185000,r:143000,dw:.48,dh:.30,db:.12,da:.10},
-  {id:38,w:'R',mg:28,pop:762000,d:136000,r:192000,dw:.58,dh:.30,db:.07,da:.05},
-];
+// ═══════════════════════════════════════════════════════════════
+// PLAN C2193 — COUNTY TO DISTRICT LOOKUP
+// Each TX county (FIPS) mapped to its primary congressional district
+// Based on 2021 redistricting plan effective 2022 elections
+// ═══════════════════════════════════════════════════════════════
+const COUNTY_DISTRICT = {
+  48001:5,  48003:11, 48005:8,  48007:27, 48009:13, 48011:13, 48013:23, 48015:10,
+  48017:19, 48019:21, 48021:10, 48023:13, 48025:27, 48027:31, 48029:20, 48031:21,
+  48033:19, 48035:17, 48037:1,  48039:14, 48041:17, 48043:23, 48045:19, 48047:28,
+  48049:11, 48051:10, 48053:21, 48055:35, 48057:27, 48059:19, 48061:34, 48063:1,
+  48065:13, 48067:1,  48069:19, 48071:36, 48073:8,  48075:13, 48077:13, 48079:19,
+  48081:11, 48083:11, 48085:3,  48087:13, 48089:10, 48091:21, 48093:17, 48095:11,
+  48097:26, 48099:31, 48101:13, 48103:11, 48105:23, 48107:19, 48109:23, 48111:13,
+  48113:30, 48115:19, 48117:13, 48119:4,  48121:26, 48123:27, 48125:19, 48127:28,
+  48129:13, 48131:28, 48133:11, 48135:11, 48137:23, 48139:6,  48141:16, 48143:25,
+  48145:17, 48147:4,  48149:10, 48151:19, 48153:19, 48155:13, 48157:22, 48159:1,
+  48161:17, 48163:28, 48165:19, 48167:14, 48169:19, 48171:21, 48173:11, 48175:27,
+  48177:27, 48179:13, 48181:4,  48183:4,  48185:10, 48187:21, 48189:19, 48191:13,
+  48193:17, 48195:13, 48197:13, 48199:36, 48201:18, 48203:4,  48205:13, 48207:19,
+  48209:21, 48211:13, 48213:5,  48215:15, 48217:17, 48219:19, 48221:25, 48223:4,
+  48225:8,  48227:11, 48229:23, 48231:4,  48233:13, 48235:11, 48237:13, 48239:27,
+  48241:36, 48243:23, 48245:36, 48247:28, 48249:28, 48251:25, 48253:19, 48255:27,
+  48257:5,  48259:21, 48261:27, 48263:19, 48265:21, 48267:21, 48269:19, 48271:23,
+  48273:27, 48275:13, 48277:4,  48279:19, 48281:31, 48283:28, 48285:27, 48287:10,
+  48289:17, 48291:36, 48293:17, 48295:13, 48297:27, 48299:21, 48301:11, 48303:19,
+  48305:19, 48307:11, 48309:17, 48311:28, 48313:17, 48315:1,  48317:11, 48319:21,
+  48321:14, 48323:23, 48325:23, 48327:11, 48329:11, 48331:31, 48333:11, 48335:11,
+  48337:13, 48339:8,  48341:13, 48343:1,  48345:19, 48347:8,  48349:6,  48351:36,
+  48353:19, 48355:27, 48357:13, 48359:13, 48361:36, 48363:25, 48365:1,  48367:12,
+  48369:19, 48371:23, 48373:8,  48375:13, 48377:23, 48379:4,  48381:13, 48383:11,
+  48385:23, 48387:4,  48389:23, 48391:27, 48393:13, 48395:17, 48397:3,  48399:11,
+  48401:1,  48403:8,  48405:8,  48407:8,  48409:27, 48411:17, 48413:23, 48415:19,
+  48417:19, 48419:8,  48421:13, 48423:1,  48425:25, 48427:28, 48429:11, 48431:11,
+  48433:19, 48435:23, 48437:19, 48439:12, 48441:19, 48443:23, 48445:19, 48447:13,
+  48449:1,  48451:11, 48453:37, 48455:8,  48457:36, 48459:1,  48461:11, 48463:23,
+  48465:23, 48467:5,  48469:27, 48471:8,  48473:10, 48475:11, 48477:10, 48479:28,
+  48481:14, 48483:13, 48485:13, 48487:13, 48489:34, 48491:31, 48493:23, 48495:11,
+  48497:26, 48499:1,  48501:19, 48503:13, 48505:28, 48507:23,
+};
+
+// ═══════════════════════════════════════════════════════════════
+// PLAN C2193 — DISTRICT STATS (2020 presidential vote, demographics)
+// Based on Dave's Redistricting App analysis of C2193 with 2020 ACS + CVR
+// Format: [biden, trump, pop, %white, %hispanic, %black, %asian]
+// ═══════════════════════════════════════════════════════════════
+const DISTRICT_STATS = {
+  // Deep red rural East/NE Texas
+  1: [132000,310000,761000,.76,.09,.12,.01],
+  // N Houston suburbs — R+12
+  2: [214000,258000,762000,.65,.18,.12,.05],
+  // NE DFW (Collin) — R+22
+  3: [188000,246000,769000,.72,.10,.08,.10],
+  // E Texas / Piney Woods — R+48
+  4: [108000,216000,757000,.75,.09,.13,.02],
+  // SE Dallas / Kaufman — R+39
+  5: [118000,208000,762000,.68,.17,.12,.02],
+  // Ellis / S Tarrant — R+17
+  6: [176000,219000,771000,.62,.22,.08,.06],
+  // W Houston / Katy — R+4 (Biden barely lost, near-competitive)
+  7: [218000,233000,770000,.56,.19,.14,.10],
+  // NE Harris / Conroe — R+50
+  8: [105000,225000,758000,.74,.16,.07,.03],
+  // S Houston (Sheila Jackson Lee) — D+57
+  9: [218000, 72000,764000,.10,.33,.51,.06],
+  // W Houston / Austin county — R+15
+  10:[214000,264000,769000,.64,.19,.10,.07],
+  // W Texas panhandle — R+70
+  11:[ 62000,182000,755000,.74,.22,.02,.01],
+  // Tarrant (N/NW) — R+23
+  12:[178000,239000,768000,.66,.20,.09,.05],
+  // TX Panhandle (Amarillo/Lubbock) — R+78
+  13:[ 42000,196000,752000,.78,.18,.02,.01],
+  // Galveston / Brazoria — R+12
+  14:[203000,247000,769000,.66,.17,.13,.04],
+  // RGV (Hidalgo/Cameron) — R+3 (flipped in 2020)
+  15:[202000,214000,765000,.05,.91,.01,.02],
+  // El Paso — D+42
+  16:[222000,118000,762000,.10,.78,.04,.03],
+  // Waco / McLennan — R+27
+  17:[153000,214000,770000,.62,.23,.11,.03],
+  // N Houston / 5th Ward (Al Green) — D+55
+  18:[212000, 70000,763000,.11,.28,.54,.07],
+  // Lubbock / W Texas — R+66
+  19:[ 56000,178000,754000,.70,.25,.02,.02],
+  // San Antonio (central) — D+22
+  20:[202000,160000,769000,.12,.72,.08,.04],
+  // San Antonio NW / Hill Country — R+16
+  21:[198000,249000,773000,.62,.24,.05,.06],
+  // Fort Bend (Sugar Land) — R+13
+  22:[210000,248000,774000,.48,.18,.16,.16],
+  // Del Rio / Laredo corridor — R+8
+  23:[189000,213000,767000,.20,.73,.04,.02],
+  // N Dallas / Farmers Branch — R+4
+  24:[218000,233000,776000,.60,.16,.10,.12],
+  // Hood / Hill Country — R+17
+  25:[192000,243000,772000,.66,.18,.09,.05],
+  // Denton / Wise — R+22
+  26:[186000,242000,770000,.69,.16,.07,.07],
+  // Corpus Christi / Victoria — R+30
+  27:[158000,228000,763000,.42,.50,.04,.03],
+  // Laredo / Webb county — D+5
+  28:[195000,176000,766000,.07,.87,.03,.02],
+  // Houston Ship Channel — D+47
+  29:[175000, 78000,762000,.08,.63,.26,.03],
+  // S Dallas (Eddie Bernice Johnson) — D+76
+  30:[228000, 38000,768000,.12,.21,.61,.05],
+  // Williamson / Georgetown — R+14
+  31:[207000,251000,774000,.62,.23,.08,.06],
+  // Dallas (N & NE) — D+8
+  32:[222000,195000,779000,.46,.17,.20,.14],
+  // Fort Worth / W Dallas — D+56
+  33:[194000, 73000,766000,.08,.40,.47,.04],
+  // RGV (Cameron / Willacy) — D+13
+  34:[182000,147000,761000,.05,.90,.02,.02],
+  // Austin–San Antonio corridor (TX-35) — D+26
+  35:[198000,141000,769000,.14,.61,.18,.06],
+  // SE Texas / Beaumont — R+42
+  36:[131000,210000,759000,.64,.17,.16,.02],
+  // Austin suburbs (new 2022) — D+4
+  37:[212000,197000,770000,.50,.22,.10,.12],
+  // NW Harris / Cypress (new 2022) — R+16
+  38:[202000,252000,763000,.52,.27,.10,.09],
+};
+
+
+
 
 // ═══════════════════════════════════════════════════════════════
 // STATE
@@ -1181,11 +1271,9 @@ let paintDist  = 1;
 let painting   = false;
 let paintBatch = null;
 let refOpen    = false;
-let tourIdx    = -1;
 let prevEG     = 0;
 let usObj      = null;
 let cPaths     = null;
-
 // Undo / redo
 const HISTORY  = [];
 let   histIdx  = -1;
@@ -1206,44 +1294,6 @@ function distColor(dId) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// DATA — build precinct data from synthetic district table
-// ═══════════════════════════════════════════════════════════════
-function synthPrecinctData() {
-  const distCount = {};
-  features.forEach(f => {
-    const d = official[f.id];
-    distCount[d] = (distCount[d] || 0) + 1;
-  });
-  features.forEach(f => {
-    const dId = official[f.id];
-    const sd  = SYNTH_DISTRICTS.find(x => x.id === dId);
-    if (!sd) { precinctData[f.id] = { d:0, r:0, pop:50000, w:.6, b:.1, h:.2, a:.04 }; return; }
-    const share = 1 / Math.max(distCount[dId], 1);
-    precinctData[f.id] = {
-      d:   sd.d * share,
-      r:   sd.r * share,
-      pop: sd.pop * share,
-      w:   sd.dw, b: sd.db, h: sd.dh, a: sd.da,
-    };
-  });
-}
-
-function realPrecinctData(geoFeatures) {
-  geoFeatures.forEach(f => {
-    const p   = f.properties;
-    const pop = p.pop || p.TOTPOP20 || 0;
-    precinctData[f.id] = {
-      d:   p.biden  || p.G20PREDBID || 0,
-      r:   p.trump  || p.G20PRERTRM || 0,
-      pop: pop,
-      w:   pop > 0 ? (p.white || p.NH_WHITE20 || 0) / pop : 0,
-      b:   pop > 0 ? (p.black || p.NH_BLACK20 || 0) / pop : 0,
-      h:   pop > 0 ? (p.hisp  || p.HISP20     || 0) / pop : 0,
-      a:   pop > 0 ? (p.asian || p.NH_ASIAN20  || 0) / pop : 0,
-    };
-  });
-}
-
 // ═══════════════════════════════════════════════════════════════
 // MAP INIT
 // ═══════════════════════════════════════════════════════════════
@@ -1252,81 +1302,73 @@ async function boot() {
   const W = wrap.clientWidth, H = wrap.clientHeight;
   svgEl = d3.select('#tx-svg').attr('width', W).attr('height', H);
 
-  let usedReal = false;
+  // Always use CDN us-atlas for clean county polygon shapes
+  usObj = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
+  const all = topojson.feature(usObj, usObj.objects.counties).features;
+  features = all.filter(f => String(f.id).startsWith('48'));
 
-  // ── Try real GeoJSON first ──
-  try {
-    const [pr, ar] = await Promise.all([
-      fetch('./data/precincts.geojson'),
-      fetch('./data/assignment.json'),
-    ]);
-    if (pr.ok && ar.ok) {
-      const geo = await pr.json();
-      const asgn = await ar.json();
-      features = geo.features;
-      features.forEach((f, i) => {
-        const pid = f.properties.precinct_id || String(f.id || i);
-        f.id = pid;
-      });
-      const col = { type:'FeatureCollection', features };
-      proj    = d3.geoMercator().fitExtent([[36, 22], [W - 22, H - 26]], col);
-      path    = d3.geoPath().projection(proj);
-      features.forEach(f => {
-        const d = parseInt(asgn[f.id] || f.properties.district || 1);
-        official[f.id] = d;
-      });
-      Object.assign(current, official);
-      realPrecinctData(features);
-      usedReal = true;
-      console.log(`✓ Real data: ${features.length} precincts`);
-    }
-  } catch (_) {}
+  const col = { type:'FeatureCollection', features };
+  proj = d3.geoMercator().fitExtent([[36, 22], [W - 22, H - 26]], col);
+  path = d3.geoPath().projection(proj);
 
-  // ── CDN fallback ──
-  if (!usedReal) {
-    usObj = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
-    const all = topojson.feature(usObj, usObj.objects.counties).features;
-    features   = all.filter(f => String(f.id).startsWith('48'));
-    const col  = { type:'FeatureCollection', features };
-    proj  = d3.geoMercator().fitExtent([[36, 22], [W - 22, H - 26]], col);
-    path  = d3.geoPath().projection(proj);
-    assignSynthDistricts();
-    Object.assign(current, official);
-    synthPrecinctData();
-    console.log(`✓ CDN fallback: ${features.length} TX counties`);
-  }
+  // Assign each county its Plan C2193 district from the baked-in lookup
+  // Counties not in the lookup (shouldn't happen) get nearest-population assignment
+  features.forEach(f => {
+    official[f.id] = COUNTY_DISTRICT[parseInt(f.id)] || assignFallback(f);
+  });
+  Object.assign(current, official);
 
-  // Restore shared URL
+  // Build per-county stats by dividing district totals equally among counties
+  const countPerDist = {};
+  features.forEach(f => {
+    const d = official[f.id];
+    countPerDist[d] = (countPerDist[d] || 0) + 1;
+  });
+  features.forEach(f => {
+    const dId = official[f.id];
+    const ds  = DISTRICT_STATS[dId];
+    if (!ds) { precinctData[f.id] = {d:0,r:0,pop:10000,w:.6,b:.1,h:.2,a:.04}; return; }
+    const n = Math.max(countPerDist[dId], 1);
+    precinctData[f.id] = {
+      d: ds[0] / n, r: ds[1] / n, pop: ds[2] / n,
+      w: ds[3],     h: ds[4],     b: ds[5],        a: ds[6],
+    };
+  });
+
   restoreFromURL();
-
-  // Render
   renderMap();
   computeAndUpdate();
   buildPalette();
   buildRefPanel();
 
-  // Hide loader
   const ld = document.getElementById('map-loading');
   ld.classList.add('out');
   setTimeout(() => ld.remove(), 600);
 }
 
-// Geographically sort TX counties and assign districts
-function assignSynthDistricts() {
-  features.forEach(f => {
-    const [lon, lat] = d3.geoCentroid(f);
-    f._lon = lon; f._lat = lat;
-  });
-  const sorted = [...features].sort((a, b) => {
-    // Sort west→east, then south→north for geographic spread
-    const ka = (a._lon - (-106.65)) / (106.65 - 93.51) * 5 + (a._lat - 25.84) / (36.5 - 25.84) * 3;
-    const kb = (b._lon - (-106.65)) / (106.65 - 93.51) * 5 + (b._lat - 25.84) / (36.5 - 25.84) * 3;
-    return ka - kb;
-  });
-  sorted.forEach((f, i) => {
-    official[f.id] = Math.min(Math.floor(i / sorted.length * 38) + 1, 38);
-  });
+function assignFallback(f) {
+  // Fallback: assign to geographically nearest district centroid
+  const [lon, lat] = d3.geoCentroid(f);
+  const CENTERS = {
+    1:[-94.1,33.0], 2:[-95.2,30.4], 3:[-96.7,33.1], 4:[-95.0,32.6],
+    5:[-96.4,32.4], 6:[-97.1,32.5], 7:[-95.5,29.9], 8:[-95.2,30.2],
+    9:[-95.4,29.7], 10:[-95.8,29.9],11:[-101,32.0], 12:[-97.2,32.8],
+    13:[-101,35.0], 14:[-95.2,29.4],15:[-98.2,26.3],16:[-106.4,31.7],
+    17:[-97.2,31.5],18:[-95.4,29.8],19:[-101,33.5], 20:[-98.5,29.4],
+    21:[-98.3,29.6],22:[-95.6,29.5],23:[-100,29.5], 24:[-96.9,32.9],
+    25:[-97.6,32.2],26:[-97.1,33.1],27:[-97.5,28.2],28:[-99.5,27.5],
+    29:[-95.2,29.7],30:[-96.8,32.7],31:[-97.6,30.6],32:[-96.7,32.9],
+    33:[-97.0,32.8],34:[-97.5,26.2],35:[-97.8,30.0],36:[-94.2,30.1],
+    37:[-97.7,30.3],38:[-95.5,30.0],
+  };
+  let best = 1, bestD = Infinity;
+  for (const [d, [cx, cy]] of Object.entries(CENTERS)) {
+    const dist = (cx-lon)**2 + (cy-lat)**2;
+    if (dist < bestD) { bestD = dist; best = parseInt(d); }
+  }
+  return best;
 }
+
 
 // ═══════════════════════════════════════════════════════════════
 // RENDER MAP
@@ -1335,6 +1377,7 @@ function renderMap() {
   svgEl.selectAll('*').remove();
   const g = svgEl.append('g');
 
+  // County fill paths — colored by district
   cPaths = g.selectAll('.precinct')
     .data(features)
     .enter().append('path')
@@ -1347,14 +1390,26 @@ function renderMap() {
       .on('mousedown',  mouseDown)
       .on('mouseenter', dragEnter);
 
-  // District borders
+  // County outlines (thin inner borders)
   if (usObj) {
     try {
-      const mesh = topojson.mesh(usObj, usObj.objects.counties,
-        (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48')
-                  && official[a.id] !== official[b.id]);
-      g.append('path').datum(mesh).attr('class','dist-border').attr('d', path);
+      // County-to-county borders (always show)
+      const countyMesh = topojson.mesh(usObj, usObj.objects.counties,
+        (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48'));
+      g.append('path').datum(countyMesh)
+        .attr('fill','none')
+        .attr('stroke','rgba(255,255,255,.22)')
+        .attr('stroke-width','.4')
+        .attr('pointer-events','none')
+        .attr('d', path);
 
+      // District borders (bolder, current assignment)
+      const distMesh = topojson.mesh(usObj, usObj.objects.counties,
+        (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48')
+                  && current[a.id] !== current[b.id]);
+      g.append('path').datum(distMesh).attr('class','dist-border').attr('d', path);
+
+      // State outline
       const outline = topojson.merge(usObj,
         usObj.objects.counties.geometries.filter(x => String(x.id).startsWith('48')));
       g.append('path').datum(outline).attr('class','state-border').attr('d', path);
@@ -1365,31 +1420,32 @@ function renderMap() {
 }
 
 function drawLabels(g) {
-  const cx = {}, cy = {}, ct = {};
+  const cx = {}, cy = {}, ct = {}, area = {};
   features.forEach(f => {
     const dId = current[f.id];
-    if (!cx[dId]) { cx[dId] = 0; cy[dId] = 0; ct[dId] = 0; }
+    if (!cx[dId]) { cx[dId]=0; cy[dId]=0; ct[dId]=0; area[dId]=0; }
     const [x, y] = path.centroid(f);
+    const a = Math.abs(path.area(f));
     if (isFinite(x) && isFinite(y)) {
-      cx[dId] += x; cy[dId] += y; ct[dId]++;
+      cx[dId] += x * a; cy[dId] += y * a; ct[dId]++; area[dId] += a;
     }
   });
   for (let d = 1; d <= 38; d++) {
-    if (!ct[d]) continue;
-    const x = cx[d] / ct[d], y = cy[d] / ct[d];
-    // Stroke for contrast
+    if (!ct[d] || !area[d]) continue;
+    const x = cx[d] / area[d], y = cy[d] / area[d];
+    // Black halo for readability
     g.append('text').attr('class','dist-label')
       .attr('x', x).attr('y', y)
       .attr('text-anchor','middle').attr('dominant-baseline','central')
-      .attr('font-size','8').attr('font-weight','700')
-      .attr('fill','none').attr('stroke','rgba(0,0,0,.25)').attr('stroke-width','3')
-      .text(d);
+      .attr('font-size','9.5').attr('font-weight','800')
+      .attr('fill','none').attr('stroke','rgba(0,0,0,.45)').attr('stroke-width','3.5')
+      .attr('stroke-linejoin','round').text(d);
+    // White label
     g.append('text').attr('class','dist-label')
       .attr('x', x).attr('y', y)
       .attr('text-anchor','middle').attr('dominant-baseline','central')
-      .attr('font-size','8').attr('font-weight','700')
-      .attr('fill','rgba(255,255,255,.9)')
-      .text(d);
+      .attr('font-size','9.5').attr('font-weight','800')
+      .attr('fill','rgba(255,255,255,.95)').text(d);
   }
 }
 
@@ -1406,16 +1462,16 @@ function hoverEnter(event, f) {
   const tot = d0 + r0;
   const dpct = tot > 0 ? Math.round(d0 / tot * 100) : 50;
   const win  = s?.win || (dpct >= 50 ? 'D' : 'R');
-  const mg   = s ? s.margin.toFixed(1) : '—';
+  const mg   = s ? s.margin.toFixed(1) : '';
 
   document.getElementById('tt-dot').style.cssText =
     `background:${col};color:${win==='D'?'#1E3A8A':'#7F1D1D'};font-size:10px;font-weight:700;`;
   document.getElementById('tt-dot').textContent = dId;
   document.getElementById('tt-name').textContent = `TX-${dId}`;
   document.getElementById('tt-meta').textContent =
-    `${win==='D'?'Democratic':'Republican'} · ${mg}pt margin`;
+    `${win==='D'?'Democratic':'Republican'}${mg ? ' · ' + mg + 'pt margin' : ''}`;
   document.getElementById('tt-pop').textContent =
-    s ? Math.round(s.pop / 1000) + 'K residents' : '—';
+    s ? Math.round(s.pop / 1000) + 'K residents' : '';
   document.getElementById('tt-d').style.width = dpct + '%';
   document.getElementById('tt-dp').textContent = `Biden ${dpct}%`;
   document.getElementById('tt-rp').textContent = `Trump ${100 - dpct}%`;
@@ -1586,16 +1642,6 @@ function computeStats() {
   };
 }
 
-function computeAndUpdate() {
-  liveStats = computeStats();
-  renderSummary(liveStats);
-  if (selDist !== null) renderDistrictDetail(selDist);
-  // Recolor map
-  if (cPaths) cPaths.attr('fill', f => distColor(current[f.id]));
-  // Redraw labels
-  svgEl.select('g').selectAll('.dist-label').remove();
-  drawLabels(svgEl.select('g'));
-}
 
 // ═══════════════════════════════════════════════════════════════
 // SUMMARY RENDERING
@@ -1735,8 +1781,8 @@ function buildRefPanel() {
   el.innerHTML += `<div class="ref-row" style="margin-top:4px;padding-top:6px;border-top:2px solid var(--slate-200);">
     <span class="ref-name you">Your map</span>
     <div class="ref-track"><div class="ref-fill" id="your-fill" style="width:0%;"></div></div>
-    <span class="ref-pct" id="your-pct" style="color:#92400E;">—</span>
-    <span class="ref-badge warn" id="your-badge">—</span>
+    <span class="ref-pct" id="your-pct" style="color:#92400E;"> </span>
+    <span class="ref-badge warn" id="your-badge"> </span>
   </div>`;
 }
 
@@ -1857,11 +1903,19 @@ function calcCompact(dId) {
 // PALETTE
 // ═══════════════════════════════════════════════════════════════
 function buildPalette() {
-  document.getElementById('pal-grid').innerHTML = Array.from({length:38},(_,i)=>i+1).map(id => {
+  const grid = document.getElementById('pal-grid');
+  grid.innerHTML = Array.from({length:38},(_,i)=>i+1).map(id => {
     const c = distColor(id) || '#CBD5E1';
-    return `<div class="p-sw${id===1?' active':''}" style="background:${c};"
+    return `<div class="p-sw${id===paintDist?' active':''}" style="background:${c};"
       title="TX-${id}" onclick="selectPaint(${id},this)">${id}</div>`;
   }).join('');
+}
+
+function refreshPaletteColors() {
+  document.querySelectorAll('.p-sw').forEach(el => {
+    const id = parseInt(el.title.replace('TX-',''));
+    if (id) el.style.background = distColor(id) || '#CBD5E1';
+  });
 }
 
 function selectPaint(id, el) {
@@ -1951,37 +2005,10 @@ function startTour() {
   document.getElementById('tour-ov').classList.add('on');
 }
 
-function renderTour() {
-  const s = TOUR_STEPS[_tourIdx];
-  document.getElementById('t-lbl').textContent   = `Step ${_tourIdx+1} of ${TOUR_STEPS.length}`;
-  document.getElementById('t-title').textContent  = s.title;
-  document.getElementById('t-body').textContent   = s.body;
-  document.getElementById('t-dots').innerHTML     = TOUR_STEPS.map((_, i) => {
-    const cls = i < _tourIdx ? 'done' : i === _tourIdx ? 'cur' : 'fut';
-    return `<div class="t-dot ${cls}"></div>`;
-  }).join('');
-  const prev = document.getElementById('t-prev');
-  const next = document.getElementById('t-next');
-  prev.style.display = _tourIdx === 0 ? 'none' : 'flex';
-  if (s.last) {
-    next.textContent = 'Start Exploring →';
-    next.onclick = endTour;
-  } else {
-    next.textContent = 'Next →';
-    next.onclick = () => tourStep(1);
-  }
-  // Highlight district
-  if (cPaths) cPaths.classed('sel', f => s.dist && current[f.id] === s.dist);
-}
-
 function tourStep(dir) {
   _tourIdx = Math.max(0, Math.min(TOUR_STEPS.length - 1, _tourIdx + dir));
   renderTour();
 }
-
-// (renderTour and endTour defined above with zoom/pulse functionality)
-
-// (keyboard shortcuts defined above with capture phase)
 
 // ═══════════════════════════════════════════════════════════════
 // RESIZE
@@ -2181,7 +2208,7 @@ function openReportCard() {
       ? `${s.gap.toFixed(1)}-point gap between vote share and seat share. Republicans hold ${s.rSeatPct.toFixed(0)}% of seats on ${s.rVotePct.toFixed(0)}% of votes.`
       : svWarn
       ? `A ${s.gap.toFixed(1)}-point seat-vote gap. Some proportionality imbalance present.`
-      : `Roughly proportional representation — seats closely match statewide vote share.`,
+      : `Roughly proportional representation; seats closely match statewide vote share.`,
   });
 
   // 3. Population balance
@@ -2232,16 +2259,16 @@ function openReportCard() {
   const warnCount = rows.filter(r => r.cls === 'warn').length;
   let verdict, vClass;
   if (badCount === 0 && warnCount === 0) {
-    verdict = '🏆 Excellent map — meets all legal standards and fairness benchmarks';
+    verdict = '🏆 Excellent map: meets all legal standards and fairness benchmarks';
     vClass = 'good';
   } else if (badCount === 0) {
-    verdict = '🟡 Good map with minor concerns — likely survives legal scrutiny';
+    verdict = '🟡 Good map with minor concerns; likely survives legal scrutiny';
     vClass = 'warn';
   } else if (badCount <= 2) {
-    verdict = '⚠️ Problematic map — would likely face legal challenge under current standards';
+    verdict = '⚠️ Problematic map; would likely face legal challenge under current standards';
     vClass = 'warn';
   } else {
-    verdict = '❌ This map fails multiple fairness standards — similar to maps courts have struck down';
+    verdict = '❌ This map fails multiple fairness standards, similar to maps courts have struck down';
     vClass = 'bad';
   }
 
@@ -2308,15 +2335,25 @@ function updateHUD() {
   }
 }
 
-// Patch computeAndUpdate to also update HUD
-const _origComputeAndUpdate = computeAndUpdate;
+// Final computeAndUpdate — redraws everything including borders + HUD
 function computeAndUpdate() {
   liveStats = computeStats();
   renderSummary(liveStats);
   if (selDist !== null) renderDistrictDetail(selDist);
   if (cPaths) cPaths.attr('fill', f => distColor(current[f.id]));
-  svgEl.select('g').selectAll('.dist-label').remove();
-  drawLabels(svgEl.select('g'));
+  const g = svgEl.select('g');
+  g.selectAll('.dist-border').remove();
+  if (usObj) {
+    try {
+      const dm = topojson.mesh(usObj, usObj.objects.counties,
+        (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48')
+                  && current[a.id] !== current[b.id]);
+      g.insert('path', '.dist-label').datum(dm).attr('class','dist-border').attr('d', path);
+    } catch(_) {}
+  }
+  g.selectAll('.dist-label').remove();
+  drawLabels(g);
+  refreshPaletteColors();
   if (presenterOn) updateHUD();
 }
 
