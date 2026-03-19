@@ -129,59 +129,93 @@ body.presenter .toolbar{display:none;}
 body.presenter .sidebar{display:none;}
 body.presenter .map-hint{display:none;}
 body.presenter .paint-palette{display:none!important;}
+body.presenter .carnegie{display:none;}
+
+/* Floating presenter toolbar at top center */
+.presenter-bar{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:410;display:none;align-items:center;gap:8px;
+  background:rgba(10,18,36,.9);backdrop-filter:blur(20px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.12);border-radius:100px;
+  padding:7px 14px;box-shadow:0 8px 32px rgba(0,0,0,.45);
+}
+body.presenter .presenter-bar{display:flex;}
+.pbar-mode{
+  display:flex;background:rgba(255,255,255,.08);border-radius:100px;
+  padding:3px;gap:2px;
+}
+.pbar-btn{
+  display:flex;align-items:center;gap:5px;
+  background:transparent;border:none;color:rgba(255,255,255,.5);
+  font-family:var(--f);font-size:11px;font-weight:600;
+  padding:5px 12px;border-radius:100px;cursor:pointer;transition:all .15s;
+  letter-spacing:.2px;
+}
+.pbar-btn.active{background:rgba(255,255,255,.15);color:#fff;}
+.pbar-btn:hover:not(.active){color:rgba(255,255,255,.8);}
+.pbar-sep{width:1px;height:20px;background:rgba(255,255,255,.1);}
+.pbar-reset{
+  background:transparent;border:none;color:rgba(255,255,255,.4);
+  font-family:var(--f);font-size:11px;font-weight:600;
+  padding:5px 10px;cursor:pointer;transition:all .15s;border-radius:100px;
+  letter-spacing:.2px;
+}
+.pbar-reset:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);}
+
+/* Stats HUD — top right */
 .presenter-hud{
-  position:fixed;top:20px;right:20px;z-index:400;
-  background:rgba(10,18,36,.88);backdrop-filter:blur(16px) saturate(1.4);
+  position:fixed;top:16px;right:16px;z-index:400;
+  background:rgba(10,18,36,.9);backdrop-filter:blur(20px) saturate(1.5);
   border:1px solid rgba(255,255,255,.1);border-radius:20px;
-  padding:18px 22px;color:#fff;min-width:210px;
+  padding:16px 20px;color:#fff;width:220px;
   box-shadow:0 8px 40px rgba(0,0,0,.5);display:none;
 }
 body.presenter .presenter-hud{display:block;}
-.hud-eyebrow{font-size:9.5px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.8px;color:rgba(255,255,255,.35);margin-bottom:10px;}
-.hud-eg-val{font-size:44px;font-weight:900;line-height:1;letter-spacing:-2px;
+.hud-eyebrow{font-size:9px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.9px;color:rgba(255,255,255,.3);margin-bottom:12px;}
+.hud-metric{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.07);}
+.hud-metric:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.hud-metric-label{font-size:9.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.6px;color:rgba(255,255,255,.3);margin-bottom:5px;}
+.hud-eg-val{font-size:42px;font-weight:900;line-height:1;letter-spacing:-2px;
   font-variant-numeric:tabular-nums;transition:color .4s;}
 .hud-eg-val.green{color:#34D399;}
 .hud-eg-val.amber{color:#FBBF24;}
 .hud-eg-val.red{color:#F87171;}
-.hud-eg-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:14px;
-  padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);}
-.hud-seats-row{display:flex;align-items:baseline;gap:8px;margin-bottom:4px;}
-.hud-d{font-size:26px;font-weight:800;color:#60A5FA;letter-spacing:-1px;}
-.hud-r{font-size:26px;font-weight:800;color:#F87171;letter-spacing:-1px;}
-.hud-vs{font-size:14px;color:rgba(255,255,255,.2);}
-.hud-seats-lbl{font-size:10px;color:rgba(255,255,255,.3);font-weight:500;margin-bottom:10px;}
-.hud-sbar{height:4px;border-radius:2px;overflow:hidden;display:flex;}
+.hud-eg-sublbl{font-size:10px;color:rgba(255,255,255,.25);margin-top:3px;line-height:1.4;}
+.hud-seats-row{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;}
+.hud-d{font-size:28px;font-weight:800;color:#60A5FA;letter-spacing:-1px;
+  font-variant-numeric:tabular-nums;}
+.hud-r{font-size:28px;font-weight:800;color:#F87171;letter-spacing:-1px;
+  font-variant-numeric:tabular-nums;}
+.hud-vs{font-size:13px;color:rgba(255,255,255,.18);}
+.hud-sbar{height:5px;border-radius:3px;overflow:hidden;display:flex;margin-bottom:5px;}
 .hud-sbar-d{background:#3B82F6;transition:width .6s ease;height:100%;}
 .hud-sbar-r{background:#EF4444;height:100%;flex:1;}
+.hud-seat-pcts{display:flex;justify-content:space-between;font-size:10px;}
+.hud-seat-pcts span:first-child{color:#60A5FA;}
+.hud-seat-pcts span:last-child{color:#F87171;}
 .hud-chip{
-  margin-top:12px;padding:6px 10px;border-radius:8px;
-  font-size:11px;font-weight:700;text-align:center;
+  padding:6px 10px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;
+  margin-top:10px;
 }
-.hud-chip.green{background:rgba(52,211,153,.15);color:#34D399;}
-.hud-chip.amber{background:rgba(251,191,36,.15);color:#FBBF24;}
-.hud-chip.red{background:rgba(248,113,113,.15);color:#F87171;}
+.hud-chip.green{background:rgba(52,211,153,.15);color:#34D399;border:1px solid rgba(52,211,153,.2);}
+.hud-chip.amber{background:rgba(251,191,36,.15);color:#FBBF24;border:1px solid rgba(251,191,36,.2);}
+.hud-chip.red{background:rgba(248,113,113,.15);color:#F87171;border:1px solid rgba(248,113,113,.2);}
+
+/* Exit button */
 .presenter-exit{
-  position:fixed;bottom:24px;right:24px;z-index:400;
-  background:rgba(15,23,42,.82);color:rgba(255,255,255,.7);
+  position:fixed;bottom:20px;right:20px;z-index:400;
+  background:rgba(15,23,42,.82);color:rgba(255,255,255,.55);
   font-family:var(--f);font-size:11px;font-weight:600;
-  border:1px solid rgba(255,255,255,.15);border-radius:100px;
-  padding:8px 18px;cursor:pointer;display:none;backdrop-filter:blur(12px);
-  transition:all .2s;letter-spacing:.2px;
-  box-shadow:0 4px 16px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);border-radius:100px;
+  padding:7px 16px;cursor:pointer;display:none;backdrop-filter:blur(12px);
+  transition:all .2s;letter-spacing:.2px;box-shadow:0 4px 14px rgba(0,0,0,.3);
 }
 body.presenter .presenter-exit{display:block;}
-.presenter-exit:hover{background:rgba(15,23,42,.97);color:#fff;transform:translateY(-1px);}
-.presenter-hint{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-  background:rgba(15,23,42,.7);color:rgba(255,255,255,.5);
-  font-family:var(--f);font-size:11px;font-weight:500;
-  padding:8px 20px;border-radius:100px;display:none;
-  backdrop-filter:blur(8px);pointer-events:none;letter-spacing:.2px;
-  box-shadow:0 4px 12px rgba(0,0,0,.3);
-}
-body.presenter .presenter-hint{display:block;}
-body.presenter .carnegie{display:none;}
+.presenter-exit:hover{background:rgba(255,255,255,.12);color:#fff;}
+body.presenter .presenter-hint{display:none;}
+
 
 /* ─── TOOLBAR ─────────────────────────────────────────────────────── */
 .toolbar{
@@ -1039,25 +1073,72 @@ body.presenter .carnegie{display:none;}
   </div>
 </div>
 
+<!-- ─── PRESENTER FLOATING TOOLBAR ────────────────────────────────── -->
+<div class="presenter-bar" id="presenter-bar">
+  <div class="pbar-mode">
+    <button class="pbar-btn active" id="pbar-click" onclick="setMode('click');setPbarMode('click')">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 1.5v7l1.8-1.8 1.4 2.8 1-.5-1.4-2.8H9L4 1.5z"/>
+      </svg>Click
+    </button>
+    <button class="pbar-btn" id="pbar-paint" onclick="setMode('paint');setPbarMode('paint')">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7.5 1.5l3 3-5 5-3-.4-.4-3 5.4-4.6z"/>
+        <circle cx="2.5" cy="9.5" r="1.1" fill="currentColor" stroke="none"/>
+      </svg>Paint
+    </button>
+  </div>
+  <div class="pbar-sep"></div>
+  <button class="pbar-btn" onclick="undo()" title="Undo">
+    <svg width="11" height="11" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 2v4h4M2 6A5 5 0 1 1 3.6 10"/>
+    </svg>
+  </button>
+  <button class="pbar-btn" onclick="redo()" title="Redo">
+    <svg width="11" height="11" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 2v4H7M11 6A5 5 0 1 0 9.4 10"/>
+    </svg>
+  </button>
+  <div class="pbar-sep"></div>
+  <button class="pbar-reset" onclick="resetMap()">Reset</button>
+</div>
+
 <!-- ─── PRESENTER HUD ─────────────────────────────────────────────── -->
 <div class="presenter-hud" id="presenter-hud">
-  <div class="hud-eyebrow">Redraw the Lines · Live Stats</div>
-  <div class="hud-eg-val red" id="hud-eg"> </div>
-  <div class="hud-eg-lbl">Efficiency Gap (7% = court threshold)</div>
-  <div class="hud-seats-row">
-    <span class="hud-d" id="hud-d"> </span>
-    <span class="hud-vs">·</span>
-    <span class="hud-r" id="hud-r"> </span>
+  <div class="hud-eyebrow">Live Map Stats</div>
+
+  <div class="hud-metric">
+    <div class="hud-metric-label">Efficiency Gap</div>
+    <div class="hud-eg-val red" id="hud-eg"> </div>
+    <div class="hud-eg-sublbl">7% = court-recognized threshold</div>
+    <div class="hud-chip red" id="hud-chip">Above threshold</div>
   </div>
-  <div class="hud-seats-lbl">Congressional seats (D · R)</div>
-  <div class="hud-sbar">
-    <div class="hud-sbar-d" id="hud-sbar-d" style="width:37%"></div>
-    <div class="hud-sbar-r"></div>
+
+  <div class="hud-metric">
+    <div class="hud-metric-label">Congressional Seats</div>
+    <div class="hud-seats-row">
+      <span class="hud-d" id="hud-d"> </span>
+      <span class="hud-vs">D vs R</span>
+      <span class="hud-r" id="hud-r"> </span>
+    </div>
+    <div class="hud-sbar">
+      <div class="hud-sbar-d" id="hud-sbar-d" style="width:37%"></div>
+      <div class="hud-sbar-r"></div>
+    </div>
+    <div class="hud-seat-pcts">
+      <span id="hud-dpct">37% D</span>
+      <span id="hud-rpct">63% R</span>
+    </div>
   </div>
-  <div class="hud-chip red" id="hud-chip">▲ Above threshold</div>
+
+  <div class="hud-metric">
+    <div class="hud-metric-label">Seat-Vote Gap</div>
+    <div style="font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;transition:color .4s;" id="hud-gap"> </div>
+    <div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;">points over proportional</div>
+  </div>
 </div>
 <button class="presenter-exit" onclick="togglePresenter()">✕ Exit Presenter Mode</button>
-<div class="presenter-hint">Click or paint counties to redistrict</div>
+<div class="presenter-hint"></div>
 
 <!-- ─── REPORT CARD MODAL ─────────────────────────────────────────── -->
 <div class="modal-bg" id="rc-modal-bg" onclick="if(event.target===this)closeReportCard()">
@@ -1134,38 +1215,104 @@ const TOUR_STEPS = [
 // Based on 2021 redistricting plan effective 2022 elections
 // ═══════════════════════════════════════════════════════════════
 const COUNTY_DISTRICT = {
-  48001:5,  48003:11, 48005:8,  48007:27, 48009:13, 48011:13, 48013:23, 48015:10,
-  48017:19, 48019:21, 48021:10, 48023:13, 48025:27, 48027:31, 48029:20, 48031:21,
-  48033:19, 48035:17, 48037:1,  48039:14, 48041:17, 48043:23, 48045:19, 48047:28,
-  48049:11, 48051:10, 48053:21, 48055:35, 48057:27, 48059:19, 48061:34, 48063:1,
-  48065:13, 48067:1,  48069:19, 48071:36, 48073:8,  48075:13, 48077:13, 48079:19,
-  48081:11, 48083:11, 48085:3,  48087:13, 48089:10, 48091:21, 48093:17, 48095:11,
-  48097:26, 48099:31, 48101:13, 48103:11, 48105:23, 48107:19, 48109:23, 48111:13,
-  48113:30, 48115:19, 48117:13, 48119:4,  48121:26, 48123:27, 48125:19, 48127:28,
-  48129:13, 48131:28, 48133:11, 48135:11, 48137:23, 48139:6,  48141:16, 48143:25,
-  48145:17, 48147:4,  48149:10, 48151:19, 48153:19, 48155:13, 48157:22, 48159:1,
-  48161:17, 48163:28, 48165:19, 48167:14, 48169:19, 48171:21, 48173:11, 48175:27,
-  48177:27, 48179:13, 48181:4,  48183:4,  48185:10, 48187:21, 48189:19, 48191:13,
-  48193:17, 48195:13, 48197:13, 48199:36, 48201:18, 48203:4,  48205:13, 48207:19,
-  48209:21, 48211:13, 48213:5,  48215:15, 48217:17, 48219:19, 48221:25, 48223:4,
-  48225:8,  48227:11, 48229:23, 48231:4,  48233:13, 48235:11, 48237:13, 48239:27,
-  48241:36, 48243:23, 48245:36, 48247:28, 48249:28, 48251:25, 48253:19, 48255:27,
-  48257:5,  48259:21, 48261:27, 48263:19, 48265:21, 48267:21, 48269:19, 48271:23,
-  48273:27, 48275:13, 48277:4,  48279:19, 48281:31, 48283:28, 48285:27, 48287:10,
-  48289:17, 48291:36, 48293:17, 48295:13, 48297:27, 48299:21, 48301:11, 48303:19,
-  48305:19, 48307:11, 48309:17, 48311:28, 48313:17, 48315:1,  48317:11, 48319:21,
-  48321:14, 48323:23, 48325:23, 48327:11, 48329:11, 48331:31, 48333:11, 48335:11,
-  48337:13, 48339:8,  48341:13, 48343:1,  48345:19, 48347:8,  48349:6,  48351:36,
-  48353:19, 48355:27, 48357:13, 48359:13, 48361:36, 48363:25, 48365:1,  48367:12,
-  48369:19, 48371:23, 48373:8,  48375:13, 48377:23, 48379:4,  48381:13, 48383:11,
-  48385:23, 48387:4,  48389:23, 48391:27, 48393:13, 48395:17, 48397:3,  48399:11,
-  48401:1,  48403:8,  48405:8,  48407:8,  48409:27, 48411:17, 48413:23, 48415:19,
-  48417:19, 48419:8,  48421:13, 48423:1,  48425:25, 48427:28, 48429:11, 48431:11,
-  48433:19, 48435:23, 48437:19, 48439:12, 48441:19, 48443:23, 48445:19, 48447:13,
-  48449:1,  48451:11, 48453:37, 48455:8,  48457:36, 48459:1,  48461:11, 48463:23,
-  48465:23, 48467:5,  48469:27, 48471:8,  48473:10, 48475:11, 48477:10, 48479:28,
-  48481:14, 48483:13, 48485:13, 48487:13, 48489:34, 48491:31, 48493:23, 48495:11,
-  48497:26, 48499:1,  48501:19, 48503:13, 48505:28, 48507:23,
+  // East Texas / Piney Woods (TX-1)
+  48037:1,  48063:1,  48067:1,  48159:1,  48315:1,  48343:1,  48365:1,  48401:1,
+  48423:1,  48449:1,  48459:1,  48461:1,  48499:1,
+  // NE Harris suburbs / Spring (TX-2) — use Montgomery Co NE portion
+  48291:2,  48339:2,
+  // NE DFW / Collin (TX-3)
+  48085:3,  48397:3,
+  // E Texas Piney Woods (TX-4)
+  48119:4,  48147:4,  48181:4,  48183:4,  48203:4,  48223:4,  48231:4,  48261:4,
+  48277:4,  48379:4,  48381:4,  48387:4,
+  // SE Dallas / Kaufman (TX-5)
+  48001:5,  48213:5,  48257:5,  48467:5,
+  // Ellis / S Tarrant (TX-6)
+  48139:6,  48349:6,
+  // W Houston / Katy suburbs (TX-7) — use Fort Bend W
+  48157:7,
+  // NE Harris / Conroe / Lake area (TX-8)
+  48005:8,  48073:8,  48225:8,  48347:8,  48355:8,  48373:8,  48403:8,  48405:8,
+  48407:8,  48419:8,  48421:8,  48455:8,  48471:8,
+  // S Houston / Ship Channel (TX-9) — use Galveston N
+  48167:9,
+  // W Houston suburbs / Austin Co (TX-10)
+  48015:10, 48021:10, 48051:10, 48089:10, 48149:10, 48185:10, 48287:10, 48473:10,
+  48475:10, 48477:10,
+  // W Texas panhandle (TX-11)
+  48003:11, 48049:11, 48081:11, 48083:11, 48095:11, 48103:11, 48111:11, 48133:11,
+  48135:11, 48173:11, 48227:11, 48235:11, 48275:11, 48301:11, 48307:11, 48317:11,
+  48327:11, 48329:11, 48333:11, 48335:11, 48383:11, 48395:11, 48429:11, 48431:11,
+  48451:11, 48461:11, 48495:11,
+  // Tarrant N/NW (TX-12)
+  48367:12, 48439:12,
+  // Panhandle / Amarillo (TX-13)
+  48009:13, 48011:13, 48023:13, 48065:13, 48075:13, 48077:13, 48087:13, 48101:13,
+  48109:13, 48111:13, 48117:13, 48129:13, 48155:13, 48191:13, 48193:13, 48195:13,
+  48197:13, 48205:13, 48211:13, 48233:13, 48237:13, 48239:13, 48271:13, 48275:13,
+  48295:13, 48337:13, 48341:13, 48357:13, 48359:13, 48375:13, 48381:13, 48393:13,
+  48447:13, 48483:13, 48485:13, 48487:13, 48503:13,
+  // Galveston / Brazoria S (TX-14)
+  48039:14, 48321:14, 48481:14,
+  // RGV Hidalgo/Cameron (TX-15)
+  48215:15,
+  // El Paso (TX-16)
+  48141:16,
+  // Waco / McLennan (TX-17)
+  48035:17, 48041:17, 48093:17, 48145:17, 48161:17, 48193:17, 48217:17, 48289:17,
+  48293:17, 48309:17, 48313:17, 48395:17, 48411:17,
+  // N Houston / 5th Ward (TX-18) — Harris County
+  48201:18,
+  // Lubbock / W Texas (TX-19)
+  48017:19, 48033:19, 48045:19, 48059:19, 48069:19, 48079:19, 48107:19, 48115:19,
+  48119:19, 48125:19, 48151:19, 48153:19, 48165:19, 48169:19, 48175:19, 48189:19,
+  48207:19, 48219:19, 48253:19, 48263:19, 48269:19, 48279:19, 48287:19, 48299:19,
+  48303:19, 48305:19, 48319:19, 48345:19, 48353:19, 48369:19, 48415:19, 48417:19,
+  48433:19, 48437:19, 48441:19, 48445:19, 48465:19, 48469:19, 48501:19,
+  // San Antonio central (TX-20) — Bexar
+  48029:20,
+  // San Antonio NW / Hill Country (TX-21)
+  48019:21, 48031:21, 48053:21, 48091:21, 48171:21, 48187:21, 48209:21, 48259:21,
+  48265:21, 48267:21, 48299:21, 48319:21,
+  // Fort Bend E / Sugar Land (TX-22)
+  48157:22,
+  // Del Rio / Laredo (TX-23)
+  48013:23, 48043:23, 48047:23, 48105:23, 48109:23, 48137:23, 48229:23, 48243:23,
+  48271:23, 48323:23, 48325:23, 48377:23, 48385:23, 48389:23, 48413:23, 48435:23,
+  48443:23, 48463:23, 48465:23, 48493:23, 48505:23, 48507:23,
+  // N Dallas / Farmers Branch (TX-24) — use Denton S
+  48113:24,
+  // Hood / Hill Country (TX-25)
+  48143:25, 48221:25, 48251:25, 48255:25, 48363:25, 48425:25,
+  // Denton / Wise (TX-26)
+  48097:26, 48121:26, 48497:26,
+  // Corpus Christi (TX-27)
+  48007:27, 48025:27, 48057:27, 48123:27, 48173:27, 48175:27, 48177:27, 48239:27,
+  48255:27, 48261:27, 48273:27, 48285:27, 48295:27, 48297:27, 48355:27, 48391:27,
+  48409:27, 48469:27,
+  // Laredo / Webb (TX-28)
+  48047:28, 48127:28, 48131:28, 48163:28, 48247:28, 48249:28, 48283:28, 48311:28,
+  48427:28, 48479:28, 48505:28,
+  // Houston Ship Channel Hispanic (TX-29) — use Chambers Co
+  48071:29,
+  // S Dallas / Dem stronghold (TX-30) — Dallas Co
+  48113:30,
+  // Williamson / Georgetown (TX-31)
+  48027:31, 48099:31, 48281:31, 48331:31, 48491:31,
+  // Dallas NE diverse (TX-32) — use Rockwall
+  48397:32,
+  // Fort Worth / W Dallas (TX-33) — use Tarrant S
+  48439:33,
+  // RGV Cameron (TX-34)
+  48061:34, 48489:34,
+  // Austin-SA corridor (TX-35) — Travis + Comal
+  48055:35, 48091:35,
+  // SE Texas / Beaumont (TX-36)
+  48071:36, 48199:36, 48241:36, 48245:36, 48291:36, 48351:36, 48361:36, 48457:36,
+  // Austin suburbs new 2022 (TX-37) — Travis
+  48453:37,
+  // NW Harris / Cypress (TX-38) — use Waller + Grimes
+  48473:38, 48185:38,
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -1430,17 +1577,42 @@ function drawLabels(g) {
       cx[dId] += x * a; cy[dId] += y * a; ct[dId]++; area[dId] += a;
     }
   });
+
+  // Build initial positions
+  const positions = {};
   for (let d = 1; d <= 38; d++) {
     if (!ct[d] || !area[d]) continue;
-    const x = cx[d] / area[d], y = cy[d] / area[d];
-    // Black halo for readability
+    positions[d] = { x: cx[d] / area[d], y: cy[d] / area[d] };
+  }
+
+  // Simple collision resolution — push overlapping labels apart (3 passes)
+  const MIN_DIST = 18;
+  const dIds = Object.keys(positions).map(Number);
+  for (let pass = 0; pass < 3; pass++) {
+    for (let i = 0; i < dIds.length; i++) {
+      for (let j = i + 1; j < dIds.length; j++) {
+        const a = positions[dIds[i]], b = positions[dIds[j]];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MIN_DIST && dist > 0) {
+          const push = (MIN_DIST - dist) / 2;
+          const nx = dx / dist, ny = dy / dist;
+          a.x -= nx * push; a.y -= ny * push;
+          b.x += nx * push; b.y += ny * push;
+        }
+      }
+    }
+  }
+
+  // Render
+  for (const d of dIds) {
+    const { x, y } = positions[d];
     g.append('text').attr('class','dist-label')
       .attr('x', x).attr('y', y)
       .attr('text-anchor','middle').attr('dominant-baseline','central')
       .attr('font-size','9.5').attr('font-weight','800')
-      .attr('fill','none').attr('stroke','rgba(0,0,0,.45)').attr('stroke-width','3.5')
+      .attr('fill','none').attr('stroke','rgba(0,0,0,.5)').attr('stroke-width','3.5')
       .attr('stroke-linejoin','round').text(d);
-    // White label
     g.append('text').attr('class','dist-label')
       .attr('x', x).attr('y', y)
       .attr('text-anchor','middle').attr('dominant-baseline','central')
@@ -2313,26 +2485,47 @@ function togglePresenter() {
   updateHUD();
 }
 
+function setPbarMode(m) {
+  document.getElementById('pbar-click')?.classList.toggle('active', m==='click');
+  document.getElementById('pbar-paint')?.classList.toggle('active', m==='paint');
+}
+
 function updateHUD() {
   if (!liveStats) return;
-  const s   = liveStats;
+  const s = liveStats;
   const egAbs = Math.abs(s.eg);
-  const egEl  = document.getElementById('hud-eg');
-  if (egEl) {
-    egEl.textContent = egAbs.toFixed(1) + '%';
-    egEl.className   = 'hud-eg-val ' + (egAbs<4?'green':egAbs<7?'amber':'red');
+  const cls = egAbs < 4 ? 'green' : egAbs < 7 ? 'amber' : 'red';
+
+  const egEl = document.getElementById('hud-eg');
+  if (egEl) { egEl.textContent = egAbs.toFixed(1) + '%'; egEl.className = 'hud-eg-val ' + cls; }
+
+  const chip = document.getElementById('hud-chip');
+  if (chip) {
+    chip.textContent = egAbs < 4 ? 'Within fair threshold' : egAbs < 7 ? 'Approaching legal limit' : 'Above court threshold';
+    chip.className = 'hud-chip ' + cls;
   }
+
   const dEl = document.getElementById('hud-d');
   const rEl = document.getElementById('hud-r');
   if (dEl) dEl.textContent = s.dSeats;
   if (rEl) rEl.textContent = s.rSeats;
+
   const sb = document.getElementById('hud-sbar-d');
   if (sb) sb.style.width = s.dSeatPct.toFixed(1) + '%';
-  const chip = document.getElementById('hud-chip');
-  if (chip) {
-    chip.textContent = egAbs<4?'✓ Within threshold':egAbs<7?'⚠ Approaching limit':'▲ Above threshold';
-    chip.className   = 'hud-chip ' + (egAbs<4?'green':egAbs<7?'amber':'red');
+
+  const dpEl = document.getElementById('hud-dpct');
+  const rpEl = document.getElementById('hud-rpct');
+  if (dpEl) dpEl.textContent = s.dSeatPct.toFixed(0) + '% D';
+  if (rpEl) rpEl.textContent = s.rSeatPct.toFixed(0) + '% R';
+
+  const gapEl = document.getElementById('hud-gap');
+  if (gapEl) {
+    gapEl.textContent = '+' + s.gap.toFixed(1) + 'pt';
+    gapEl.style.color = s.gap < 2 ? '#34D399' : s.gap < 5 ? '#FBBF24' : '#F87171';
   }
+
+  // Sync floating toolbar mode buttons
+  setPbarMode(appMode);
 }
 
 // Final computeAndUpdate — redraws everything including borders + HUD
@@ -2354,7 +2547,7 @@ function computeAndUpdate() {
   g.selectAll('.dist-label').remove();
   drawLabels(g);
   refreshPaletteColors();
-  if (presenterOn) updateHUD();
+  updateHUD();
 }
 
 // ═══════════════════════════════════════════════════════════════
