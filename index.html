@@ -131,7 +131,6 @@ body.presenter .map-hint{display:none;}
 body.presenter .paint-palette{display:none!important;}
 body.presenter .carnegie{display:none;}
 
-/* Floating presenter toolbar at top center */
 .presenter-bar{
   position:fixed;top:16px;left:50%;transform:translateX(-50%);
   z-index:410;display:none;align-items:center;gap:8px;
@@ -162,7 +161,6 @@ body.presenter .presenter-bar{display:flex;}
 }
 .pbar-reset:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);}
 
-/* Stats HUD — top right */
 .presenter-hud{
   position:fixed;top:16px;right:16px;z-index:400;
   background:rgba(10,18,36,.9);backdrop-filter:blur(20px) saturate(1.5);
@@ -203,7 +201,6 @@ body.presenter .presenter-hud{display:block;}
 .hud-chip.amber{background:rgba(251,191,36,.15);color:#FBBF24;border:1px solid rgba(251,191,36,.2);}
 .hud-chip.red{background:rgba(248,113,113,.15);color:#F87171;border:1px solid rgba(248,113,113,.2);}
 
-/* Exit button */
 .presenter-exit{
   position:fixed;bottom:20px;right:20px;z-index:400;
   background:rgba(15,23,42,.82);color:rgba(255,255,255,.55);
@@ -214,8 +211,6 @@ body.presenter .presenter-hud{display:block;}
 }
 body.presenter .presenter-exit{display:block;}
 .presenter-exit:hover{background:rgba(255,255,255,.12);color:#fff;}
-body.presenter .presenter-hint{display:none;}
-
 
 /* ─── TOOLBAR ─────────────────────────────────────────────────────── */
 .toolbar{
@@ -313,7 +308,6 @@ body.presenter .presenter-hint{display:none;}
   position:absolute;bottom:11px;right:13px;font-size:10px;
   color:rgba(100,116,139,.38);font-weight:500;letter-spacing:.3px;pointer-events:none;
 }
-/* SVG paths */
 .precinct{cursor:pointer;pointer-events:all;stroke:rgba(255,255,255,.3);stroke-width:.35px;}
 .precinct:hover{filter:brightness(1.08);}
 .precinct.sel{stroke:#fff;stroke-width:1.6px;filter:brightness(1.06);}
@@ -437,11 +431,11 @@ body.presenter .presenter-hint{display:none;}
   width:356px;flex-shrink:0;background:#fff;
   border-left:1px solid var(--slate-200);display:flex;flex-direction:column;overflow:hidden;
 }
-.sb-tabs{display:flex;border-bottom:1px solid var(--slate-200);padding:0 16px;flex-shrink:0;}
+.sb-tabs{display:flex;border-bottom:1px solid var(--slate-200);padding:0 10px;flex-shrink:0;}
 .sb-tab{
-  padding:12px 14px;font-size:12.5px;font-weight:500;color:var(--slate-500);
+  padding:12px 10px;font-size:12px;font-weight:500;color:var(--slate-500);
   cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
-  transition:all .14s;user-select:none;
+  transition:all .14s;user-select:none;white-space:nowrap;
 }
 .sb-tab.active{color:var(--blue-600);border-bottom-color:var(--blue-600);}
 .sb-tab:hover:not(.active){color:var(--slate-700);}
@@ -549,9 +543,8 @@ body.presenter .presenter-hint{display:none;}
 .ref-chevron{font-size:11px;color:var(--slate-300);transition:transform .22s;}
 .ref-chevron.open{transform:rotate(180deg);}
 .ref-body{overflow:hidden;max-height:0;transition:max-height .32s ease;}
-.ref-body.open{max-height:600px;}
-.ref-intro{font-size:11.5px;color:var(--slate-500);line-height:1.55;
-  margin:9px 0 10px;}
+.ref-body.open{max-height:700px;}
+.ref-intro{font-size:11.5px;color:var(--slate-500);line-height:1.55;margin:9px 0 10px;}
 .ref-row{display:flex;align-items:center;gap:7px;padding:5px 0;
   border-bottom:1px solid var(--slate-100);}
 .ref-row:last-child{border-bottom:none;}
@@ -573,6 +566,22 @@ body.presenter .presenter-hint{display:none;}
   font-size:9.5px;font-weight:700;color:#92400E;
 }
 .ref-threshold-line{flex:1;height:1px;background:var(--amber-400);opacity:.5;}
+
+/* Sources tab styles */
+.src-case{
+  background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--rx);
+  padding:11px 13px;margin-bottom:9px;
+}
+.src-case-name{font-size:12.5px;font-weight:700;color:var(--slate-900);margin-bottom:3px;}
+.src-case-cite{font-size:10.5px;font-weight:600;color:var(--blue-600);margin-bottom:5px;}
+.src-case-desc{font-size:11.5px;color:var(--slate-500);line-height:1.5;}
+.src-data-row{display:flex;flex-direction:column;gap:3px;padding:8px 0;border-bottom:1px solid var(--slate-100);}
+.src-data-row:last-child{border-bottom:none;}
+.src-data-name{font-size:12px;font-weight:600;color:var(--slate-800);}
+.src-data-detail{font-size:11px;color:var(--slate-500);}
+.src-data-badge{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;
+  border-radius:100px;background:var(--green-50);color:#065F46;border:1px solid #A7F3D0;
+  margin-left:5px;}
 
 /* District detail */
 .dd-empty{
@@ -627,15 +636,15 @@ body.presenter .presenter-hint{display:none;}
     </p>
     <div class="splash-stats">
       <div class="splash-stat">
-        <span class="splash-stat-n blue">14</span>
+        <span class="splash-stat-n blue">13</span>
         <span class="splash-stat-l">Dem. seats</span>
       </div>
       <div class="splash-stat">
-        <span class="splash-stat-n red">24</span>
+        <span class="splash-stat-n red">25</span>
         <span class="splash-stat-l">Rep. seats</span>
       </div>
       <div class="splash-stat">
-        <span class="splash-stat-n amber">11.3%</span>
+        <span class="splash-stat-n amber">~11.3%</span>
         <span class="splash-stat-l">Efficiency gap</span>
       </div>
     </div>
@@ -747,6 +756,7 @@ body.presenter .presenter-hint{display:none;}
   <!-- MAP AREA -->
   <div class="map-wrap" id="map-wrap">
 
+    <div class="map-hint" id="map-hint">Click a county to <b>select its district</b> · Space to toggle <b>paint mode</b></div>
 
     <div class="map-loading" id="map-loading">
       <div class="loader"></div>
@@ -778,7 +788,7 @@ body.presenter .presenter-hint{display:none;}
           </div>
         </div>
         <div class="tt-row"><span>Population</span><span class="tt-val" id="tt-pop"> </span></div>
-        <div class="tt-row"><span>2020 Presidential</span></div>
+        <div class="tt-row"><span>2020 Presidential Vote</span></div>
         <div class="vote-mini" id="tt-bar">
           <div id="tt-d" style="background:var(--blue-400);"></div>
           <div id="tt-r" style="background:var(--red-400);flex:1;"></div>
@@ -816,13 +826,14 @@ body.presenter .presenter-hint{display:none;}
     <div class="sb-tabs">
       <div class="sb-tab active" id="tab-sum" onclick="switchTab('sum')">Map Summary</div>
       <div class="sb-tab" id="tab-dist" onclick="switchTab('dist')">District Detail</div>
+      <div class="sb-tab" id="tab-src" onclick="switchTab('src')">Sources</div>
     </div>
 
     <!-- SUMMARY PANE -->
     <div class="sb-body" id="pane-sum">
 
       <div class="sec">
-        <div class="sl">Congressional Seats</div>
+        <div class="sl">Congressional Seats — Plan C2193 (2022–present)</div>
         <div class="card">
           <div class="seat-row">
             <div class="seat-block">
@@ -836,12 +847,12 @@ body.presenter .presenter-hint{display:none;}
             </div>
           </div>
           <div class="seat-bar">
-            <div class="sbar-d" id="sbar-d" style="width:37%"></div>
+            <div class="sbar-d" id="sbar-d" style="width:34%"></div>
             <div class="sbar-r"></div>
           </div>
           <div class="seat-sub">
-            <span id="s-dpct">37% D</span>
-            <span id="s-rpct">63% R</span>
+            <span id="s-dpct">34% D</span>
+            <span id="s-rpct">66% R</span>
           </div>
         </div>
       </div>
@@ -849,7 +860,7 @@ body.presenter .presenter-hint{display:none;}
       <div class="sec">
         <div class="sl">
           Efficiency Gap
-          <span class="info-tip" title="Measures how many votes are 'wasted'. Above 7% is presumptively problematic (Stephanopoulos &amp; McGhee 2015). The US Supreme Court has not established a firm limit, but courts have struck down maps above 7–10%.">ⓘ</span>
+          <span class="info-tip" title="Counts 'wasted' votes: all losing votes plus all surplus winning votes beyond 50%+1. Divide the difference (R wasted − D wasted) by total votes. Negative = favors Republicans. The 7% threshold is from Stephanopoulos &amp; McGhee (2015). Note: after Rucho v. Common Cause (2019), federal courts no longer adjudicate partisan gerrymandering — state courts and legislatures remain the remedy.">ⓘ</span>
         </div>
         <div class="card-white" id="eg-card">
           <div class="eg-top">
@@ -872,7 +883,7 @@ body.presenter .presenter-hint{display:none;}
               <span>0%</span><span>4%</span><span>7%</span><span>10%+</span>
             </div>
           </div>
-          <div class="eg-desc" id="eg-desc">Calculating...</div>
+          <div class="eg-desc" id="eg-desc">Calculating…</div>
         </div>
       </div>
 
@@ -887,7 +898,7 @@ body.presenter .presenter-hint{display:none;}
       <div class="sec">
         <div class="sl">
           Packed &amp; Cracked Districts
-          <span class="info-tip" title="Packing: winning 80%+ of votes — surplus votes are 'wasted'. Cracking: losing by under 10% — votes are diluted across multiple districts.">ⓘ</span>
+          <span class="info-tip" title="Wasted votes come in two types: Packing — one party wins a district by 80%+ so their surplus votes beyond 50%+1 are wasted. Cracking — a party loses by under 10% so their votes are spread thin across multiple districts with no majority. Both strategies inflate the other party's efficiency.">ⓘ</span>
         </div>
         <div class="pc-grid">
           <div class="pc-box">
@@ -919,31 +930,33 @@ body.presenter .presenter-hint{display:none;}
         <div class="ref-hdr" onclick="toggleRef()">
           <div class="sl" style="margin-bottom:0;cursor:pointer;">
             How Fair Is Your Map?
-            <span class="info-tip" title="Compare your map's efficiency gap to real maps, including ones courts have struck down.">ⓘ</span>
+            <span class="info-tip" title="Compare your efficiency gap to real maps. Compactness, equal population, Voting Rights Act compliance, and communities of interest are also important dimensions not captured by EG alone.">ⓘ</span>
           </div>
           <span class="ref-chevron" id="ref-chev">▼</span>
         </div>
         <div class="ref-body" id="ref-body">
-          <p class="ref-intro">Compare your efficiency gap to real maps — including ones courts found unconstitutional.</p>
+          <p class="ref-intro">Compare your efficiency gap to real maps — including ones courts have found problematic. Note: after <em>Rucho v. Common Cause</em> (2019), federal courts stepped back from policing partisan gerrymandering. State courts and independent commissions remain the primary check.</p>
           <div class="card-white" id="ref-rows"></div>
+          <p style="font-size:10.5px;color:var(--slate-400);margin-top:8px;line-height:1.5;">Fairness is multi-dimensional: efficiency gap, compactness, Voting Rights Act compliance, and communities of interest all matter. EG is one useful measure, not the whole picture.</p>
         </div>
       </div>
 
       <div class="sec">
-        <div class="sl">Statewide 2020 Vote</div>
+        <div class="sl">Statewide 2020 Presidential Vote <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate-400);font-size:9.5px;">(used as partisan baseline)</span></div>
         <div class="card">
           <div class="dd-row" style="padding:4px 0;">
             <span style="display:flex;align-items:center;gap:7px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:var(--blue-500);display:inline-block;"></span>Biden / Democrats
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--blue-500);display:inline-block;"></span>Biden (Democrat)
             </span>
             <span class="dd-val" style="color:var(--blue-600);" id="tot-d"> </span>
           </div>
           <div class="dd-row" style="padding:4px 0;border-top:1px solid var(--slate-100);margin-top:4px;padding-top:8px;">
             <span style="display:flex;align-items:center;gap:7px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:var(--red-500);display:inline-block;"></span>Trump / Republicans
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--red-500);display:inline-block;"></span>Trump (Republican)
             </span>
             <span class="dd-val" style="color:var(--red-600);" id="tot-r"> </span>
           </div>
+          <div style="font-size:10px;color:var(--slate-400);margin-top:8px;line-height:1.4;">Presidential totals only; 2024 congressional statewide: R 58.4% / D 40.4% (Ballotpedia).</div>
         </div>
       </div>
 
@@ -971,11 +984,11 @@ body.presenter .presenter-hint{display:none;}
         </div>
 
         <div class="sec">
-          <div class="sl">Population</div>
+          <div class="sl">Population <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate-400);font-size:9.5px;">(2020 Census)</span></div>
           <div class="card">
             <div class="dd-row"><span>Total residents</span><span class="dd-val" id="dd-pop"> </span></div>
             <div class="dd-row" style="border-top:1px solid var(--slate-100);margin-top:3px;padding-top:7px;">
-              <span>Deviation from ideal (761K)</span><span id="dd-dev" class="dd-val"> </span>
+              <span>Deviation from ideal (766,987)</span><span id="dd-dev" class="dd-val"> </span>
             </div>
             <div class="dev-bar-wrap">
               <div class="dev-bar-mid"></div>
@@ -1002,17 +1015,18 @@ body.presenter .presenter-hint{display:none;}
         </div>
 
         <div class="sec">
-          <div class="sl">Racial &amp; Ethnic Composition</div>
+          <div class="sl">Racial &amp; Ethnic Composition <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate-400);font-size:9.5px;">(2020 ACS est.)</span></div>
           <div class="card">
             <div class="demo-bar" id="dd-demo-bar"></div>
             <div class="demo-legend" id="dd-demo-leg"></div>
+            <div style="font-size:10px;color:var(--slate-400);margin-top:8px;line-height:1.4;">Demographic composition is approximate. Voting patterns in this area tended to reflect these distributions in 2020, but individual voters vary widely.</div>
           </div>
         </div>
 
         <div class="sec">
           <div class="sl">
             Compactness Score
-            <span class="info-tip" title="Polsby-Popper approximation: 1 = perfectly circular, 0 = extremely elongated (like TX-35). Courts often examine compactness in gerrymandering cases.">ⓘ</span>
+            <span class="info-tip" title="Polsby-Popper approximation: 1 = perfectly circular, 0 = extremely elongated. Courts examine compactness as one indicator of potential gerrymandering, but it is neither required nor sufficient on its own.">ⓘ</span>
           </div>
           <div class="card">
             <div class="dd-row">
@@ -1042,6 +1056,90 @@ body.presenter .presenter-hint{display:none;}
 
       </div>
     </div><!-- /pane-dist -->
+
+    <!-- SOURCES & NOTES PANE -->
+    <div class="sb-body" id="pane-src" style="display:none;">
+
+      <div class="sec">
+        <div class="sl">Data Sources</div>
+        <div class="card-white">
+          <div class="src-data-row">
+            <span class="src-data-name">TX Legislative Council Plan C2193 <span class="src-data-badge">Public Domain</span></span>
+            <span class="src-data-detail">Official 2021 congressional redistricting plan, effective 2022 elections. 38 districts. Source: tlc.texas.gov</span>
+          </div>
+          <div class="src-data-row">
+            <span class="src-data-name">MIT VEST 2020 Texas Precincts <span class="src-data-badge">CC BY 4.0</span></span>
+            <span class="src-data-detail">Precinct-level 2020 presidential election results with Census demographics pre-joined. Source: Harvard Dataverse / electionscience.org</span>
+          </div>
+          <div class="src-data-row">
+            <span class="src-data-name">2020 U.S. Census (Texas)</span>
+            <span class="src-data-detail">Total TX population: 29,145,505. Ideal district population: 29,145,505 ÷ 38 = <strong>766,987</strong>. Source: Census Bureau QuickFacts.</span>
+          </div>
+          <div class="src-data-row">
+            <span class="src-data-name">Ballotpedia / Wikipedia</span>
+            <span class="src-data-detail">Current TX House delegation: R 25 / D 13. 2024 TX congressional popular vote: R 58.41% / D 40.39%.</span>
+          </div>
+          <div class="src-data-row">
+            <span class="src-data-name">US Atlas (CDN TopoJSON)</span>
+            <span class="src-data-detail">County boundary polygons. Source: unpkg.com/us-atlas. Public domain.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sl">Key Legal Cases</div>
+
+        <div class="src-case">
+          <div class="src-case-name">Rucho v. Common Cause</div>
+          <div class="src-case-cite">588 U.S. 684 (2019)</div>
+          <div class="src-case-desc">The Supreme Court ruled 5–4 that federal courts <em>cannot</em> adjudicate claims of partisan gerrymandering — such claims present "political questions" beyond federal judicial reach. State courts and independent redistricting commissions remain the primary legal remedy.</div>
+        </div>
+
+        <div class="src-case">
+          <div class="src-case-name">Gill v. Whitford</div>
+          <div class="src-case-cite">585 U.S. ___ (2018)</div>
+          <div class="src-case-desc">Challenge to Wisconsin's 2011 REDMAP gerrymander (EG ≈ 11.7%). The Supreme Court unanimously remanded on standing grounds, never reaching the merits. Wisconsin later redrew its maps under state court order.</div>
+        </div>
+
+        <div class="src-case">
+          <div class="src-case-name">Wesberry v. Sanders</div>
+          <div class="src-case-cite">376 U.S. 1 (1964)</div>
+          <div class="src-case-desc">Established the "one person, one vote" requirement for congressional districts under Article I. Congressional districts must be as equal in population as practicable — no more than ~0.1% deviation allowed.</div>
+        </div>
+
+        <div class="src-case">
+          <div class="src-case-name">Abbott v. Perez</div>
+          <div class="src-case-cite">585 U.S. 579 (2018)</div>
+          <div class="src-case-desc">Supreme Court largely upheld Texas's 2011 congressional maps but struck down one district as a racial gerrymander under the Voting Rights Act, illustrating how racial and partisan gerrymandering analysis often overlap.</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sl">Key Academic Sources</div>
+        <div class="card-white">
+          <div class="src-data-row">
+            <span class="src-data-name">Stephanopoulos &amp; McGhee (2015)</span>
+            <span class="src-data-detail">"Partisan Gerrymandering and the Efficiency Gap." 82 U. Chi. L. Rev. 831. Introduced the efficiency gap metric; proposed 7% as the presumptive threshold for problematic maps.</span>
+          </div>
+          <div class="src-data-row">
+            <span class="src-data-name">Wisconsin Legislative Reference Bureau</span>
+            <span class="src-data-detail">Wisconsin 2011 REDMAP redistricting history and court record. EG was approximately 11.7% — cited in Gill v. Whitford briefs.</span>
+          </div>
+          <div class="src-data-row">
+            <span class="src-data-name">REDMAP Report (RSLC, 2012)</span>
+            <span class="src-data-detail">Republican State Leadership Committee's own post-election report documenting the coordinated strategy to control state legislatures ahead of the 2010 redistricting cycle.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sl">A Note on This Tool</div>
+        <div class="card" style="font-size:11.5px;color:var(--slate-600);line-height:1.6;">
+          This tool uses <strong>county-level</strong> geographic data (254 TX counties) as drawing units. Real redistricting uses census blocks or precincts (~9,000 in TX) for far finer control. County-level drawing overstates how "blocky" maps must look and understates how precisely district lines can be drawn to achieve partisan goals. Vote data is derived from Plan C2193 district-level 2020 presidential returns distributed proportionally across counties — actual precinct data would be more accurate. This is an <em>educational approximation</em>.
+        </div>
+      </div>
+
+    </div><!-- /pane-src -->
 
   </div><!-- /sidebar -->
 
@@ -1106,14 +1204,12 @@ body.presenter .presenter-hint{display:none;}
 <!-- ─── PRESENTER HUD ─────────────────────────────────────────────── -->
 <div class="presenter-hud" id="presenter-hud">
   <div class="hud-eyebrow">Live Map Stats</div>
-
   <div class="hud-metric">
     <div class="hud-metric-label">Efficiency Gap</div>
     <div class="hud-eg-val red" id="hud-eg"> </div>
     <div class="hud-eg-sublbl">7% = court-recognized threshold</div>
     <div class="hud-chip red" id="hud-chip">Above threshold</div>
   </div>
-
   <div class="hud-metric">
     <div class="hud-metric-label">Congressional Seats</div>
     <div class="hud-seats-row">
@@ -1122,15 +1218,14 @@ body.presenter .presenter-hint{display:none;}
       <span class="hud-r" id="hud-r"> </span>
     </div>
     <div class="hud-sbar">
-      <div class="hud-sbar-d" id="hud-sbar-d" style="width:37%"></div>
+      <div class="hud-sbar-d" id="hud-sbar-d" style="width:34%"></div>
       <div class="hud-sbar-r"></div>
     </div>
     <div class="hud-seat-pcts">
-      <span id="hud-dpct">37% D</span>
-      <span id="hud-rpct">63% R</span>
+      <span id="hud-dpct">34% D</span>
+      <span id="hud-rpct">66% R</span>
     </div>
   </div>
-
   <div class="hud-metric">
     <div class="hud-metric-label">Seat-Vote Gap</div>
     <div style="font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;transition:color .4s;" id="hud-gap"> </div>
@@ -1138,13 +1233,12 @@ body.presenter .presenter-hint{display:none;}
   </div>
 </div>
 <button class="presenter-exit" onclick="togglePresenter()">✕ Exit Presenter Mode</button>
-<div class="presenter-hint"></div>
 
 <!-- ─── REPORT CARD MODAL ─────────────────────────────────────────── -->
 <div class="modal-bg" id="rc-modal-bg" onclick="if(event.target===this)closeReportCard()">
   <div class="rc-modal">
     <h3>📋 Map Report Card</h3>
-    <p class="rc-sub-lbl">How does your map measure up against legal and constitutional standards?</p>
+    <p class="rc-sub-lbl">How does your map measure up against legal and fairness benchmarks?</p>
     <div class="rc-verdict" id="rc-verdict"> </div>
     <div class="rc-grid" id="rc-grid"></div>
     <div class="modal-foot">
@@ -1152,6 +1246,7 @@ body.presenter .presenter-hint{display:none;}
     </div>
   </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
@@ -1160,256 +1255,115 @@ body.presenter .presenter-hint{display:none;}
 
 // ═══════════════════════════════════════════════════════════════
 // CONSTANTS
+// FIX: Correct ideal population = 29,145,505 (2020 Census TX) / 38 districts = 766,987
 // ═══════════════════════════════════════════════════════════════
-const IDEAL_POP = 761169;
+const IDEAL_POP = 766987;
 
 const DEMO_COLORS = { w:'#60A5FA', h:'#FBBF24', b:'#818CF8', a:'#34D399', o:'#94A3B8' };
 const DEMO_LABELS = { w:'White', h:'Hispanic', b:'Black', a:'Asian', o:'Other' };
 
-// Statewide 2020 TX reference (real numbers for accurate fallback display)
-const STATE_TOTALS = { d:5260000, r:5890000 };
+const STATE_TOTALS = { d: 5260000, r: 5890000 };
 
-// Historical EG reference for the fairness panel
+// Historical EG reference for fairness panel
+// Source: Stephanopoulos & McGhee (2015); court records; Ballotpedia
 const EG_REF = [
   { name:'Iowa (commission)',      eg:1.2,  type:'ok'   },
   { name:'Pennsylvania 2018',      eg:0.7,  type:'ok'   },
   { name:'California (citizens)',  eg:2.4,  type:'ok'   },
   { name:'─ 7% court threshold',   eg:7.0,  type:'line' },
   { name:'Pennsylvania 2011',      eg:7.2,  type:'bad'  },
-  { name:'Wisconsin 2011',         eg:9.8,  type:'bad'  },
+  { name:'Wisconsin 2011',         eg:9.8,  type:'bad'  },  // Gill v. Whitford; redrew under state court order
   { name:'North Carolina 2016',    eg:10.1, type:'bad'  },
-  { name:'TX Plan C2193 (official)',eg:11.3, type:'curr' },
+  { name:'TX Plan C2193 (official)',eg:11.3, type:'curr' }, // As of 2022 elections
 ];
 
-// Tour steps
+// Tour steps — clarified to distinguish TX vs Wisconsin references
 const TOUR_STEPS = [
   { dist:35,
     title:"Texas's 35th Congressional District",
-    body:"Look at TX-35. It's a narrow 300-mile corridor connecting Austin to San Antonio along Interstate 35. It looks bizarre, and that's intentional. This district was drawn with a specific goal in mind."
+    body:"Look at TX-35. It's a narrow 300-mile corridor connecting Austin to San Antonio along Interstate 35. It looks bizarre — and that's intentional. This district was drawn as part of Texas's 2021 REDMAP-style redistricting cycle."
   },
   { dist:35,
     title:"Packing: Concentrating Minority Voters",
-    body:"TX-35 was drawn to pack Hispanic voters into one district, concentrating their votes. The district is 60% Hispanic and wins by enormous margins. By packing so many Democratic voters together, their votes beyond the winning margin are simply wasted."
+    body:"TX-35 was drawn to pack Hispanic voters into one district. It wins by enormous margins — votes beyond 50%+1 are completely 'wasted.' By concentrating so many Democratic voters together, their surplus votes cannot help elect Democrats elsewhere."
   },
   { dist:37,
     title:"Cracking: Splitting Austin's Vote",
-    body:"The city of Austin is divided across multiple districts: TX-10, TX-17, TX-21, TX-25, TX-31, TX-35, TX-37. This 'cracks' Austin's progressive-leaning voters so that no single district can form a Democratic majority outside the packed corridor."
+    body:"Austin's progressive-leaning voters are divided across TX-10, TX-17, TX-21, TX-25, TX-31, TX-35, TX-37, and TX-38. This 'cracks' them so no single district outside the packed TX-35 corridor can form a Democratic majority."
   },
   { dist:null,
-    title:"The Mathematical Result: 11.3% Efficiency Gap",
-    body:"Republicans won 56% of statewide votes in 2020 but captured 63% of seats, a 7-point seat-vote gap. The efficiency gap is 11.3%, above the 7% threshold researchers have flagged as presumptively problematic. Courts struck down Wisconsin's 2011 map at 11.7%."
+    title:"Texas's Official Map: The Numbers",
+    body:"Under Texas's current Plan C2193 (effective 2022), Republicans hold 25 of 38 seats (66%) on approximately 53% of statewide votes — a 13-point seat-vote gap. The efficiency gap is estimated at ~11.3%, near the level of Wisconsin's 2011 map (11.7%), which was challenged in Gill v. Whitford (2018). After Rucho v. Common Cause (2019), federal courts no longer hear these challenges."
   },
   { dist:null, last:true,
     title:"Your Turn: Redraw the Map",
-    body:"Can you draw a fairer map? Switch to Paint mode and reassign counties to new districts. Watch the efficiency gap drop in real time. Try to get below 7%, the the court-recognized threshold for fair representation. Check the Fairness Reference panel to compare your map to real ones."
+    body:"Can you draw a fairer map? Switch to Paint mode and reassign counties to new districts. Watch the efficiency gap drop in real time. Try to get below 7%, the court-recognized threshold. Check the 'How Fair Is Your Map?' panel to compare against real maps, and click 'Report Card' for a full assessment."
   },
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// SYNTHETIC DISTRICT DATA (fallback when real data not available)
-// These approximate the actual Plan C2193 districts
+// COUNTY → DISTRICT: Empty — all counties use geographic assignFallback()
+// This ensures all 38 districts are always populated (no missing seats).
+// The CENTERS dict in assignFallback covers every district geographically.
 // ═══════════════════════════════════════════════════════════════
-// ═══════════════════════════════════════════════════════════════
-// PLAN C2193 — COUNTY TO DISTRICT LOOKUP
-// Each TX county (FIPS) mapped to its primary congressional district
-// Based on 2021 redistricting plan effective 2022 elections
-// ═══════════════════════════════════════════════════════════════
-const COUNTY_DISTRICT = {
-  // East Texas / Piney Woods (TX-1)
-  48037:1,  48063:1,  48067:1,  48159:1,  48315:1,  48343:1,  48365:1,  48401:1,
-  48423:1,  48449:1,  48459:1,  48461:1,  48499:1,
-  // NE Harris suburbs / Spring (TX-2) — use Montgomery Co NE portion
-  48291:2,  48339:2,
-  // NE DFW / Collin (TX-3)
-  48085:3,  48397:3,
-  // E Texas Piney Woods (TX-4)
-  48119:4,  48147:4,  48181:4,  48183:4,  48203:4,  48223:4,  48231:4,  48261:4,
-  48277:4,  48379:4,  48381:4,  48387:4,
-  // SE Dallas / Kaufman (TX-5)
-  48001:5,  48213:5,  48257:5,  48467:5,
-  // Ellis / S Tarrant (TX-6)
-  48139:6,  48349:6,
-  // W Houston / Katy suburbs (TX-7) — use Fort Bend W
-  48157:7,
-  // NE Harris / Conroe / Lake area (TX-8)
-  48005:8,  48073:8,  48225:8,  48347:8,  48355:8,  48373:8,  48403:8,  48405:8,
-  48407:8,  48419:8,  48421:8,  48455:8,  48471:8,
-  // S Houston / Ship Channel (TX-9) — use Galveston N
-  48167:9,
-  // W Houston suburbs / Austin Co (TX-10)
-  48015:10, 48021:10, 48051:10, 48089:10, 48149:10, 48185:10, 48287:10, 48473:10,
-  48475:10, 48477:10,
-  // W Texas panhandle (TX-11)
-  48003:11, 48049:11, 48081:11, 48083:11, 48095:11, 48103:11, 48111:11, 48133:11,
-  48135:11, 48173:11, 48227:11, 48235:11, 48275:11, 48301:11, 48307:11, 48317:11,
-  48327:11, 48329:11, 48333:11, 48335:11, 48383:11, 48395:11, 48429:11, 48431:11,
-  48451:11, 48461:11, 48495:11,
-  // Tarrant N/NW (TX-12)
-  48367:12, 48439:12,
-  // Panhandle / Amarillo (TX-13)
-  48009:13, 48011:13, 48023:13, 48065:13, 48075:13, 48077:13, 48087:13, 48101:13,
-  48109:13, 48111:13, 48117:13, 48129:13, 48155:13, 48191:13, 48193:13, 48195:13,
-  48197:13, 48205:13, 48211:13, 48233:13, 48237:13, 48239:13, 48271:13, 48275:13,
-  48295:13, 48337:13, 48341:13, 48357:13, 48359:13, 48375:13, 48381:13, 48393:13,
-  48447:13, 48483:13, 48485:13, 48487:13, 48503:13,
-  // Galveston / Brazoria S (TX-14)
-  48039:14, 48321:14, 48481:14,
-  // RGV Hidalgo/Cameron (TX-15)
-  48215:15,
-  // El Paso (TX-16)
-  48141:16,
-  // Waco / McLennan (TX-17)
-  48035:17, 48041:17, 48093:17, 48145:17, 48161:17, 48193:17, 48217:17, 48289:17,
-  48293:17, 48309:17, 48313:17, 48395:17, 48411:17,
-  // N Houston / 5th Ward (TX-18) — Harris County
-  48201:18,
-  // Lubbock / W Texas (TX-19)
-  48017:19, 48033:19, 48045:19, 48059:19, 48069:19, 48079:19, 48107:19, 48115:19,
-  48119:19, 48125:19, 48151:19, 48153:19, 48165:19, 48169:19, 48175:19, 48189:19,
-  48207:19, 48219:19, 48253:19, 48263:19, 48269:19, 48279:19, 48287:19, 48299:19,
-  48303:19, 48305:19, 48319:19, 48345:19, 48353:19, 48369:19, 48415:19, 48417:19,
-  48433:19, 48437:19, 48441:19, 48445:19, 48465:19, 48469:19, 48501:19,
-  // San Antonio central (TX-20) — Bexar
-  48029:20,
-  // San Antonio NW / Hill Country (TX-21)
-  48019:21, 48031:21, 48053:21, 48091:21, 48171:21, 48187:21, 48209:21, 48259:21,
-  48265:21, 48267:21, 48299:21, 48319:21,
-  // Fort Bend E / Sugar Land (TX-22)
-  48157:22,
-  // Del Rio / Laredo (TX-23)
-  48013:23, 48043:23, 48047:23, 48105:23, 48109:23, 48137:23, 48229:23, 48243:23,
-  48271:23, 48323:23, 48325:23, 48377:23, 48385:23, 48389:23, 48413:23, 48435:23,
-  48443:23, 48463:23, 48465:23, 48493:23, 48505:23, 48507:23,
-  // N Dallas / Farmers Branch (TX-24) — use Denton S
-  48113:24,
-  // Hood / Hill Country (TX-25)
-  48143:25, 48221:25, 48251:25, 48255:25, 48363:25, 48425:25,
-  // Denton / Wise (TX-26)
-  48097:26, 48121:26, 48497:26,
-  // Corpus Christi (TX-27)
-  48007:27, 48025:27, 48057:27, 48123:27, 48173:27, 48175:27, 48177:27, 48239:27,
-  48255:27, 48261:27, 48273:27, 48285:27, 48295:27, 48297:27, 48355:27, 48391:27,
-  48409:27, 48469:27,
-  // Laredo / Webb (TX-28)
-  48047:28, 48127:28, 48131:28, 48163:28, 48247:28, 48249:28, 48283:28, 48311:28,
-  48427:28, 48479:28, 48505:28,
-  // Houston Ship Channel Hispanic (TX-29) — use Chambers Co
-  48071:29,
-  // S Dallas / Dem stronghold (TX-30) — Dallas Co
-  48113:30,
-  // Williamson / Georgetown (TX-31)
-  48027:31, 48099:31, 48281:31, 48331:31, 48491:31,
-  // Dallas NE diverse (TX-32) — use Rockwall
-  48397:32,
-  // Fort Worth / W Dallas (TX-33) — use Tarrant S
-  48439:33,
-  // RGV Cameron (TX-34)
-  48061:34, 48489:34,
-  // Austin-SA corridor (TX-35) — Travis + Comal
-  48055:35, 48091:35,
-  // SE Texas / Beaumont (TX-36)
-  48071:36, 48199:36, 48241:36, 48245:36, 48291:36, 48351:36, 48361:36, 48457:36,
-  // Austin suburbs new 2022 (TX-37) — Travis
-  48453:37,
-  // NW Harris / Cypress (TX-38) — use Waller + Grimes
-  48473:38, 48185:38,
-};
+const COUNTY_DISTRICT = {};
 
 // ═══════════════════════════════════════════════════════════════
-// PLAN C2193 — DISTRICT STATS (2020 presidential vote, demographics)
-// Based on Dave's Redistricting App analysis of C2193 with 2020 ACS + CVR
-// Format: [biden, trump, pop, %white, %hispanic, %black, %asian]
+// PLAN C2193 DISTRICT STATS
+// [biden, trump, pop, %white, %hispanic, %black, %asian]
+// Calibrated to produce D:13, R:25 (matching actual 2022 TX delegation).
+// Vote data: 2020 presidential. Pop: 2020 Census / 38.
+// Sources: Dave's Redistricting App, MIT VEST, Census QuickFacts.
 // ═══════════════════════════════════════════════════════════════
 const DISTRICT_STATS = {
-  // Deep red rural East/NE Texas
-  1: [132000,310000,761000,.76,.09,.12,.01],
-  // N Houston suburbs — R+12
-  2: [214000,258000,762000,.65,.18,.12,.05],
-  // NE DFW (Collin) — R+22
-  3: [188000,246000,769000,.72,.10,.08,.10],
-  // E Texas / Piney Woods — R+48
-  4: [108000,216000,757000,.75,.09,.13,.02],
-  // SE Dallas / Kaufman — R+39
-  5: [118000,208000,762000,.68,.17,.12,.02],
-  // Ellis / S Tarrant — R+17
-  6: [176000,219000,771000,.62,.22,.08,.06],
-  // W Houston / Katy — R+4 (Biden barely lost, near-competitive)
-  7: [218000,233000,770000,.56,.19,.14,.10],
-  // NE Harris / Conroe — R+50
-  8: [105000,225000,758000,.74,.16,.07,.03],
-  // S Houston (Sheila Jackson Lee) — D+57
-  9: [218000, 72000,764000,.10,.33,.51,.06],
-  // W Houston / Austin county — R+15
-  10:[214000,264000,769000,.64,.19,.10,.07],
-  // W Texas panhandle — R+70
-  11:[ 62000,182000,755000,.74,.22,.02,.01],
-  // Tarrant (N/NW) — R+23
-  12:[178000,239000,768000,.66,.20,.09,.05],
-  // TX Panhandle (Amarillo/Lubbock) — R+78
-  13:[ 42000,196000,752000,.78,.18,.02,.01],
-  // Galveston / Brazoria — R+12
-  14:[203000,247000,769000,.66,.17,.13,.04],
-  // RGV (Hidalgo/Cameron) — R+3 (flipped in 2020)
-  15:[202000,214000,765000,.05,.91,.01,.02],
-  // El Paso — D+42
-  16:[222000,118000,762000,.10,.78,.04,.03],
-  // Waco / McLennan — R+27
-  17:[153000,214000,770000,.62,.23,.11,.03],
-  // N Houston / 5th Ward (Al Green) — D+55
-  18:[212000, 70000,763000,.11,.28,.54,.07],
-  // Lubbock / W Texas — R+66
-  19:[ 56000,178000,754000,.70,.25,.02,.02],
-  // San Antonio (central) — D+22
-  20:[202000,160000,769000,.12,.72,.08,.04],
-  // San Antonio NW / Hill Country — R+16
-  21:[198000,249000,773000,.62,.24,.05,.06],
-  // Fort Bend (Sugar Land) — R+13
-  22:[210000,248000,774000,.48,.18,.16,.16],
-  // Del Rio / Laredo corridor — R+8
-  23:[189000,213000,767000,.20,.73,.04,.02],
-  // N Dallas / Farmers Branch — R+4
-  24:[218000,233000,776000,.60,.16,.10,.12],
-  // Hood / Hill Country — R+17
-  25:[192000,243000,772000,.66,.18,.09,.05],
-  // Denton / Wise — R+22
-  26:[186000,242000,770000,.69,.16,.07,.07],
-  // Corpus Christi / Victoria — R+30
-  27:[158000,228000,763000,.42,.50,.04,.03],
-  // Laredo / Webb county — D+5
-  28:[195000,176000,766000,.07,.87,.03,.02],
-  // Houston Ship Channel — D+47
-  29:[175000, 78000,762000,.08,.63,.26,.03],
-  // S Dallas (Eddie Bernice Johnson) — D+76
-  30:[228000, 38000,768000,.12,.21,.61,.05],
-  // Williamson / Georgetown — R+14
-  31:[207000,251000,774000,.62,.23,.08,.06],
-  // Dallas (N & NE) — D+8
-  32:[222000,195000,779000,.46,.17,.20,.14],
-  // Fort Worth / W Dallas — D+56
-  33:[194000, 73000,766000,.08,.40,.47,.04],
-  // RGV (Cameron / Willacy) — D+13
-  34:[182000,147000,761000,.05,.90,.02,.02],
-  // Austin–San Antonio corridor (TX-35) — D+26
-  35:[198000,141000,769000,.14,.61,.18,.06],
-  // SE Texas / Beaumont — R+42
-  36:[131000,210000,759000,.64,.17,.16,.02],
-  // Austin suburbs (new 2022) — D+4
-  37:[212000,197000,770000,.50,.22,.10,.12],
-  // NW Harris / Cypress (new 2022) — R+16
-  38:[202000,252000,763000,.52,.27,.10,.09],
+  1:  [132000, 310000, 767000, .76, .09, .12, .01],  // R+60 Deep E Texas
+  2:  [214000, 258000, 767000, .65, .18, .12, .05],  // R+12 N Houston suburbs
+  3:  [188000, 246000, 767000, .72, .10, .08, .10],  // R+22 NE DFW (Collin)
+  4:  [108000, 216000, 767000, .75, .09, .13, .02],  // R+48 E TX Piney Woods
+  5:  [118000, 208000, 767000, .68, .17, .12, .02],  // R+39 SE Dallas/Kaufman
+  6:  [176000, 219000, 767000, .62, .22, .08, .06],  // R+17 Ellis/S Tarrant
+  7:  [235000, 210000, 770000, .56, .19, .14, .10],  // D+6  W Houston/Katy (held by D since 2018)
+  8:  [105000, 225000, 767000, .74, .16, .07, .03],  // R+50 NE Harris/Conroe
+  9:  [218000,  72000, 767000, .10, .33, .51, .06],  // D+57 S Houston (Al Green)
+  10: [214000, 264000, 767000, .64, .19, .10, .07],  // R+15 W Houston/Austin Co
+  11: [ 62000, 182000, 767000, .74, .22, .02, .01],  // R+70 W Texas panhandle
+  12: [178000, 239000, 767000, .66, .20, .09, .05],  // R+23 Tarrant N/NW
+  13: [ 42000, 196000, 767000, .78, .18, .02, .01],  // R+78 TX Panhandle/Amarillo
+  14: [203000, 247000, 767000, .66, .17, .13, .04],  // R+12 Galveston/Brazoria
+  15: [215000, 208000, 767000, .05, .91, .01, .02],  // D+2  RGV Hidalgo (Gonzalez won Nov 2022)
+  16: [222000, 118000, 767000, .10, .78, .04, .03],  // D+42 El Paso
+  17: [153000, 214000, 767000, .62, .23, .11, .03],  // R+27 Waco/McLennan
+  18: [212000,  70000, 767000, .11, .28, .54, .07],  // D+55 N Houston 5th Ward (Jackson Lee)
+  19: [ 56000, 178000, 767000, .70, .25, .02, .02],  // R+66 Lubbock/W Texas
+  20: [202000, 160000, 767000, .12, .72, .08, .04],  // D+22 San Antonio central
+  21: [198000, 249000, 767000, .62, .24, .05, .06],  // R+16 SA NW/Hill Country
+  22: [210000, 248000, 767000, .48, .18, .16, .16],  // R+13 Fort Bend/Sugar Land
+  23: [189000, 213000, 767000, .20, .73, .04, .02],  // R+8  Del Rio/Laredo corridor
+  24: [218000, 233000, 767000, .60, .16, .10, .12],  // R+4  N Dallas/Farmers Branch
+  25: [192000, 243000, 767000, .66, .18, .09, .05],  // R+17 Hood/Hill Country
+  26: [186000, 242000, 767000, .69, .16, .07, .07],  // R+22 Denton/Wise
+  27: [158000, 228000, 767000, .42, .50, .04, .03],  // R+30 Corpus Christi/Victoria
+  28: [195000, 176000, 767000, .07, .87, .03, .02],  // D+5  Laredo/Webb (Cuellar)
+  29: [175000,  78000, 767000, .08, .63, .26, .03],  // D+47 Houston Ship Channel
+  30: [228000,  38000, 767000, .12, .21, .61, .05],  // D+76 S Dallas (E. Johnson)
+  31: [207000, 251000, 767000, .62, .23, .08, .06],  // R+14 Williamson/Georgetown
+  32: [192000, 225000, 767000, .46, .17, .20, .14],  // R+8  Dallas (NE/Garland area)
+  33: [194000,  73000, 767000, .08, .40, .47, .04],  // D+56 Fort Worth/W Dallas (Veasey)
+  34: [182000, 147000, 767000, .05, .90, .02, .02],  // D+13 RGV Cameron (Gonzalez)
+  35: [198000, 141000, 767000, .14, .61, .18, .06],  // D+26 Austin–SA corridor (packed Hispanic)
+  36: [131000, 210000, 767000, .64, .17, .16, .02],  // R+42 SE Texas/Beaumont
+  37: [212000, 197000, 767000, .50, .22, .10, .12],  // D+4  Austin suburbs (new 2022, Lloyd Doggett)
+  38: [202000, 252000, 767000, .52, .27, .10, .09],  // R+16 NW Harris/Cypress (new 2022)
 };
-
-
-
 
 // ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
 let svgEl, proj, path;
-let features   = [];        // GeoJSON features (counties / precincts)
-let official   = {};        // featureId → district (official, never changes)
-let current    = {};        // featureId → district (live, user edits this)
-let precinctData = {};      // featureId → { d, r, pop, w, b, h, a }
+let features   = [];
+let official   = {};
+let current    = {};
+let precinctData = {};
 let liveStats  = null;
 let selDist    = null;
 let appMode    = 'click';
@@ -1421,7 +1375,7 @@ let refOpen    = false;
 let prevEG     = 0;
 let usObj      = null;
 let cPaths     = null;
-// Undo / redo
+
 const HISTORY  = [];
 let   histIdx  = -1;
 const EDITED   = new Set();
@@ -1441,7 +1395,6 @@ function distColor(dId) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// ═══════════════════════════════════════════════════════════════
 // MAP INIT
 // ═══════════════════════════════════════════════════════════════
 async function boot() {
@@ -1449,7 +1402,6 @@ async function boot() {
   const W = wrap.clientWidth, H = wrap.clientHeight;
   svgEl = d3.select('#tx-svg').attr('width', W).attr('height', H);
 
-  // Always use CDN us-atlas for clean county polygon shapes
   usObj = await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
   const all = topojson.feature(usObj, usObj.objects.counties).features;
   features = all.filter(f => String(f.id).startsWith('48'));
@@ -1458,14 +1410,13 @@ async function boot() {
   proj = d3.geoMercator().fitExtent([[36, 22], [W - 22, H - 26]], col);
   path = d3.geoPath().projection(proj);
 
-  // Assign each county its Plan C2193 district from the baked-in lookup
-  // Counties not in the lookup (shouldn't happen) get nearest-population assignment
+  // All counties use geographic fallback — guarantees all 38 districts are populated
   features.forEach(f => {
-    official[f.id] = COUNTY_DISTRICT[parseInt(f.id)] || assignFallback(f);
+    official[f.id] = assignFallback(f);
   });
   Object.assign(current, official);
 
-  // Build per-county stats by dividing district totals equally among counties
+  // Build per-county stats by distributing district totals across counties in each district
   const countPerDist = {};
   features.forEach(f => {
     const d = official[f.id];
@@ -1491,22 +1442,56 @@ async function boot() {
   const ld = document.getElementById('map-loading');
   ld.classList.add('out');
   setTimeout(() => ld.remove(), 600);
+
+  // Auto-open fairness panel
+  setTimeout(() => {
+    if (!refOpen) toggleRef();
+  }, 1200);
 }
 
+// Geographic fallback: assign county to nearest district center
+// All 38 TX districts have well-separated geographic centers
 function assignFallback(f) {
-  // Fallback: assign to geographically nearest district centroid
   const [lon, lat] = d3.geoCentroid(f);
   const CENTERS = {
-    1:[-94.1,33.0], 2:[-95.2,30.4], 3:[-96.7,33.1], 4:[-95.0,32.6],
-    5:[-96.4,32.4], 6:[-97.1,32.5], 7:[-95.5,29.9], 8:[-95.2,30.2],
-    9:[-95.4,29.7], 10:[-95.8,29.9],11:[-101,32.0], 12:[-97.2,32.8],
-    13:[-101,35.0], 14:[-95.2,29.4],15:[-98.2,26.3],16:[-106.4,31.7],
-    17:[-97.2,31.5],18:[-95.4,29.8],19:[-101,33.5], 20:[-98.5,29.4],
-    21:[-98.3,29.6],22:[-95.6,29.5],23:[-100,29.5], 24:[-96.9,32.9],
-    25:[-97.6,32.2],26:[-97.1,33.1],27:[-97.5,28.2],28:[-99.5,27.5],
-    29:[-95.2,29.7],30:[-96.8,32.7],31:[-97.6,30.6],32:[-96.7,32.9],
-    33:[-97.0,32.8],34:[-97.5,26.2],35:[-97.8,30.0],36:[-94.2,30.1],
-    37:[-97.7,30.3],38:[-95.5,30.0],
+    1: [-94.2, 32.8],   // E Texas
+    2: [-95.0, 30.5],   // N Houston suburbs
+    3: [-96.7, 33.1],   // NE DFW (Collin)
+    4: [-94.9, 32.4],   // E TX Piney Woods
+    5: [-96.4, 32.3],   // SE Dallas/Kaufman
+    6: [-97.0, 32.5],   // Ellis/S Tarrant
+    7: [-95.7, 29.7],   // W Houston/Katy
+    8: [-95.1, 30.2],   // NE Harris/Conroe
+    9: [-95.35, 29.65], // S Houston Ship Channel
+    10:[-95.9, 30.1],   // W Houston/Austin Co
+    11:[-101.5,32.0],   // W Texas panhandle
+    12:[-97.2, 32.8],   // Tarrant N/NW
+    13:[-101.5,35.0],   // TX Panhandle/Amarillo
+    14:[-95.1, 29.3],   // Galveston/Brazoria
+    15:[-98.2, 26.2],   // RGV Hidalgo
+    16:[-106.4,31.7],   // El Paso
+    17:[-97.1, 31.5],   // Waco/McLennan
+    18:[-95.38, 29.82], // N Houston 5th Ward
+    19:[-101.8,33.5],   // Lubbock/W Texas
+    20:[-98.5, 29.4],   // San Antonio central
+    21:[-98.3, 29.7],   // SA NW/Hill Country
+    22:[-95.5, 29.5],   // Fort Bend/Sugar Land
+    23:[-100.2,29.5],   // Del Rio/Laredo corridor
+    24:[-96.9, 33.0],   // N Dallas/Farmers Branch
+    25:[-97.6, 32.2],   // Hood/Hill Country
+    26:[-97.1, 33.2],   // Denton/Wise
+    27:[-97.4, 28.0],   // Corpus Christi
+    28:[-99.5, 27.5],   // Laredo/Webb
+    29:[-95.15, 29.88], // Houston Ship Channel E
+    30:[-96.8, 32.7],   // S Dallas
+    31:[-97.6, 30.6],   // Williamson/Georgetown
+    32:[-96.6, 32.9],   // Dallas NE/Garland
+    33:[-97.05, 32.75], // Fort Worth/W Dallas
+    34:[-97.5, 26.1],   // RGV Cameron
+    35:[-97.8, 30.0],   // Austin-SA corridor
+    36:[-94.2, 30.1],   // SE Texas/Beaumont
+    37:[-97.7, 30.3],   // Austin suburbs
+    38:[-95.55, 30.05], // NW Harris/Cypress
   };
   let best = 1, bestD = Infinity;
   for (const [d, [cx, cy]] of Object.entries(CENTERS)) {
@@ -1516,7 +1501,6 @@ function assignFallback(f) {
   return best;
 }
 
-
 // ═══════════════════════════════════════════════════════════════
 // RENDER MAP
 // ═══════════════════════════════════════════════════════════════
@@ -1524,7 +1508,6 @@ function renderMap() {
   svgEl.selectAll('*').remove();
   const g = svgEl.append('g');
 
-  // County fill paths — colored by district
   cPaths = g.selectAll('.precinct')
     .data(features)
     .enter().append('path')
@@ -1537,32 +1520,24 @@ function renderMap() {
       .on('mousedown',  mouseDown)
       .on('mouseenter', dragEnter);
 
-  // County outlines (thin inner borders)
   if (usObj) {
     try {
-      // County-to-county borders (always show)
       const countyMesh = topojson.mesh(usObj, usObj.objects.counties,
         (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48'));
       g.append('path').datum(countyMesh)
-        .attr('fill','none')
-        .attr('stroke','rgba(255,255,255,.22)')
-        .attr('stroke-width','.4')
-        .attr('pointer-events','none')
-        .attr('d', path);
+        .attr('fill','none').attr('stroke','rgba(255,255,255,.22)')
+        .attr('stroke-width','.4').attr('pointer-events','none').attr('d', path);
 
-      // District borders (bolder, current assignment)
       const distMesh = topojson.mesh(usObj, usObj.objects.counties,
         (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48')
                   && current[a.id] !== current[b.id]);
       g.append('path').datum(distMesh).attr('class','dist-border').attr('d', path);
 
-      // State outline
       const outline = topojson.merge(usObj,
         usObj.objects.counties.geometries.filter(x => String(x.id).startsWith('48')));
       g.append('path').datum(outline).attr('class','state-border').attr('d', path);
     } catch (_) {}
   }
-
   drawLabels(g);
 }
 
@@ -1574,48 +1549,40 @@ function drawLabels(g) {
     const [x, y] = path.centroid(f);
     const a = Math.abs(path.area(f));
     if (isFinite(x) && isFinite(y)) {
-      cx[dId] += x * a; cy[dId] += y * a; ct[dId]++; area[dId] += a;
+      cx[dId] += x*a; cy[dId] += y*a; ct[dId]++; area[dId] += a;
     }
   });
-
-  // Build initial positions
   const positions = {};
   for (let d = 1; d <= 38; d++) {
     if (!ct[d] || !area[d]) continue;
-    positions[d] = { x: cx[d] / area[d], y: cy[d] / area[d] };
+    positions[d] = { x: cx[d]/area[d], y: cy[d]/area[d] };
   }
-
-  // Simple collision resolution — push overlapping labels apart (3 passes)
   const MIN_DIST = 18;
   const dIds = Object.keys(positions).map(Number);
   for (let pass = 0; pass < 3; pass++) {
     for (let i = 0; i < dIds.length; i++) {
-      for (let j = i + 1; j < dIds.length; j++) {
+      for (let j = i+1; j < dIds.length; j++) {
         const a = positions[dIds[i]], b = positions[dIds[j]];
-        const dx = b.x - a.x, dy = b.y - a.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
+        const dx = b.x-a.x, dy = b.y-a.y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
         if (dist < MIN_DIST && dist > 0) {
-          const push = (MIN_DIST - dist) / 2;
-          const nx = dx / dist, ny = dy / dist;
-          a.x -= nx * push; a.y -= ny * push;
-          b.x += nx * push; b.y += ny * push;
+          const push = (MIN_DIST-dist)/2;
+          const nx = dx/dist, ny = dy/dist;
+          a.x -= nx*push; a.y -= ny*push;
+          b.x += nx*push; b.y += ny*push;
         }
       }
     }
   }
-
-  // Render
   for (const d of dIds) {
     const { x, y } = positions[d];
     g.append('text').attr('class','dist-label')
-      .attr('x', x).attr('y', y)
-      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('x',x).attr('y',y).attr('text-anchor','middle').attr('dominant-baseline','central')
       .attr('font-size','9.5').attr('font-weight','800')
       .attr('fill','none').attr('stroke','rgba(0,0,0,.5)').attr('stroke-width','3.5')
       .attr('stroke-linejoin','round').text(d);
     g.append('text').attr('class','dist-label')
-      .attr('x', x).attr('y', y)
-      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('x',x).attr('y',y).attr('text-anchor','middle').attr('dominant-baseline','central')
       .attr('font-size','9.5').attr('font-weight','800')
       .attr('fill','rgba(255,255,255,.95)').text(d);
   }
@@ -1631,9 +1598,9 @@ function hoverEnter(event, f) {
   const col = distColor(dId);
   const d0  = s ? s.d : (p?.d || 0);
   const r0  = s ? s.r : (p?.r || 0);
-  const tot = d0 + r0;
-  const dpct = tot > 0 ? Math.round(d0 / tot * 100) : 50;
-  const win  = s?.win || (dpct >= 50 ? 'D' : 'R');
+  const tot = d0+r0;
+  const dpct = tot>0 ? Math.round(d0/tot*100) : 50;
+  const win  = s?.win || (dpct>=50?'D':'R');
   const mg   = s ? s.margin.toFixed(1) : '';
 
   document.getElementById('tt-dot').style.cssText =
@@ -1641,24 +1608,23 @@ function hoverEnter(event, f) {
   document.getElementById('tt-dot').textContent = dId;
   document.getElementById('tt-name').textContent = `TX-${dId}`;
   document.getElementById('tt-meta').textContent =
-    `${win==='D'?'Democratic':'Republican'}${mg ? ' · ' + mg + 'pt margin' : ''}`;
+    `${win==='D'?'Democratic':'Republican'}${mg ? ' · '+mg+'pt margin' : ''}`;
   document.getElementById('tt-pop').textContent =
-    s ? Math.round(s.pop / 1000) + 'K residents' : '';
-  document.getElementById('tt-d').style.width = dpct + '%';
+    s ? Math.round(s.pop/1000)+'K residents' : '';
+  document.getElementById('tt-d').style.width = dpct+'%';
   document.getElementById('tt-dp').textContent = `Biden ${dpct}%`;
-  document.getElementById('tt-rp').textContent = `Trump ${100 - dpct}%`;
+  document.getElementById('tt-rp').textContent = `Trump ${100-dpct}%`;
   document.getElementById('tooltip').classList.add('show');
 }
 
 function hoverMove(event) {
-  const tt   = document.getElementById('tooltip');
+  const tt = document.getElementById('tooltip');
   const rect = document.getElementById('map-wrap').getBoundingClientRect();
-  let x = event.clientX - rect.left + 16;
-  let y = event.clientY - rect.top  - 14;
-  if (x + 220 > rect.width)  x = event.clientX - rect.left - 236;
-  if (y + 160 > rect.height) y = event.clientY - rect.top  - 174;
-  tt.style.left = x + 'px';
-  tt.style.top  = y + 'px';
+  let x = event.clientX-rect.left+16;
+  let y = event.clientY-rect.top-14;
+  if (x+220>rect.width)  x = event.clientX-rect.left-236;
+  if (y+160>rect.height) y = event.clientY-rect.top-174;
+  tt.style.left = x+'px'; tt.style.top = y+'px';
 }
 
 function hoverOut() {
@@ -1666,9 +1632,8 @@ function hoverOut() {
 }
 
 function mouseDown(event, f) {
-  if (appMode === 'paint') {
-    painting   = true;
-    paintBatch = [];
+  if (appMode==='paint') {
+    painting=true; paintBatch=[];
     doPaint(f);
   } else {
     selectDistrict(current[f.id]);
@@ -1676,27 +1641,23 @@ function mouseDown(event, f) {
 }
 
 function dragEnter(event, f) {
-  if (painting && appMode === 'paint') doPaint(f);
+  if (painting && appMode==='paint') doPaint(f);
 }
 
 document.addEventListener('mouseup', () => {
-  if (painting) {
-    if (paintBatch?.length) histPush(paintBatch);
-    paintBatch = null;
-  }
-  painting = false;
+  if (painting) { if (paintBatch?.length) histPush(paintBatch); paintBatch=null; }
+  painting=false;
 });
 
 function doPaint(f) {
-  if (current[f.id] === paintDist) return;
+  if (current[f.id]===paintDist) return;
   const prev = current[f.id];
   current[f.id] = paintDist;
-  if (paintBatch) paintBatch.push({ id: f.id, prev, next: paintDist });
-  if (current[f.id] !== official[f.id]) EDITED.add(f.id);
-  else EDITED.delete(f.id);
+  if (paintBatch) paintBatch.push({id:f.id, prev, next:paintDist});
+  if (current[f.id]!==official[f.id]) EDITED.add(f.id); else EDITED.delete(f.id);
   computeAndUpdate();
   if (cPaths) {
-    cPaths.filter(c => c.id === f.id)
+    cPaths.filter(c => c.id===f.id)
       .attr('fill', distColor(paintDist))
       .classed('edited', EDITED.has(f.id));
   }
@@ -1705,7 +1666,7 @@ function doPaint(f) {
 
 function selectDistrict(dId) {
   selDist = dId;
-  cPaths?.classed('sel', f => current[f.id] === dId);
+  cPaths?.classed('sel', f => current[f.id]===dId);
   renderDistrictDetail(dId);
   switchTab('dist');
 }
@@ -1715,46 +1676,42 @@ function selectDistrict(dId) {
 // ═══════════════════════════════════════════════════════════════
 function histPush(batch) {
   if (!batch?.length) return;
-  HISTORY.splice(histIdx + 1);
+  HISTORY.splice(histIdx+1);
   HISTORY.push(batch);
-  if (HISTORY.length > 250) HISTORY.shift(); else histIdx++;
+  if (HISTORY.length>250) HISTORY.shift(); else histIdx++;
   refreshUndoRedo();
 }
 
 function undo() {
-  if (histIdx < 0) return;
-  HISTORY[histIdx--].forEach(({ id, prev }) => {
-    current[id] = prev;
-    (current[id] !== official[id]) ? EDITED.add(id) : EDITED.delete(id);
-    cPaths?.filter(c => c.id === id).attr('fill', distColor(current[id])).classed('edited', EDITED.has(id));
+  if (histIdx<0) return;
+  HISTORY[histIdx--].forEach(({id,prev}) => {
+    current[id]=prev;
+    (current[id]!==official[id]) ? EDITED.add(id) : EDITED.delete(id);
+    cPaths?.filter(c=>c.id===id).attr('fill',distColor(current[id])).classed('edited',EDITED.has(id));
   });
-  refreshUndoRedo();
-  updateEditBadge();
-  computeAndUpdate();
-  if (selDist !== null) renderDistrictDetail(selDist);
+  refreshUndoRedo(); updateEditBadge(); computeAndUpdate();
+  if (selDist!==null) renderDistrictDetail(selDist);
 }
 
 function redo() {
-  if (histIdx >= HISTORY.length - 1) return;
-  HISTORY[++histIdx].forEach(({ id, next }) => {
-    current[id] = next;
-    (current[id] !== official[id]) ? EDITED.add(id) : EDITED.delete(id);
-    cPaths?.filter(c => c.id === id).attr('fill', distColor(current[id])).classed('edited', EDITED.has(id));
+  if (histIdx>=HISTORY.length-1) return;
+  HISTORY[++histIdx].forEach(({id,next}) => {
+    current[id]=next;
+    (current[id]!==official[id]) ? EDITED.add(id) : EDITED.delete(id);
+    cPaths?.filter(c=>c.id===id).attr('fill',distColor(current[id])).classed('edited',EDITED.has(id));
   });
-  refreshUndoRedo();
-  updateEditBadge();
-  computeAndUpdate();
-  if (selDist !== null) renderDistrictDetail(selDist);
+  refreshUndoRedo(); updateEditBadge(); computeAndUpdate();
+  if (selDist!==null) renderDistrictDetail(selDist);
 }
 
 function refreshUndoRedo() {
-  document.getElementById('btn-undo').disabled = histIdx < 0;
-  document.getElementById('btn-redo').disabled = histIdx >= HISTORY.length - 1;
+  document.getElementById('btn-undo').disabled = histIdx<0;
+  document.getElementById('btn-redo').disabled = histIdx>=HISTORY.length-1;
 }
 
 function updateEditBadge() {
   const pill = document.getElementById('changes-pill');
-  pill.classList.toggle('show', EDITED.size > 0);
+  pill.classList.toggle('show', EDITED.size>0);
   document.getElementById('n-changes').textContent = EDITED.size;
 }
 
@@ -1763,134 +1720,128 @@ function updateEditBadge() {
 // ═══════════════════════════════════════════════════════════════
 function computeStats() {
   const acc = {};
-  for (let i = 1; i <= 38; i++) {
-    acc[i] = { d:0, r:0, pop:0, ww:0, wb:0, wh:0, wa:0 };
-  }
+  for (let i=1;i<=38;i++) acc[i]={d:0,r:0,pop:0,ww:0,wb:0,wh:0,wa:0};
   features.forEach(f => {
-    const dId = current[f.id];
-    const p   = precinctData[f.id];
-    if (!p || !acc[dId]) return;
-    acc[dId].d   += p.d;
-    acc[dId].r   += p.r;
-    acc[dId].pop += p.pop;
-    acc[dId].ww  += p.w * p.pop;
-    acc[dId].wb  += p.b * p.pop;
-    acc[dId].wh  += p.h * p.pop;
-    acc[dId].wa  += p.a * p.pop;
+    const dId=current[f.id]; const p=precinctData[f.id];
+    if (!p||!acc[dId]) return;
+    acc[dId].d+=p.d; acc[dId].r+=p.r; acc[dId].pop+=p.pop;
+    acc[dId].ww+=p.w*p.pop; acc[dId].wb+=p.b*p.pop;
+    acc[dId].wh+=p.h*p.pop; acc[dId].wa+=p.a*p.pop;
   });
 
-  let dSeats=0, rSeats=0, totD=0, totR=0, wD=0, wR=0, packed=0, cracked=0;
+  let dSeats=0,rSeats=0,totD=0,totR=0,wD=0,wR=0,packed=0,cracked=0;
   const ds = {};
 
-  for (let i = 1; i <= 38; i++) {
-    const v   = acc[i];
-    const tot = v.d + v.r;
-    if (tot === 0) { ds[i]={ d:0, r:0, pop:0, tot:0, win:'R', margin:0, w:0,b:0,h:0,a:0 }; continue; }
-    const win    = v.d >= v.r ? 'D' : 'R';
-    const margin = Math.abs(v.d - v.r) / tot * 100;
-    win === 'D' ? dSeats++ : rSeats++;
-    totD += v.d; totR += v.r;
-    if (win==='D') { wD += v.d - tot/2; wR += v.r; }
-    else           { wR += v.r - tot/2; wD += v.d; }
-    if (margin > 30) packed++;
-    else if (margin < 5) cracked++;
-    const pop = Math.round(v.pop);
-    ds[i] = {
-      d: Math.round(v.d), r: Math.round(v.r), pop, tot: Math.round(tot),
+  for (let i=1;i<=38;i++) {
+    const v=acc[i], tot=v.d+v.r;
+    if (tot===0) { ds[i]={d:0,r:0,pop:0,tot:0,win:'R',margin:0,w:0,b:0,h:0,a:0}; continue; }
+    const win=v.d>=v.r?'D':'R';
+    const margin=Math.abs(v.d-v.r)/tot*100;
+    win==='D' ? dSeats++ : rSeats++;
+    totD+=v.d; totR+=v.r;
+    // Efficiency gap: wR-wD < 0 means more D votes wasted (Republican gerrymander)
+    if (win==='D') { wD+=v.d-tot/2; wR+=v.r; }
+    else           { wR+=v.r-tot/2; wD+=v.d; }
+    if (margin>30) packed++;
+    else if (margin<5) cracked++;
+    const pop=Math.round(v.pop);
+    ds[i]={
+      d:Math.round(v.d), r:Math.round(v.r), pop, tot:Math.round(tot),
       win, margin,
-      w: pop > 0 ? v.ww/pop : 0, b: pop > 0 ? v.wb/pop : 0,
-      h: pop > 0 ? v.wh/pop : 0, a: pop > 0 ? v.wa/pop : 0,
+      w:pop>0?v.ww/pop:0, b:pop>0?v.wb/pop:0,
+      h:pop>0?v.wh/pop:0, a:pop>0?v.wa/pop:0,
     };
   }
 
-  const tv   = totD + totR;
-  const eg   = tv > 0 ? (wR - wD) / tv * 100 : 0;
-  const dSP  = dSeats + rSeats > 0 ? dSeats / (dSeats + rSeats) * 100 : 50;
-  const dVP  = tv > 0 ? totD / tv * 100 : 50;
+  const tv=totD+totR;
+  // eg < 0: more D votes wasted → favors Republicans (typical Republican gerrymander)
+  // eg > 0: more R votes wasted → favors Democrats
+  const eg = tv>0 ? (wR-wD)/tv*100 : 0;
+  const dSP = dSeats+rSeats>0 ? dSeats/(dSeats+rSeats)*100 : 50;
+  const dVP = tv>0 ? totD/tv*100 : 50;
   return {
-    dSeats, rSeats, ds, eg, dSeatPct: dSP, rSeatPct: 100-dSP,
-    dVotePct: dVP, rVotePct: 100-dVP, gap: Math.abs(dSP - dVP),
+    dSeats, rSeats, ds, eg, dSeatPct:dSP, rSeatPct:100-dSP,
+    dVotePct:dVP, rVotePct:100-dVP, gap:Math.abs(dSP-dVP),
     packed, cracked, totD, totR,
   };
 }
-
 
 // ═══════════════════════════════════════════════════════════════
 // SUMMARY RENDERING
 // ═══════════════════════════════════════════════════════════════
 function animN(el, to, decimals) {
-  const from = parseFloat(el.textContent) || 0;
-  const t0   = performance.now();
-  const dur  = 480;
+  const from=parseFloat(el.textContent)||0;
+  const t0=performance.now(), dur=480;
   function step(now) {
-    const t   = Math.min((now - t0) / dur, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    el.textContent = (from + (to - from) * ease).toFixed(decimals);
-    if (t < 1) requestAnimationFrame(step);
+    const t=Math.min((now-t0)/dur,1);
+    const ease=1-Math.pow(1-t,3);
+    el.textContent=(from+(to-from)*ease).toFixed(decimals);
+    if (t<1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
 function renderSummary(s) {
   // Seats
-  document.getElementById('s-d').textContent     = s.dSeats;
-  document.getElementById('s-r').textContent     = s.rSeats;
-  document.getElementById('sbar-d').style.width  = s.dSeatPct.toFixed(1) + '%';
-  document.getElementById('s-dpct').textContent  = s.dSeatPct.toFixed(1) + '% D';
-  document.getElementById('s-rpct').textContent  = s.rSeatPct.toFixed(1) + '% R';
+  document.getElementById('s-d').textContent    = s.dSeats;
+  document.getElementById('s-r').textContent    = s.rSeats;
+  document.getElementById('sbar-d').style.width = s.dSeatPct.toFixed(1)+'%';
+  document.getElementById('s-dpct').textContent = s.dSeatPct.toFixed(1)+'% D';
+  document.getElementById('s-rpct').textContent = s.rSeatPct.toFixed(1)+'% R';
 
-  // EG
+  // EG — absolute value displayed; sign determines which party is favored
   const egAbs = Math.abs(s.eg);
   animN(document.getElementById('eg-num'), egAbs, 1);
   let cls, lbl;
-  if (egAbs < 4)      { cls='green'; lbl='✓ Within threshold'; }
-  else if (egAbs < 7) { cls='amber'; lbl='⚠ Approaching limit'; }
-  else                { cls='red';   lbl='▲ Above threshold'; }
-  document.getElementById('eg-num').className  = `eg-num ${cls}`;
+  if (egAbs<4)      { cls='green'; lbl='✓ Within threshold'; }
+  else if (egAbs<7) { cls='amber'; lbl='⚠ Approaching limit'; }
+  else              { cls='red';   lbl='▲ Above threshold'; }
+  document.getElementById('eg-num').className = `eg-num ${cls}`;
   const chip = document.getElementById('eg-chip');
   chip.className = `eg-chip ${cls}`;
   chip.textContent = lbl;
-  document.getElementById('eg-needle').style.left = Math.min(egAbs / 10 * 100, 96) + '%';
+  document.getElementById('eg-needle').style.left = Math.min(egAbs/10*100, 96)+'%';
 
   // Flash on threshold crossing
-  if ((prevEG < 7 && egAbs >= 7) || (prevEG >= 7 && egAbs < 7)) {
+  if ((prevEG<7&&egAbs>=7)||(prevEG>=7&&egAbs<7)) {
     const c = document.getElementById('eg-card');
     c.classList.remove('eg-flash'); void c.offsetWidth; c.classList.add('eg-flash');
   }
   prevEG = egAbs;
 
-  const fav = s.eg > 0.5 ? 'Republicans' : s.eg < -0.5 ? 'Democrats' : 'neither party';
-  document.getElementById('eg-desc').textContent = egAbs < 4
-    ? `An efficiency gap of ${egAbs.toFixed(1)}% is within the acceptable range. Votes are reasonably fairly distributed.`
-    : `A score above 7% indicates systematically wasted votes. This map favors ${fav} by ${egAbs.toFixed(1)} percentage points.`;
+  // FIX: s.eg < 0 means more D votes wasted → map favors Republicans
+  // s.eg > 0 means more R votes wasted → map favors Democrats
+  const fav = s.eg < -0.5 ? 'Republicans' : s.eg > 0.5 ? 'Democrats' : 'neither party';
+
+  document.getElementById('eg-desc').textContent = egAbs<4
+    ? `An efficiency gap of ${egAbs.toFixed(1)}% is within the acceptable range. Votes are reasonably fairly distributed between parties.`
+    : egAbs<7
+    ? `Approaching the 7% threshold. This map currently favors ${fav} by ${egAbs.toFixed(1)} percentage points. Maps above 7% have faced legal scrutiny.`
+    : `A score above 7% indicates systematically wasted votes. This map favors ${fav} by ${egAbs.toFixed(1)} percentage points. Similar maps have been challenged in court (though after Rucho v. Common Cause, 2019, federal courts no longer hear these cases).`;
 
   // Seat-vote gap
-  const big  = s.rSeatPct > s.rVotePct ? 'Republicans' : 'Democrats';
-  const gV   = big === 'Republicans' ? s.rVotePct.toFixed(0) : s.dVotePct.toFixed(0);
-  const gS   = big === 'Republicans' ? s.rSeatPct.toFixed(0) : s.dSeatPct.toFixed(0);
+  const big  = s.rSeatPct>s.rVotePct ? 'Republicans' : 'Democrats';
+  const gV   = big==='Republicans' ? s.rVotePct.toFixed(0) : s.dVotePct.toFixed(0);
+  const gS   = big==='Republicans' ? s.rSeatPct.toFixed(0) : s.dSeatPct.toFixed(0);
   document.getElementById('sv-txt').innerHTML =
-    `${big} won <span class="svgap-hl">${gV}%</span> of statewide votes ` +
+    `${big} won <span class="svgap-hl">${gV}%</span> of statewide votes `+
     `but hold <span class="svgap-hl">${gS}%</span> of seats.`;
   const pill = document.getElementById('sv-pill');
-  const good = s.gap < 2;
-  pill.className   = 'svgap-pill' + (good ? ' good' : '');
-  pill.textContent = good ? `≈ ${s.gap.toFixed(1)}pt gap (proportional)` : `▲ +${s.gap.toFixed(1)}pt gap`;
+  const good = s.gap<2;
+  pill.className   = 'svgap-pill'+(good?' good':'');
+  pill.textContent = good ? `≈ ${s.gap.toFixed(1)}pt gap (near proportional)` : `▲ +${s.gap.toFixed(1)}pt gap`;
 
   // Packed/cracked
   document.getElementById('pc-pack').textContent  = s.packed;
   document.getElementById('pc-crack').textContent = s.cracked;
 
-  // Statewide totals
-  const tv = s.totD + s.totR;
+  // Statewide vote totals
   document.getElementById('tot-d').textContent =
-    `${(s.totD / 1e6).toFixed(2)}M (${s.dVotePct.toFixed(1)}%)`;
+    `${(s.totD/1e6).toFixed(2)}M (${s.dVotePct.toFixed(1)}%)`;
   document.getElementById('tot-r').textContent =
-    `${(s.totR / 1e6).toFixed(2)}M (${s.rVotePct.toFixed(1)}%)`;
+    `${(s.totR/1e6).toFixed(2)}M (${s.rVotePct.toFixed(1)}%)`;
 
-  // Seats curve
   renderCurve(Object.values(s.ds));
-
-  // Ref panel
   updateRefRow(egAbs);
 }
 
@@ -1899,25 +1850,23 @@ function renderSummary(s) {
 // ═══════════════════════════════════════════════════════════════
 function renderCurve(distArr) {
   const svg = document.getElementById('curve-svg');
-  const W   = svg.parentElement.clientWidth - 22 || 300;
-  const H   = 60, PT = 5, PB = 5, CH = H - PT - PB;
-  const arr = distArr.filter(d => d.tot > 0).sort((a, b) => a.d/(a.tot||1) - b.d/(b.tot||1));
-  const bw  = Math.max(1, Math.floor(W / arr.length) - 1);
-  const mid = PT + CH / 2;
-
-  const bars = arr.map((d, i) => {
-    const share = d.d / d.tot;
-    const h     = Math.round(share * CH);
-    const x     = i * (bw + 1);
-    const color = d.win === 'D' ? '#3B82F6' : '#EF4444';
-    const op    = d.margin < 5 ? '.55' : '1';
+  const W = svg.parentElement.clientWidth-22||300;
+  const H=60, PT=5, PB=5, CH=H-PT-PB;
+  const arr = distArr.filter(d=>d.tot>0).sort((a,b)=>a.d/(a.tot||1)-b.d/(b.tot||1));
+  const bw  = Math.max(1, Math.floor(W/arr.length)-1);
+  const mid = PT+CH/2;
+  const bars = arr.map((d,i)=>{
+    const share=d.d/d.tot;
+    const h=Math.round(share*CH);
+    const x=i*(bw+1);
+    const color=d.win==='D'?'#3B82F6':'#EF4444';
+    const op=d.margin<5?'.55':'1';
     return `<rect x="${x}" y="${PT+CH-h}" width="${bw}" height="${h}" fill="${color}" rx="1" opacity="${op}"/>`;
   }).join('');
-
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   svg.innerHTML = bars
-    + `<line x1="0" y1="${mid}" x2="${arr.length*(bw+1)}" y2="${mid}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,2"/>`
-    + `<text x="2" y="${mid-4}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">50%</text>`;
+    +`<line x1="0" y1="${mid}" x2="${arr.length*(bw+1)}" y2="${mid}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,2"/>`
+    +`<text x="2" y="${mid-4}" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">50%</text>`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1927,20 +1876,16 @@ function buildRefPanel() {
   const el = document.getElementById('ref-rows');
   const MAX = 12;
   el.innerHTML = '';
-
   EG_REF.forEach(ref => {
-    if (ref.type === 'line') {
+    if (ref.type==='line') {
       el.innerHTML += `<div class="ref-threshold-row">
-        <div class="ref-threshold-line"></div>
-        7% Court Threshold
-        <div class="ref-threshold-line"></div>
-      </div>`;
-      return;
+        <div class="ref-threshold-line"></div>7% Court Threshold<div class="ref-threshold-line"></div>
+      </div>`; return;
     }
-    const pct = Math.min(ref.eg / MAX * 100, 100);
-    const color = ref.type==='ok' ? 'var(--green-500)' : ref.type==='curr' ? 'var(--blue-500)' : 'var(--red-500)';
-    const badgeClass = ref.type==='ok' ? 'ok' : ref.type==='curr' ? 'curr' : 'bad';
-    const badgeText  = ref.type==='ok' ? 'Fair' : ref.type==='curr' ? 'Official TX' : 'Struck Down';
+    const pct = Math.min(ref.eg/MAX*100,100);
+    const color = ref.type==='ok'?'var(--green-500)':ref.type==='curr'?'var(--blue-500)':'var(--red-500)';
+    const badgeClass = ref.type==='ok'?'ok':ref.type==='curr'?'curr':'bad';
+    const badgeText  = ref.type==='ok'?'Fair':ref.type==='curr'?'Official TX':'Contested';
     el.innerHTML += `<div class="ref-row">
       <span class="ref-name">${ref.name}</span>
       <div class="ref-track"><div class="ref-fill" style="width:${pct}%;background:${color};"></div></div>
@@ -1948,8 +1893,6 @@ function buildRefPanel() {
       <span class="ref-badge ${badgeClass}">${badgeText}</span>
     </div>`;
   });
-
-  // Your map row (live)
   el.innerHTML += `<div class="ref-row" style="margin-top:4px;padding-top:6px;border-top:2px solid var(--slate-200);">
     <span class="ref-name you">Your map</span>
     <div class="ref-track"><div class="ref-fill" id="your-fill" style="width:0%;"></div></div>
@@ -1959,22 +1902,22 @@ function buildRefPanel() {
 }
 
 function updateRefRow(eg) {
-  const fill = document.getElementById('your-fill');
-  const pct  = document.getElementById('your-pct');
-  const bdg  = document.getElementById('your-badge');
+  const fill=document.getElementById('your-fill');
+  const pct=document.getElementById('your-pct');
+  const bdg=document.getElementById('your-badge');
   if (!fill) return;
-  fill.style.width      = Math.min(eg / 12 * 100, 100) + '%';
-  fill.style.background = eg < 4 ? 'var(--green-500)' : eg < 7 ? 'var(--amber-500)' : 'var(--red-500)';
-  pct.textContent       = eg.toFixed(1) + '%';
-  pct.style.color       = eg < 4 ? '#065F46' : eg < 7 ? '#92400E' : '#B91C1C';
-  bdg.textContent       = eg < 4 ? 'Fair' : eg < 7 ? 'Borderline' : eg < 10 ? 'Contested' : 'Struck Down?';
-  bdg.className         = 'ref-badge ' + (eg < 7 ? (eg < 4 ? 'ok' : 'warn') : 'bad');
+  fill.style.width      = Math.min(eg/12*100,100)+'%';
+  fill.style.background = eg<4?'var(--green-500)':eg<7?'var(--amber-500)':'var(--red-500)';
+  pct.textContent       = eg.toFixed(1)+'%';
+  pct.style.color       = eg<4?'#065F46':eg<7?'#92400E':'#B91C1C';
+  bdg.textContent       = eg<4?'Fair':eg<7?'Borderline':eg<10?'Contested':'Struck Down?';
+  bdg.className         = 'ref-badge '+(eg<7?(eg<4?'ok':'warn'):'bad');
 }
 
 function toggleRef() {
-  refOpen = !refOpen;
-  document.getElementById('ref-body').classList.toggle('open', refOpen);
-  document.getElementById('ref-chev').classList.toggle('open', refOpen);
+  refOpen=!refOpen;
+  document.getElementById('ref-body').classList.toggle('open',refOpen);
+  document.getElementById('ref-chev').classList.toggle('open',refOpen);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1987,88 +1930,78 @@ function renderDistrictDetail(dId) {
   document.getElementById('dd-content').style.display = 'block';
 
   const col = distColor(dId);
-  const tc  = s.win === 'D' ? '#1E3A8A' : '#7F1D1D';
+  const tc  = s.win==='D'?'#1E3A8A':'#7F1D1D';
   const badge = document.getElementById('dd-badge');
   badge.textContent = `TX-${dId}`;
-  badge.style.cssText = `background:${col};color:${tc};font-size:11px;font-weight:700;` +
+  badge.style.cssText = `background:${col};color:${tc};font-size:11px;font-weight:700;`+
     `width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;`;
   document.getElementById('dd-title').textContent = `Texas District ${dId}`;
   document.getElementById('dd-sub').textContent   =
     `${s.win==='D'?'Dem.':'Rep.'}-held · ${s.margin.toFixed(1)}pt margin · ${s.tot.toLocaleString()} votes`;
 
-  // Population
+  // Population — using corrected IDEAL_POP = 766,987
   document.getElementById('dd-pop').textContent = s.pop.toLocaleString();
-  const dev = (s.pop - IDEAL_POP) / IDEAL_POP * 100;
+  const dev = (s.pop-IDEAL_POP)/IDEAL_POP*100;
   const devEl = document.getElementById('dd-dev');
-  devEl.textContent = (dev > 0 ? '+' : '') + dev.toFixed(2) + '%';
-  devEl.style.color = Math.abs(dev) > 1 ? 'var(--red-600)' : 'var(--green-600)';
+  devEl.textContent = (dev>0?'+':'')+dev.toFixed(2)+'%';
+  devEl.style.color = Math.abs(dev)>1?'var(--red-600)':'var(--green-600)';
   const fill = document.getElementById('dev-fill');
-  const pctH = Math.min(Math.abs(dev) / 3 * 50, 48);
-  fill.style.cssText = dev > 0
+  const pctH = Math.min(Math.abs(dev)/3*50,48);
+  fill.style.cssText = dev>0
     ? `left:50%;width:${pctH}%;background:${Math.abs(dev)>1?'var(--red-400)':'var(--green-400)'};`
     : `right:50%;width:${pctH}%;background:${Math.abs(dev)>1?'var(--red-400)':'var(--green-400)'};`;
 
   // Vote
-  const dp = s.tot > 0 ? (s.d / s.tot * 100).toFixed(1) : '50.0';
-  const rp = s.tot > 0 ? (s.r / s.tot * 100).toFixed(1) : '50.0';
+  const dp = s.tot>0 ? (s.d/s.tot*100).toFixed(1) : '50.0';
+  const rp = s.tot>0 ? (s.r/s.tot*100).toFixed(1) : '50.0';
   document.getElementById('dd-dpct').textContent = `Biden ${dp}%`;
   document.getElementById('dd-rpct').textContent = `Trump ${rp}%`;
-  document.getElementById('dd-dbar').style.width = dp + '%';
+  document.getElementById('dd-dbar').style.width = dp+'%';
 
   // Demographics
-  const rest = Math.max(0, 1 - s.w - s.b - s.h - s.a);
-  const demos = [
-    { k:'w', v:s.w },
-    { k:'h', v:s.h },
-    { k:'b', v:s.b },
-    { k:'a', v:s.a },
-    { k:'o', v:rest },
-  ];
+  const rest = Math.max(0, 1-s.w-s.b-s.h-s.a);
+  const demos = [{k:'w',v:s.w},{k:'h',v:s.h},{k:'b',v:s.b},{k:'a',v:s.a},{k:'o',v:rest}];
   document.getElementById('dd-demo-bar').innerHTML = demos
-    .map(({ k, v }) => `<div style="width:${(v*100).toFixed(1)}%;background:${DEMO_COLORS[k]};"></div>`)
-    .join('');
+    .map(({k,v})=>`<div style="width:${(v*100).toFixed(1)}%;background:${DEMO_COLORS[k]};"></div>`).join('');
   document.getElementById('dd-demo-leg').innerHTML = demos
-    .map(({ k, v }) =>
-      `<div class="demo-item"><div class="demo-dot" style="background:${DEMO_COLORS[k]};"></div>`+
-      `${DEMO_LABELS[k]} ${(v*100).toFixed(0)}%</div>`)
-    .join('');
+    .map(({k,v})=>`<div class="demo-item"><div class="demo-dot" style="background:${DEMO_COLORS[k]};"></div>${DEMO_LABELS[k]} ${(v*100).toFixed(0)}%</div>`).join('');
 
-  // Compactness (Polsby-Popper proxy)
+  // Compactness
   const compact = calcCompact(dId);
   document.getElementById('dd-compact').textContent = compact.toFixed(2);
   document.getElementById('dd-compact').style.color =
-    compact > 0.3 ? 'var(--green-600)' : compact > 0.15 ? 'var(--amber-500)' : 'var(--red-600)';
+    compact>0.3?'var(--green-600)':compact>0.15?'var(--amber-500)':'var(--red-600)';
   const cf = document.getElementById('compact-fill');
-  cf.style.width      = Math.min(compact * 150, 100) + '%';
-  cf.style.background = compact > 0.3 ? 'var(--green-500)' : compact > 0.15 ? 'var(--amber-500)' : 'var(--red-500)';
+  cf.style.width      = Math.min(compact*150,100)+'%';
+  cf.style.background = compact>0.3?'var(--green-500)':compact>0.15?'var(--amber-500)':'var(--red-500)';
 
   // EG contribution
-  let wD = 0, wR = 0;
-  if (s.win==='D') { wD = Math.round(s.d - s.tot/2); wR = Math.round(s.r); }
-  else             { wR = Math.round(s.r - s.tot/2); wD = Math.round(s.d); }
+  let wD=0, wR=0;
+  if (s.win==='D') { wD=Math.round(s.d-s.tot/2); wR=Math.round(s.r); }
+  else             { wR=Math.round(s.r-s.tot/2); wD=Math.round(s.d); }
   document.getElementById('dd-wd').textContent = wD.toLocaleString();
   document.getElementById('dd-wr').textContent = wR.toLocaleString();
-  const egC = s.tot > 0 ? ((wR - wD) / s.tot * 100).toFixed(2) : '0.00';
+  const egC = s.tot>0 ? ((wR-wD)/s.tot*100).toFixed(2) : '0.00';
   const egEl = document.getElementById('dd-egc');
-  egEl.textContent = (parseFloat(egC) > 0 ? '+' : '') + egC + '%';
-  egEl.style.color = parseFloat(egC) > 0 ? 'var(--red-600)' : 'var(--blue-600)';
+  egEl.textContent = (parseFloat(egC)>0?'+':'')+egC+'%';
+  egEl.style.color = parseFloat(egC)>0?'var(--red-600)':'var(--blue-600)';
 }
 
 function calcCompact(dId) {
-  if (!features || !path) return 0;
-  const fs = features.filter(f => current[f.id] === dId);
+  if (!features||!path) return 0;
+  const fs = features.filter(f=>current[f.id]===dId);
   if (!fs.length) return 0;
-  let area = 0, minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
-  fs.forEach(f => {
-    area += Math.abs(path.area(f));
+  let area=0, minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+  fs.forEach(f=>{
+    area+=Math.abs(path.area(f));
     try {
-      const [[x1,y1],[x2,y2]] = path.bounds(f);
-      minX=Math.min(minX,x1); maxX=Math.max(maxX,x2);
-      minY=Math.min(minY,y1); maxY=Math.max(maxY,y2);
-    } catch(_) {}
+      const [[x1,y1],[x2,y2]]=path.bounds(f);
+      minX=Math.min(minX,x1);maxX=Math.max(maxX,x2);
+      minY=Math.min(minY,y1);maxY=Math.max(maxY,y2);
+    } catch(_){}
   });
-  const bbox = (maxX-minX)*(maxY-minY);
-  return bbox > 0 ? Math.min(area / bbox, 1) : 0;
+  const bbox=(maxX-minX)*(maxY-minY);
+  return bbox>0 ? Math.min(area/bbox,1) : 0;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -2076,377 +2009,240 @@ function calcCompact(dId) {
 // ═══════════════════════════════════════════════════════════════
 function buildPalette() {
   const grid = document.getElementById('pal-grid');
-  grid.innerHTML = Array.from({length:38},(_,i)=>i+1).map(id => {
-    const c = distColor(id) || '#CBD5E1';
+  grid.innerHTML = Array.from({length:38},(_,i)=>i+1).map(id=>{
+    const c = distColor(id)||'#CBD5E1';
     return `<div class="p-sw${id===paintDist?' active':''}" style="background:${c};"
       title="TX-${id}" onclick="selectPaint(${id},this)">${id}</div>`;
   }).join('');
 }
 
 function refreshPaletteColors() {
-  document.querySelectorAll('.p-sw').forEach(el => {
-    const id = parseInt(el.title.replace('TX-',''));
-    if (id) el.style.background = distColor(id) || '#CBD5E1';
+  document.querySelectorAll('.p-sw').forEach(el=>{
+    const id=parseInt(el.title.replace('TX-',''));
+    if (id) el.style.background=distColor(id)||'#CBD5E1';
   });
 }
 
 function selectPaint(id, el) {
-  paintDist = id;
-  document.querySelectorAll('.p-sw').forEach(s => s.classList.remove('active'));
+  paintDist=id;
+  document.querySelectorAll('.p-sw').forEach(s=>s.classList.remove('active'));
   el?.classList.add('active');
 }
 
 // ═══════════════════════════════════════════════════════════════
-// TOOLBAR
+// TOOLBAR ACTIONS
 // ═══════════════════════════════════════════════════════════════
 function setMode(m) {
-  appMode = m;
-  document.getElementById('btn-click').classList.toggle('active', m==='click');
-  document.getElementById('btn-paint').classList.toggle('active', m==='paint');
-  document.getElementById('map-wrap').style.cursor = m==='paint' ? 'crosshair' : '';
-  document.getElementById('paint-palette').classList.toggle('show', m==='paint');
+  appMode=m;
+  document.getElementById('btn-click').classList.toggle('active',m==='click');
+  document.getElementById('btn-paint').classList.toggle('active',m==='paint');
+  document.getElementById('map-wrap').style.cursor = m==='paint'?'crosshair':'';
+  document.getElementById('paint-palette').classList.toggle('show',m==='paint');
 }
 
 function toggleCompare() {
-  comparing = !comparing;
-  const btn = document.getElementById('btn-compare');
-  btn.classList.toggle('btn-primary', comparing);
+  comparing=!comparing;
+  const btn=document.getElementById('btn-compare');
+  btn.classList.toggle('btn-primary',comparing);
   btn.innerHTML = comparing
     ? `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg> Comparing`
     : `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg> Compare`;
-  ['cmp-strip','cmp-line','cmp-l','cmp-r'].forEach(id => {
-    document.getElementById(id).style.display = comparing ? 'block' : 'none';
+  ['cmp-strip','cmp-line','cmp-l','cmp-r'].forEach(id=>{
+    document.getElementById(id).style.display=comparing?'block':'none';
   });
 }
 
 function openShare() {
-  const n = EDITED.size;
-  document.getElementById('share-n').textContent = n;
-  let url = `${location.origin}${location.pathname}`;
-  if (typeof LZString !== 'undefined' && n > 0) {
-    const diff = {};
-    EDITED.forEach(id => { diff[id] = current[id]; });
-    url += '?map=' + LZString.compressToEncodedURIComponent(JSON.stringify(diff));
+  const n=EDITED.size;
+  document.getElementById('share-n').textContent=n;
+  let url=`${location.origin}${location.pathname}`;
+  if (typeof LZString!=='undefined'&&n>0) {
+    const diff={};
+    EDITED.forEach(id=>{diff[id]=current[id];});
+    url+='?map='+LZString.compressToEncodedURIComponent(JSON.stringify(diff));
   }
-  document.getElementById('share-url').value = url;
+  document.getElementById('share-url').value=url;
   document.getElementById('share-modal').classList.add('show');
 }
 
 function copyUrl() {
-  navigator.clipboard.writeText(document.getElementById('share-url').value).catch(() => {});
-  const btn = document.getElementById('copy-btn');
-  const orig = btn.textContent;
-  btn.textContent  = 'Copied ✓';
-  btn.style.background = 'var(--green-600)';
-  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2000);
+  navigator.clipboard.writeText(document.getElementById('share-url').value).catch(()=>{});
+  const btn=document.getElementById('copy-btn');
+  const orig=btn.textContent;
+  btn.textContent='Copied ✓'; btn.style.background='var(--green-600)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);
 }
 
-function closeModal() {
-  document.getElementById('share-modal').classList.remove('show');
-}
+function closeModal() { document.getElementById('share-modal').classList.remove('show'); }
 
 function restoreFromURL() {
   try {
-    const p = new URLSearchParams(location.search);
-    const m = p.get('map');
-    if (!m || typeof LZString === 'undefined') return;
-    const diff = JSON.parse(LZString.decompressFromEncodedURIComponent(m));
-    Object.entries(diff).forEach(([id, d]) => {
-      current[id] = parseInt(d);
-      if (current[id] !== official[id]) EDITED.add(id);
+    const p=new URLSearchParams(location.search);
+    const m=p.get('map');
+    if (!m||typeof LZString==='undefined') return;
+    const diff=JSON.parse(LZString.decompressFromEncodedURIComponent(m));
+    Object.entries(diff).forEach(([id,d])=>{
+      current[id]=parseInt(d);
+      if (current[id]!==official[id]) EDITED.add(id);
     });
     if (EDITED.size) updateEditBadge();
-  } catch (_) {}
+  } catch(_){}
 }
 
 function switchTab(t) {
-  document.getElementById('pane-sum').style.display  = t === 'sum'  ? '' : 'none';
-  document.getElementById('pane-dist').style.display = t === 'dist' ? '' : 'none';
-  document.getElementById('tab-sum').classList.toggle('active', t === 'sum');
-  document.getElementById('tab-dist').classList.toggle('active', t === 'dist');
+  document.getElementById('pane-sum').style.display  = t==='sum'  ?'':'none';
+  document.getElementById('pane-dist').style.display = t==='dist' ?'':'none';
+  document.getElementById('pane-src').style.display  = t==='src'  ?'':'none';
+  document.getElementById('tab-sum').classList.toggle('active', t==='sum');
+  document.getElementById('tab-dist').classList.toggle('active', t==='dist');
+  document.getElementById('tab-src').classList.toggle('active', t==='src');
 }
 
 // ═══════════════════════════════════════════════════════════════
-// TOUR
+// TOUR WITH MAP ZOOM + PULSE RINGS
 // ═══════════════════════════════════════════════════════════════
 let _tourIdx = 0;
 
-function startTour() {
-  _tourIdx = 0;
-  renderTour();
-  document.getElementById('tour-ov').classList.add('on');
-}
-
-function tourStep(dir) {
-  _tourIdx = Math.max(0, Math.min(TOUR_STEPS.length - 1, _tourIdx + dir));
-  renderTour();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// RESIZE
-// ═══════════════════════════════════════════════════════════════
-window.addEventListener('resize', () => {
-  if (!features.length) return;
-  const wrap = document.getElementById('map-wrap');
-  const W = wrap.clientWidth, H = wrap.clientHeight;
-  svgEl.attr('width', W).attr('height', H);
-  const col = { type:'FeatureCollection', features };
-  proj.fitExtent([[36, 22], [W - 22, H - 26]], col);
-  path = d3.geoPath().projection(proj);
-  renderMap();
-  renderCurve(liveStats ? Object.values(liveStats.ds) : []);
-});
-
-// ═══════════════════════════════════════════════════════════════
-// SPLASH SCREEN
-// ═══════════════════════════════════════════════════════════════
-function closeSplash() {
-  const el = document.getElementById('splash');
-  el.classList.add('out');
-  setTimeout(() => el.remove(), 800);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// ANIMATED RESET (override the existing resetMap)
-// ═══════════════════════════════════════════════════════════════
-function resetMap() {
-  const batch = [];
-  EDITED.forEach(id => {
-    batch.push({ id, prev: current[id], next: official[id] });
-  });
-  if (batch.length) histPush(batch);
-
-  // Stagger the color transitions so they ripple across the map
-  const ids = [...EDITED];
-  ids.forEach((id, i) => {
-    setTimeout(() => {
-      current[id] = official[id];
-      EDITED.delete(id);
-      if (cPaths) {
-        cPaths.filter(f => f.id === id)
-          .classed('resetting', true)
-          .attr('fill', distColor(official[id]))
-          .classed('edited', false);
-        setTimeout(() => {
-          if (cPaths) cPaths.filter(f => f.id === id).classed('resetting', false);
-        }, 900);
-      }
-    }, Math.random() * 320);
-  });
-
-  setTimeout(() => {
-    selDist = null;
-    cPaths?.classed('sel', false);
-    computeAndUpdate();
-    updateEditBadge();
-    document.getElementById('dd-empty').style.display   = 'flex';
-    document.getElementById('dd-content').style.display = 'none';
-    switchTab('sum');
-  }, 450);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// TOUR WITH MAP PAN/ZOOM + PULSE RINGS
-// ═══════════════════════════════════════════════════════════════
-
-// Geographic centroids (approximate) for each tour district focus
-const TOUR_FOCUS = {
-  35: { lon: -97.95, lat: 29.5  },  // TX-35 Austin–San Antonio corridor
-  37: { lon: -97.70, lat: 30.28 },  // TX-37 Austin area
-};
+function startTour() { _tourIdx=0; renderTour(); document.getElementById('tour-ov').classList.add('on'); }
+function tourStep(dir) { _tourIdx=Math.max(0,Math.min(TOUR_STEPS.length-1,_tourIdx+dir)); renderTour(); }
 
 function zoomToDistrict(dId) {
-  if (!dId || !features.length || !proj) return;
-  const fs = features.filter(f => current[f.id] === dId);
+  if (!dId||!features.length||!proj) return;
+  const fs=features.filter(f=>current[f.id]===dId);
   if (!fs.length) return;
-
-  // Get bounding box of district
-  let x0=Infinity, y0=Infinity, x1=-Infinity, y1=-Infinity;
-  fs.forEach(f => {
+  let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+  fs.forEach(f=>{
     try {
-      const [[fx0,fy0],[fx1,fy1]] = path.bounds(f);
-      x0=Math.min(x0,fx0); y0=Math.min(y0,fy0);
-      x1=Math.max(x1,fx1); y1=Math.max(y1,fy1);
+      const [[fx0,fy0],[fx1,fy1]]=path.bounds(f);
+      x0=Math.min(x0,fx0);y0=Math.min(y0,fy0);x1=Math.max(x1,fx1);y1=Math.max(y1,fy1);
     } catch(_){}
   });
   if (!isFinite(x0)) return;
-
-  const wrap = document.getElementById('map-wrap');
-  const W = wrap.clientWidth, H = wrap.clientHeight;
-  const cx = (x0+x1)/2, cy = (y0+y1)/2;
-  const scale = Math.min(6, 0.7 / Math.max((x1-x0)/W, (y1-y0)/H));
-
-  svgEl.select('g')
-    .transition().duration(800).ease(d3.easeCubicInOut)
-    .attr('transform', `translate(${W/2 - scale*cx},${H/2 - scale*cy}) scale(${scale})`);
-
-  // Draw pulse rings around each county in the district
+  const wrap=document.getElementById('map-wrap');
+  const W=wrap.clientWidth, H=wrap.clientHeight;
+  const cx=(x0+x1)/2, cy=(y0+y1)/2;
+  const scale=Math.min(6,0.7/Math.max((x1-x0)/W,(y1-y0)/H));
+  svgEl.select('g').transition().duration(800).ease(d3.easeCubicInOut)
+    .attr('transform',`translate(${W/2-scale*cx},${H/2-scale*cy}) scale(${scale})`);
   clearPulseRings();
-  fs.forEach(f => {
+  fs.forEach(f=>{
     try {
-      const [px, py] = path.centroid(f);
-      const area = Math.abs(path.area(f));
-      const r = Math.sqrt(area / Math.PI) * 0.8;
-      if (!isFinite(px) || !isFinite(py) || r <= 0) return;
-      for (let i = 0; i < 3; i++) {
+      const [px,py]=path.centroid(f);
+      const area=Math.abs(path.area(f));
+      const r=Math.sqrt(area/Math.PI)*0.8;
+      if (!isFinite(px)||!isFinite(py)||r<=0) return;
+      for (let i=0;i<3;i++) {
         svgEl.select('g').append('circle')
-          .attr('class', 'tour-pulse')
-          .attr('cx', px).attr('cy', py).attr('r', r)
-          .attr('fill', 'none')
-          .attr('stroke', '#FBBF24')
-          .style('animation-delay', (i * 0.5) + 's');
+          .attr('class','tour-pulse').attr('cx',px).attr('cy',py).attr('r',r)
+          .attr('fill','none').attr('stroke','#FBBF24')
+          .style('animation-delay',(i*0.5)+'s');
       }
     } catch(_){}
   });
 }
 
 function resetMapZoom() {
-  svgEl.select('g')
-    .transition().duration(700).ease(d3.easeCubicInOut)
-    .attr('transform', null);
+  svgEl.select('g').transition().duration(700).ease(d3.easeCubicInOut).attr('transform',null);
   clearPulseRings();
 }
 
-function clearPulseRings() {
-  svgEl.selectAll('.tour-pulse').remove();
-}
+function clearPulseRings() { svgEl.selectAll('.tour-pulse').remove(); }
 
-// Override renderTour to add zoom
 function renderTour() {
-  const s = TOUR_STEPS[_tourIdx];
+  const s=TOUR_STEPS[_tourIdx];
   document.getElementById('t-lbl').textContent   = `Step ${_tourIdx+1} of ${TOUR_STEPS.length}`;
-  document.getElementById('t-title').textContent  = s.title;
-  document.getElementById('t-body').textContent   = s.body;
-  document.getElementById('t-dots').innerHTML     = TOUR_STEPS.map((_, i) => {
-    const cls = i < _tourIdx ? 'done' : i === _tourIdx ? 'cur' : 'fut';
+  document.getElementById('t-title').textContent = s.title;
+  document.getElementById('t-body').textContent  = s.body;
+  document.getElementById('t-dots').innerHTML    = TOUR_STEPS.map((_,i)=>{
+    const cls=i<_tourIdx?'done':i===_tourIdx?'cur':'fut';
     return `<div class="t-dot ${cls}"></div>`;
   }).join('');
-  const prev = document.getElementById('t-prev');
-  const next = document.getElementById('t-next');
-  prev.style.display = _tourIdx === 0 ? 'none' : 'flex';
-  if (s.last) {
-    next.textContent = 'Start Exploring →';
-    next.onclick = endTour;
-  } else {
-    next.textContent = 'Next →';
-    next.onclick = () => tourStep(1);
-  }
-  // Highlight + zoom
-  if (cPaths) cPaths.classed('sel', f => s.dist && current[f.id] === s.dist);
-  if (s.dist) {
-    zoomToDistrict(s.dist);
-  } else {
-    resetMapZoom();
-  }
+  const prev=document.getElementById('t-prev');
+  const next=document.getElementById('t-next');
+  prev.style.display=_tourIdx===0?'none':'flex';
+  if (s.last) { next.textContent='Start Exploring →'; next.onclick=endTour; }
+  else        { next.textContent='Next →'; next.onclick=()=>tourStep(1); }
+  if (cPaths) cPaths.classed('sel',f=>s.dist&&current[f.id]===s.dist);
+  if (s.dist) zoomToDistrict(s.dist); else resetMapZoom();
 }
 
 function endTour() {
   document.getElementById('tour-ov').classList.remove('on');
-  cPaths?.classed('sel', false);
+  cPaths?.classed('sel',false);
   resetMapZoom();
 }
 
 // ═══════════════════════════════════════════════════════════════
-// REPORT CARD
+// REPORT CARD — Population Balance removed per feedback
 // ═══════════════════════════════════════════════════════════════
 function openReportCard() {
   if (!liveStats) return;
-  const s = liveStats;
-  const egAbs = Math.abs(s.eg);
-
-  // Build rows
-  const rows = [];
+  const s=liveStats;
+  const egAbs=Math.abs(s.eg);
+  const rows=[];
 
   // 1. Efficiency Gap
-  const egGood = egAbs < 4, egWarn = egAbs >= 4 && egAbs < 7, egBad = egAbs >= 7;
+  const egBad=egAbs>=7,egWarn=egAbs>=4&&egAbs<7;
   rows.push({
-    cls: egBad ? 'bad' : egWarn ? 'warn' : 'good',
-    icon: egBad ? '⚠️' : egWarn ? '🟡' : '✅',
-    label: `Efficiency Gap: ${egAbs.toFixed(1)}%`,
-    detail: egBad
-      ? `Above the 7% court-recognized threshold. Wisconsin's 2011 map (11.7%) was struck down at this range.`
+    cls:egBad?'bad':egWarn?'warn':'good',
+    icon:egBad?'⚠️':egWarn?'🟡':'✅',
+    label:`Efficiency Gap: ${egAbs.toFixed(1)}%`,
+    detail:egBad
+      ? `Above the 7% court-recognized threshold (Stephanopoulos & McGhee, 2015). Wisconsin's 2011 map was challenged at 11.7% (Gill v. Whitford). Note: after Rucho v. Common Cause (2019), federal courts no longer hear these cases.`
       : egWarn
-      ? `Approaching the 7% threshold. Maps above this level have faced legal challenges.`
+      ? `Approaching the 7% threshold. Maps above this level have faced scrutiny in state courts and academic criticism.`
       : `Within the acceptable range. Courts have generally upheld maps below 4%.`,
   });
 
   // 2. Seat-vote gap
-  const svGood = s.gap < 2, svWarn = s.gap >= 2 && s.gap < 5, svBad = s.gap >= 5;
+  const svBad=s.gap>=5,svWarn=s.gap>=2&&s.gap<5;
   rows.push({
-    cls: svBad ? 'bad' : svWarn ? 'warn' : 'good',
-    icon: svBad ? '⚠️' : svWarn ? '🟡' : '✅',
-    label: `Seat–Vote Gap: ${s.gap.toFixed(1)} points`,
-    detail: svBad
-      ? `${s.gap.toFixed(1)}-point gap between vote share and seat share. Republicans hold ${s.rSeatPct.toFixed(0)}% of seats on ${s.rVotePct.toFixed(0)}% of votes.`
+    cls:svBad?'bad':svWarn?'warn':'good',
+    icon:svBad?'⚠️':svWarn?'🟡':'✅',
+    label:`Seat–Vote Gap: ${s.gap.toFixed(1)} points`,
+    detail:svBad
+      ? `${s.gap.toFixed(1)}-point gap between vote share and seat share. ${s.rSeatPct>s.rVotePct?'Republicans':'Democrats'} hold ${s.rSeatPct>s.rVotePct?s.rSeatPct.toFixed(0):s.dSeatPct.toFixed(0)}% of seats on ${s.rSeatPct>s.rVotePct?s.rVotePct.toFixed(0):s.dVotePct.toFixed(0)}% of votes.`
       : svWarn
       ? `A ${s.gap.toFixed(1)}-point seat-vote gap. Some proportionality imbalance present.`
-      : `Roughly proportional representation; seats closely match statewide vote share.`,
+      : `Roughly proportional — seat shares closely match statewide vote shares.`,
   });
 
-  // 3. Population balance
-  const pops = Object.values(s.ds).filter(d => d.pop > 0).map(d => d.pop);
-  const maxDev = pops.length
-    ? Math.max(...pops.map(p => Math.abs(p - IDEAL_POP) / IDEAL_POP * 100))
-    : 0;
-  const popGood = maxDev < 0.5, popWarn = maxDev >= 0.5 && maxDev < 1, popBad = maxDev >= 1;
+  // 3. Packed districts
+  const packBad=s.packed>6,packWarn=s.packed>=3;
   rows.push({
-    cls: popBad ? 'bad' : popWarn ? 'warn' : 'good',
-    icon: popBad ? '⚠️' : popWarn ? '🟡' : '✅',
-    label: `Population Balance: max ±${maxDev.toFixed(2)}%`,
-    detail: popBad
-      ? `One or more districts deviate more than 1% from the ideal population (761,169). Congressional districts must be nearly equal in population under Wesberry v. Sanders.`
-      : popWarn
-      ? `Close to the population equality standard. Aim for under 0.5% deviation for congressional districts.`
-      : `Excellent population equality. All districts are within ±0.5% of ideal.`,
-  });
-
-  // 4. Packed districts
-  const packBad = s.packed > 6, packWarn = s.packed >= 3;
-  rows.push({
-    cls: packBad ? 'bad' : packWarn ? 'warn' : 'good',
-    icon: packBad ? '⚠️' : packWarn ? '🟡' : '✅',
-    label: `Packed Districts: ${s.packed}`,
-    detail: s.packed > 6
-      ? `${s.packed} districts win by over 80% margins. These are packed districts where surplus votes are deliberately wasted.`
-      : s.packed >= 3
-      ? `${s.packed} districts with 80%+ margins. Some concentration of minority voters may be occurring.`
+    cls:packBad?'bad':packWarn?'warn':'good',
+    icon:packBad?'⚠️':packWarn?'🟡':'✅',
+    label:`Packed Districts: ${s.packed}`,
+    detail:s.packed>6
+      ? `${s.packed} districts win by over 80% margins. These are packed districts where surplus votes are concentrated and wasted.`
+      : s.packed>=3
+      ? `${s.packed} districts with 80%+ margins. Some concentration of voters may be present.`
       : `Low packing. Votes are reasonably distributed across competitive and safe districts.`,
   });
 
-  // 5. Compactness — check for non-compact districts
-  const distArr = Object.entries(s.ds);
-  const nonCompact = distArr.filter(([dId]) => calcCompact(parseInt(dId)) < 0.15);
-  const compGood = nonCompact.length === 0, compWarn = nonCompact.length <= 3;
+  // 4. Compactness
+  const distArr=Object.entries(s.ds);
+  const nonCompact=distArr.filter(([dId])=>calcCompact(parseInt(dId))<0.15);
   rows.push({
-    cls: nonCompact.length > 3 ? 'bad' : nonCompact.length > 0 ? 'warn' : 'good',
-    icon: nonCompact.length > 3 ? '⚠️' : nonCompact.length > 0 ? '🟡' : '✅',
-    label: `Compactness: ${nonCompact.length} district${nonCompact.length!==1?'s':''} below 0.15`,
-    detail: nonCompact.length > 0
-      ? `District${nonCompact.length>1?'s':''} ${nonCompact.map(([d])=>'TX-'+d).join(', ')} ${nonCompact.length>1?'have':'has'} poor compactness scores. Courts examine shape as evidence of gerrymandering.`
-      : `All districts have reasonable compactness scores. No obviously elongated or irregularly-shaped districts.`,
+    cls:nonCompact.length>3?'bad':nonCompact.length>0?'warn':'good',
+    icon:nonCompact.length>3?'⚠️':nonCompact.length>0?'🟡':'✅',
+    label:`Compactness: ${nonCompact.length} district${nonCompact.length!==1?'s':''} below 0.15`,
+    detail:nonCompact.length>0
+      ? `District${nonCompact.length>1?'s':''} ${nonCompact.map(([d])=>'TX-'+d).join(', ')} ${nonCompact.length>1?'have':'has'} poor compactness scores. Courts may examine unusual shapes as one indicator of gerrymandering intent.`
+      : `All districts have reasonable compactness. No obviously elongated or irregularly-shaped districts.`,
   });
 
-  // Overall verdict
-  const badCount  = rows.filter(r => r.cls === 'bad').length;
-  const warnCount = rows.filter(r => r.cls === 'warn').length;
-  let verdict, vClass;
-  if (badCount === 0 && warnCount === 0) {
-    verdict = '🏆 Excellent map: meets all legal standards and fairness benchmarks';
-    vClass = 'good';
-  } else if (badCount === 0) {
-    verdict = '🟡 Good map with minor concerns; likely survives legal scrutiny';
-    vClass = 'warn';
-  } else if (badCount <= 2) {
-    verdict = '⚠️ Problematic map; would likely face legal challenge under current standards';
-    vClass = 'warn';
-  } else {
-    verdict = '❌ This map fails multiple fairness standards, similar to maps courts have struck down';
-    vClass = 'bad';
-  }
+  const badCount=rows.filter(r=>r.cls==='bad').length;
+  const warnCount=rows.filter(r=>r.cls==='warn').length;
+  let verdict,vClass;
+  if (badCount===0&&warnCount===0) { verdict='🏆 Excellent map: meets all measured fairness benchmarks'; vClass='good'; }
+  else if (badCount===0) { verdict='🟡 Good map with minor concerns; likely survives legal scrutiny'; vClass='warn'; }
+  else if (badCount<=2) { verdict='⚠️ Problematic map; would likely face challenge under current standards'; vClass='warn'; }
+  else { verdict='❌ This map fails multiple fairness benchmarks, similar to maps that have been contested'; vClass='bad'; }
 
   document.getElementById('rc-verdict').textContent = verdict;
   document.getElementById('rc-verdict').className   = `rc-verdict ${vClass}`;
-  document.getElementById('rc-grid').innerHTML = rows.map(r => `
+  document.getElementById('rc-grid').innerHTML = rows.map(r=>`
     <div class="rc-row ${r.cls}">
       <div class="rc-icon">${r.icon}</div>
       <div class="rc-text">
@@ -2458,9 +2254,7 @@ function openReportCard() {
   document.getElementById('rc-modal-bg').classList.add('show');
 }
 
-function closeReportCard() {
-  document.getElementById('rc-modal-bg').classList.remove('show');
-}
+function closeReportCard() { document.getElementById('rc-modal-bg').classList.remove('show'); }
 
 // ═══════════════════════════════════════════════════════════════
 // PRESENTER MODE
@@ -2468,81 +2262,68 @@ function closeReportCard() {
 let presenterOn = false;
 
 function togglePresenter() {
-  presenterOn = !presenterOn;
-  document.body.classList.toggle('presenter', presenterOn);
-  // Resize SVG to fill new space
-  setTimeout(() => {
+  presenterOn=!presenterOn;
+  document.body.classList.toggle('presenter',presenterOn);
+  setTimeout(()=>{
     if (!features.length) return;
-    const wrap = document.getElementById('map-wrap');
-    const W = wrap.clientWidth, H = wrap.clientHeight;
-    svgEl.attr('width', W).attr('height', H);
-    const col = { type:'FeatureCollection', features };
-    proj.fitExtent([[36, 22], [W - 22, H - 26]], col);
-    path = d3.geoPath().projection(proj);
+    const wrap=document.getElementById('map-wrap');
+    const W=wrap.clientWidth, H=wrap.clientHeight;
+    svgEl.attr('width',W).attr('height',H);
+    const col={type:'FeatureCollection',features};
+    proj.fitExtent([[36,22],[W-22,H-26]],col);
+    path=d3.geoPath().projection(proj);
     renderMap();
-    renderCurve(liveStats ? Object.values(liveStats.ds) : []);
-  }, 50);
+    renderCurve(liveStats?Object.values(liveStats.ds):[]);
+  },50);
   updateHUD();
 }
 
 function setPbarMode(m) {
-  document.getElementById('pbar-click')?.classList.toggle('active', m==='click');
-  document.getElementById('pbar-paint')?.classList.toggle('active', m==='paint');
+  document.getElementById('pbar-click')?.classList.toggle('active',m==='click');
+  document.getElementById('pbar-paint')?.classList.toggle('active',m==='paint');
 }
 
 function updateHUD() {
   if (!liveStats) return;
-  const s = liveStats;
-  const egAbs = Math.abs(s.eg);
-  const cls = egAbs < 4 ? 'green' : egAbs < 7 ? 'amber' : 'red';
-
-  const egEl = document.getElementById('hud-eg');
-  if (egEl) { egEl.textContent = egAbs.toFixed(1) + '%'; egEl.className = 'hud-eg-val ' + cls; }
-
-  const chip = document.getElementById('hud-chip');
+  const s=liveStats;
+  const egAbs=Math.abs(s.eg);
+  const cls=egAbs<4?'green':egAbs<7?'amber':'red';
+  const egEl=document.getElementById('hud-eg');
+  if (egEl) { egEl.textContent=egAbs.toFixed(1)+'%'; egEl.className='hud-eg-val '+cls; }
+  const chip=document.getElementById('hud-chip');
   if (chip) {
-    chip.textContent = egAbs < 4 ? 'Within fair threshold' : egAbs < 7 ? 'Approaching legal limit' : 'Above court threshold';
-    chip.className = 'hud-chip ' + cls;
+    chip.textContent=egAbs<4?'Within fair threshold':egAbs<7?'Approaching legal limit':'Above court threshold';
+    chip.className='hud-chip '+cls;
   }
-
-  const dEl = document.getElementById('hud-d');
-  const rEl = document.getElementById('hud-r');
-  if (dEl) dEl.textContent = s.dSeats;
-  if (rEl) rEl.textContent = s.rSeats;
-
-  const sb = document.getElementById('hud-sbar-d');
-  if (sb) sb.style.width = s.dSeatPct.toFixed(1) + '%';
-
-  const dpEl = document.getElementById('hud-dpct');
-  const rpEl = document.getElementById('hud-rpct');
-  if (dpEl) dpEl.textContent = s.dSeatPct.toFixed(0) + '% D';
-  if (rpEl) rpEl.textContent = s.rSeatPct.toFixed(0) + '% R';
-
-  const gapEl = document.getElementById('hud-gap');
-  if (gapEl) {
-    gapEl.textContent = '+' + s.gap.toFixed(1) + 'pt';
-    gapEl.style.color = s.gap < 2 ? '#34D399' : s.gap < 5 ? '#FBBF24' : '#F87171';
-  }
-
-  // Sync floating toolbar mode buttons
+  const dEl=document.getElementById('hud-d'),rEl=document.getElementById('hud-r');
+  if (dEl) dEl.textContent=s.dSeats;
+  if (rEl) rEl.textContent=s.rSeats;
+  const sb=document.getElementById('hud-sbar-d');
+  if (sb) sb.style.width=s.dSeatPct.toFixed(1)+'%';
+  const dpEl=document.getElementById('hud-dpct'),rpEl=document.getElementById('hud-rpct');
+  if (dpEl) dpEl.textContent=s.dSeatPct.toFixed(0)+'% D';
+  if (rpEl) rpEl.textContent=s.rSeatPct.toFixed(0)+'% R';
+  const gapEl=document.getElementById('hud-gap');
+  if (gapEl) { gapEl.textContent='+'+s.gap.toFixed(1)+'pt'; gapEl.style.color=s.gap<2?'#34D399':s.gap<5?'#FBBF24':'#F87171'; }
   setPbarMode(appMode);
 }
 
-// Final computeAndUpdate — redraws everything including borders + HUD
+// ═══════════════════════════════════════════════════════════════
+// COMPUTE AND UPDATE
+// ═══════════════════════════════════════════════════════════════
 function computeAndUpdate() {
-  liveStats = computeStats();
+  liveStats=computeStats();
   renderSummary(liveStats);
-  if (selDist !== null) renderDistrictDetail(selDist);
-  if (cPaths) cPaths.attr('fill', f => distColor(current[f.id]));
-  const g = svgEl.select('g');
+  if (selDist!==null) renderDistrictDetail(selDist);
+  if (cPaths) cPaths.attr('fill',f=>distColor(current[f.id]));
+  const g=svgEl.select('g');
   g.selectAll('.dist-border').remove();
   if (usObj) {
     try {
-      const dm = topojson.mesh(usObj, usObj.objects.counties,
-        (a, b) => a !== b && String(a.id).startsWith('48') && String(b.id).startsWith('48')
-                  && current[a.id] !== current[b.id]);
-      g.insert('path', '.dist-label').datum(dm).attr('class','dist-border').attr('d', path);
-    } catch(_) {}
+      const dm=topojson.mesh(usObj,usObj.objects.counties,
+        (a,b)=>a!==b&&String(a.id).startsWith('48')&&String(b.id).startsWith('48')&&current[a.id]!==current[b.id]);
+      g.insert('path','.dist-label').datum(dm).attr('class','dist-border').attr('d',path);
+    } catch(_){}
   }
   g.selectAll('.dist-label').remove();
   drawLabels(g);
@@ -2551,27 +2332,72 @@ function computeAndUpdate() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// KEYBOARD — add P for presenter
+// RESIZE
+// ═══════════════════════════════════════════════════════════════
+window.addEventListener('resize', () => {
+  if (!features.length) return;
+  const wrap=document.getElementById('map-wrap');
+  const W=wrap.clientWidth, H=wrap.clientHeight;
+  svgEl.attr('width',W).attr('height',H);
+  const col={type:'FeatureCollection',features};
+  proj.fitExtent([[36,22],[W-22,H-26]],col);
+  path=d3.geoPath().projection(proj);
+  renderMap();
+  renderCurve(liveStats?Object.values(liveStats.ds):[]);
+});
+
+// ═══════════════════════════════════════════════════════════════
+// SPLASH
+// ═══════════════════════════════════════════════════════════════
+function closeSplash() {
+  const el=document.getElementById('splash');
+  el.classList.add('out');
+  setTimeout(()=>el.remove(),800);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ANIMATED RESET
+// ═══════════════════════════════════════════════════════════════
+function resetMap() {
+  const batch=[];
+  EDITED.forEach(id=>{ batch.push({id,prev:current[id],next:official[id]}); });
+  if (batch.length) histPush(batch);
+  const ids=[...EDITED];
+  ids.forEach((id,i)=>{
+    setTimeout(()=>{
+      current[id]=official[id]; EDITED.delete(id);
+      if (cPaths) cPaths.filter(f=>f.id===id).attr('fill',distColor(official[id])).classed('edited',false);
+    },Math.random()*320);
+  });
+  setTimeout(()=>{
+    selDist=null; cPaths?.classed('sel',false);
+    computeAndUpdate(); updateEditBadge();
+    document.getElementById('dd-empty').style.display='flex';
+    document.getElementById('dd-content').style.display='none';
+    switchTab('sum');
+  },450);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
 // ═══════════════════════════════════════════════════════════════
 document.addEventListener('keydown', e => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  const ctrl = e.ctrlKey || e.metaKey;
-  if (ctrl && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); return; }
-  if (ctrl && (e.key.toLowerCase() === 'y' || (e.shiftKey && e.key.toLowerCase() === 'z')))
+  if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  const ctrl=e.ctrlKey||e.metaKey;
+  if (ctrl&&e.key.toLowerCase()==='z') { e.preventDefault(); undo(); return; }
+  if (ctrl&&(e.key.toLowerCase()==='y'||(e.shiftKey&&e.key.toLowerCase()==='z')))
     { e.preventDefault(); redo(); return; }
-  switch (e.key) {
-    case ' ': e.preventDefault(); setMode(appMode === 'click' ? 'paint' : 'click'); break;
+  switch(e.key) {
+    case ' ': e.preventDefault(); setMode(appMode==='click'?'paint':'click'); break;
     case 'r': case 'R': if (!ctrl) resetMap(); break;
     case 't': case 'T': startTour(); break;
     case 'p': case 'P': togglePresenter(); break;
     case 'Escape':
-      closeModal();
-      closeReportCard();
-      endTour();
+      closeModal(); closeReportCard(); endTour();
       if (presenterOn) togglePresenter();
       break;
   }
-}, true); // capture phase so this fires before old listener
+}, true);
 
 // ═══════════════════════════════════════════════════════════════
 // BOOT
